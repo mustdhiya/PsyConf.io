@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>PsyConf 2026 | Autentikasi</title>
+    <!-- Tailwind + DaisyUI -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.14/dist/full.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Material Icons & Font -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background: linear-gradient(135deg, #f5f0ff 0%, #fef7f5 100%); min-height: 100vh; }
+        .text-salem { color: #9B7B9C; }
+        .bg-salem { background-color: #9B7B9C; }
+        .bg-salem-light { background-color: #F3ECF4; }
+        .border-salem { border-color: #9B7B9C; }
+        .btn-salem { background-color: #9B7B9C; border-color: #9B7B9C; color: white; }
+        .btn-salem:hover { background-color: #7E5F7F; border-color: #7E5F7F; }
+        .btn-outline-salem { border-color: #9B7B9C; color: #9B7B9C; background: transparent; }
+        .btn-outline-salem:hover { background-color: #9B7B9C; color: white; }
+        .tab-active-salem { color: #9B7B9C !important; border-bottom-color: #9B7B9C !important; }
+        .material-icons { vertical-align: middle; }
+        
+        /* Form container styling */
+        .auth-card {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.95);
+            border: 1px solid rgba(155, 123, 156, 0.2);
+        }
+        
+        /* Role selection cards */
+        .role-card {
+            transition: all 0.2s ease;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+        .role-card.selected {
+            border-color: #9B7B9C;
+            background-color: #F3ECF4;
+        }
+        .role-card:hover {
+            border-color: rgba(155, 123, 156, 0.5);
+        }
+        
+        /* Toast notification */
+        .toast-custom {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 9999;
+            animation: slideIn 0.3s ease;
+        }
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center p-4">
+
+<!-- Main Container -->
+<div class="w-full max-w-5xl">
+    
+    <!-- Back to Home -->
+    <div class="mb-6">
+        <a href="index.html" onclick="simulateNavigation('landing')" class="inline-flex items-center gap-2 text-salem hover:underline">
+            <span class="material-icons">arrow_back</span>
+            Kembali ke Beranda
+        </a>
+    </div>
+
+    <!-- Auth Card -->
+    <div class="auth-card rounded-3xl shadow-2xl p-8 md:p-10">
+        
+        <!-- Logo & Header -->
+        <div class="text-center mb-8">
+            <span class="material-icons text-salem text-5xl mb-3">psychology_alt</span>
+            <h1 class="text-3xl font-bold text-gray-800">PsyConf 2026</h1>
+            <p class="text-gray-600 mt-2">Akses Panel Konferensi Psikologi</p>
+        </div>
+
+        <!-- Tab Navigation -->
+        <div class="tabs tabs-boxed justify-center mb-8 bg-salem-light/50 p-1 rounded-xl">
+            <a class="tab tab-active text-lg font-medium" data-tab="login" onclick="switchTab('login')">
+                <span class="material-icons mr-2 text-base">login</span>Login
+            </a>
+            <a class="tab text-lg font-medium" data-tab="register" onclick="switchTab('register')">
+                <span class="material-icons mr-2 text-base">app_registration</span>Register
+            </a>
+        </div>
+
+        <!-- ==================== LOGIN FORM ==================== -->
+        <div id="login-form" class="max-w-md mx-auto">
+            <form onsubmit="handleLogin(event)">
+                <!-- Email -->
+                <div class="form-control mb-4">
+                    <label class="label">
+                        <span class="label-text font-medium flex items-center gap-1">
+                            <span class="material-icons text-salem text-lg">email</span>Email
+                        </span>
+                    </label>
+                    <input type="email" id="login-email" placeholder="nama@email.com" 
+                           class="input input-bordered w-full focus:border-salem" required>
+                </div>
+                
+                <!-- Password -->
+                <div class="form-control mb-2">
+                    <label class="label">
+                        <span class="label-text font-medium flex items-center gap-1">
+                            <span class="material-icons text-salem text-lg">lock</span>Password
+                        </span>
+                    </label>
+                    <input type="password" id="login-password" placeholder="••••••••" 
+                           class="input input-bordered w-full focus:border-salem" required>
+                </div>
+                
+                <!-- Forgot Password Link -->
+                <div class="text-right mb-6">
+                    <a href="#" onclick="showForgotPasswordModal(event)" class="text-sm text-salem hover:underline">
+                        Lupa password?
+                    </a>
+                </div>
+                
+                <!-- Role Selection (Login) -->
+                <div class="form-control mb-6">
+                    <label class="label">
+                        <span class="label-text font-medium">Login sebagai</span>
+                    </label>
+                    <select id="login-role" class="select select-bordered w-full focus:border-salem">
+                        <option value="presenter">Presenter (Pemakalah)</option>
+                        <option value="peserta">Peserta</option>
+                        <option value="reviewer">Reviewer</option>
+                        <option value="admin">Admin/Panitia</option>
+                    </select>
+                </div>
+                
+                <!-- Submit Button -->
+                <button type="submit" class="btn btn-salem w-full text-lg">
+                    <span class="material-icons mr-2">login</span>Masuk
+                </button>
+                
+                <!-- Demo Hint -->
+                <p class="text-xs text-gray-500 text-center mt-4">
+                    Demo: Klik login untuk simulasi akses sesuai role
+                </p>
+            </form>
+        </div>
+
+        <!-- ==================== REGISTER FORM ==================== -->
+        <div id="register-form" class="max-w-2xl mx-auto hidden">
+            <form onsubmit="handleRegister(event)">
+                <div class="grid md:grid-cols-2 gap-4">
+                    <!-- Nama Lengkap -->
+                    <div class="form-control">
+                        <label class="label">
+                            <span class="label-text font-medium flex items-center gap-1">
+                                <span class="material-icons text-salem text-lg">person</span>Nama Lengkap
+                            </span>
+                        </label>
+                        <input type="text" id="reg-name" placeholder="Dr. Budi Santoso" 
+                               class="input input-bordered w-full focus:border-salem" required>
+                    </div>
+                    
+                    <!-- Email -->
+                    <div class="form-control">
+                        <label class="label">
+                            <span class="label-text font-medium flex items-center gap-1">
+                                <span class="material-icons text-salem text-lg">email</span>Email
+                            </span>
+                        </label>
+                        <input type="email" id="reg-email" placeholder="budi@email.com" 
+                               class="input input-bordered w-full focus:border-salem" required>
+                    </div>
+                    
+                    <!-- Institusi -->
+                    <div class="form-control">
+                        <label class="label">
+                            <span class="label-text font-medium flex items-center gap-1">
+                                <span class="material-icons text-salem text-lg">business</span>Institusi
+                            </span>
+                        </label>
+                        <input type="text" id="reg-institution" placeholder="Universitas Indonesia" 
+                               class="input input-bordered w-full focus:border-salem" required>
+                    </div>
+                    
+                    <!-- Nomor HP -->
+                    <div class="form-control">
+                        <label class="label">
+                            <span class="label-text font-medium flex items-center gap-1">
+                                <span class="material-icons text-salem text-lg">phone</span>Nomor HP
+                            </span>
+                        </label>
+                        <input type="tel" id="reg-phone" placeholder="081234567890" 
+                               class="input input-bordered w-full focus:border-salem" required>
+                    </div>
+                    
+                    <!-- Password -->
+                    <div class="form-control">
+                        <label class="label">
+                            <span class="label-text font-medium flex items-center gap-1">
+                                <span class="material-icons text-salem text-lg">lock</span>Password
+                            </span>
+                        </label>
+                        <input type="password" id="reg-password" placeholder="Minimal 8 karakter" 
+                               class="input input-bordered w-full focus:border-salem" required>
+                    </div>
+                    
+                    <!-- Konfirmasi Password -->
+                    <div class="form-control">
+                        <label class="label">
+                            <span class="label-text font-medium flex items-center gap-1">
+                                <span class="material-icons text-salem text-lg">lock_reset</span>Konfirmasi Password
+                            </span>
+                        </label>
+                        <input type="password" id="reg-confirm" placeholder="Ulangi password" 
+                               class="input input-bordered w-full focus:border-salem" required>
+                    </div>
+                </div>
+                
+                <!-- Role Selection -->
+                <div class="form-control mt-4">
+                    <label class="label">
+                        <span class="label-text font-medium text-base">Daftar sebagai</span>
+                    </label>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                        <div class="role-card p-3 rounded-lg text-center" data-role="presenter" onclick="selectRole('presenter')">
+                            <span class="material-icons block mx-auto mb-1">school</span>
+                            <span class="text-sm font-medium">Presenter</span>
+                            <p class="text-xs text-gray-500">Pemakalah</p>
+                        </div>
+                        <div class="role-card p-3 rounded-lg text-center selected" data-role="peserta" onclick="selectRole('peserta')">
+                            <span class="material-icons block mx-auto mb-1">group</span>
+                            <span class="text-sm font-medium">Peserta</span>
+                            <p class="text-xs text-gray-500">Hadir saja</p>
+                        </div>
+                        <div class="role-card p-3 rounded-lg text-center" data-role="reviewer" onclick="selectRole('reviewer')">
+                            <span class="material-icons block mx-auto mb-1">rate_review</span>
+                            <span class="text-sm font-medium">Reviewer</span>
+                            <p class="text-xs text-gray-500">Peninjau</p>
+                        </div>
+                        <div class="role-card p-3 rounded-lg text-center" data-role="admin" onclick="selectRole('admin')">
+                            <span class="material-icons block mx-auto mb-1">admin_panel_settings</span>
+                            <span class="text-sm font-medium">Admin</span>
+                            <p class="text-xs text-gray-500">Panitia</p>
+                        </div>
+                    </div>
+                    <input type="hidden" id="reg-role" value="peserta">
+                </div>
+                
+                <!-- Terms -->
+                <div class="form-control mt-6">
+                    <label class="cursor-pointer label justify-start gap-2">
+                        <input type="checkbox" checked class="checkbox checkbox-sm border-salem [--chkbg:#9B7B9C] [--chkfg:white]" required>
+                        <span class="label-text text-sm">Saya menyetujui <a href="#" class="text-salem">syarat & ketentuan</a></span>
+                    </label>
+                </div>
+                
+                <!-- Submit -->
+                <button type="submit" class="btn btn-salem w-full text-lg mt-4">
+                    <span class="material-icons mr-2">how_to_reg</span>Daftar Sekarang
+                </button>
+                
+                <!-- Demo Hint -->
+                <p class="text-xs text-gray-500 text-center mt-4">
+                    Demo: Register akan menyimpan role dan menampilkan notifikasi
+                </p>
+            </form>
+        </div>
+    </div>
+    
+    <!-- User Status (Simulasi Session) -->
+    <div id="session-status" class="mt-6 p-4 bg-white/80 backdrop-blur rounded-xl shadow-sm border border-salem/20 hidden">
+        <div class="flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <span class="material-icons text-salem">account_circle</span>
+                <div>
+                    <p class="font-medium text-gray-800">Anda login sebagai: <span id="user-name-display">-</span></p>
+                    <p class="text-sm text-gray-600">Role: <span id="user-role-display" class="capitalize">-</span></p>
+                </div>
+            </div>
+            <button onclick="handleLogout()" class="btn btn-outline-salem btn-sm">
+                <span class="material-icons mr-1">logout</span>Logout
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- ==================== FORGOT PASSWORD MODAL ==================== -->
+<dialog id="forgot-modal" class="modal">
+    <div class="modal-box">
+        <h3 class="font-bold text-xl flex items-center gap-2 mb-4">
+            <span class="material-icons text-salem">password</span>
+            Reset Password
+        </h3>
+        <p class="py-2 text-gray-600">Masukkan email terdaftar Anda. Link reset akan dikirimkan.</p>
+        <form onsubmit="handleForgotPassword(event)">
+            <div class="form-control">
+                <label class="label">
+                    <span class="label-text">Email</span>
+                </label>
+                <input type="email" id="forgot-email" placeholder="nama@email.com" 
+                       class="input input-bordered w-full focus:border-salem" required>
+            </div>
+            <div class="modal-action">
+                <button type="button" class="btn btn-ghost" onclick="closeForgotModal()">Batal</button>
+                <button type="submit" class="btn btn-salem">
+                    <span class="material-icons mr-1">send</span>Kirim Link
+                </button>
+            </div>
+        </form>
+    </div>
+    <form method="dialog" class="modal-backdrop">
+        <button>close</button>
+    </form>
+</dialog>
+
+<!-- ==================== TOAST NOTIFICATION ==================== -->
+<div id="toast" class="toast-custom hidden">
+    <div class="alert shadow-lg flex items-center gap-2" id="toast-content">
+        <span id="toast-icon" class="material-icons">info</span>
+        <span id="toast-message">Pesan</span>
+    </div>
+</div>
+
+<script src="nav-menu.js"></script>
+<script>
+    // ========== STATE MANAGEMENT ==========
+    let currentUser = null;
+    
+    // ========== TAB SWITCHING ==========
+    function switchTab(tab) {
+        const tabs = document.querySelectorAll('[data-tab]');
+        const loginForm = document.getElementById('login-form');
+        const registerForm = document.getElementById('register-form');
+        
+        tabs.forEach(t => {
+            if (t.dataset.tab === tab) {
+                t.classList.add('tab-active');
+            } else {
+                t.classList.remove('tab-active');
+            }
+        });
+        
+        if (tab === 'login') {
+            loginForm.classList.remove('hidden');
+            registerForm.classList.add('hidden');
+        } else {
+            loginForm.classList.add('hidden');
+            registerForm.classList.remove('hidden');
+        }
+    }
+    
+    // ========== ROLE SELECTION (REGISTER) ==========
+    function selectRole(role) {
+        document.querySelectorAll('.role-card').forEach(card => {
+            card.classList.remove('selected');
+        });
+        event.currentTarget.classList.add('selected');
+        document.getElementById('reg-role').value = role;
+    }
+    
+    // ========== LOGIN HANDLER ==========
+    function handleLogin(e) {
+        e.preventDefault();
+        
+        const email = document.getElementById('login-email').value;
+        const role = document.getElementById('login-role').value;
+        
+        // Simulasi login sukses
+        currentUser = {
+            name: email.split('@')[0],
+            email: email,
+            role: role
+        };
+        
+        updateSessionDisplay();
+        showToast('success', `Login berhasil sebagai ${role}!`, 'check_circle');
+        
+        // Simulasi redirect berdasarkan role (demo)
+        setTimeout(() => {
+            const pages = {
+                'presenter': 'dashboard-presenter.html',
+                'peserta': 'dashboard-peserta.html',
+                'reviewer': 'dashboard-reviewer.html',
+                'admin': 'dashboard-admin.html'
+            };
+            simulateNavigation(role);
+        }, 1500);
+    }
+    
+    // ========== REGISTER HANDLER ==========
+    function handleRegister(e) {
+        e.preventDefault();
+        
+        const name = document.getElementById('reg-name').value;
+        const email = document.getElementById('reg-email').value;
+        const password = document.getElementById('reg-password').value;
+        const confirm = document.getElementById('reg-confirm').value;
+        const role = document.getElementById('reg-role').value;
+        
+        // Validasi password
+        if (password !== confirm) {
+            showToast('error', 'Password tidak cocok!', 'error');
+            return;
+        }
+        
+        if (password.length < 8) {
+            showToast('error', 'Password minimal 8 karakter!', 'error');
+            return;
+        }
+        
+        // Simulasi registrasi sukses
+        currentUser = {
+            name: name,
+            email: email,
+            role: role,
+            institution: document.getElementById('reg-institution').value,
+            phone: document.getElementById('reg-phone').value
+        };
+        
+        updateSessionDisplay();
+        showToast('success', `Registrasi berhasil! Selamat datang, ${name}.`, 'celebration');
+        
+        // Auto switch ke login atau langsung login
+        setTimeout(() => {
+            switchTab('login');
+            document.getElementById('login-email').value = email;
+        }, 2000);
+    }
+    
+    // ========== LOGOUT HANDLER ==========
+    function handleLogout() {
+        currentUser = null;
+        updateSessionDisplay();
+        showToast('info', 'Anda telah logout', 'logout');
+        document.getElementById('login-email').value = '';
+        document.getElementById('login-password').value = '';
+        switchTab('login');
+    }
+    
+    // ========== FORGOT PASSWORD ==========
+    function showForgotPasswordModal(e) {
+        e.preventDefault();
+        document.getElementById('forgot-modal').showModal();
+    }
+    
+    function closeForgotModal() {
+        document.getElementById('forgot-modal').close();
+    }
+    
+    function handleForgotPassword(e) {
+        e.preventDefault();
+        const email = document.getElementById('forgot-email').value;
+        closeForgotModal();
+        showToast('success', `Link reset password telah dikirim ke ${email}`, 'mark_email_read');
+        document.getElementById('forgot-email').value = '';
+    }
+    
+    // ========== SESSION DISPLAY ==========
+    function updateSessionDisplay() {
+        const statusDiv = document.getElementById('session-status');
+        const nameSpan = document.getElementById('user-name-display');
+        const roleSpan = document.getElementById('user-role-display');
+        
+        if (currentUser) {
+            statusDiv.classList.remove('hidden');
+            nameSpan.textContent = currentUser.name;
+            
+            const roleLabels = {
+                'presenter': 'Presenter (Pemakalah)',
+                'peserta': 'Peserta',
+                'reviewer': 'Reviewer',
+                'admin': 'Admin/Panitia'
+            };
+            roleSpan.textContent = roleLabels[currentUser.role] || currentUser.role;
+        } else {
+            statusDiv.classList.add('hidden');
+        }
+    }
+    
+    // ========== TOAST NOTIFICATION ==========
+    function showToast(type, message, icon) {
+        const toast = document.getElementById('toast');
+        const toastContent = document.getElementById('toast-content');
+        const toastIcon = document.getElementById('toast-icon');
+        const toastMessage = document.getElementById('toast-message');
+        
+        // Set warna berdasarkan tipe
+        toastContent.className = 'alert shadow-lg flex items-center gap-2';
+        if (type === 'success') {
+            toastContent.classList.add('alert-success');
+        } else if (type === 'error') {
+            toastContent.classList.add('alert-error');
+        } else {
+            toastContent.classList.add('alert-info');
+        }
+        
+        toastIcon.textContent = icon || type;
+        toastMessage.textContent = message;
+        
+        toast.classList.remove('hidden');
+        
+        setTimeout(() => {
+            toast.classList.add('hidden');
+        }, 4000);
+    }
+    
+    // ========== NAVIGATION SIMULATION ==========
+    function simulateNavigation(page) {
+        const pages = {
+            'landing': 'Halaman Landing',
+            'presenter': 'Dashboard Presenter',
+            'peserta': 'Dashboard Peserta',
+            'reviewer': 'Dashboard Reviewer',
+            'admin': 'Dashboard Admin'
+        };
+        
+        const pageName = pages[page] || 'Halaman';
+        showToast('info', `Navigasi ke ${pageName} (Simulasi)`, 'arrow_forward');
+        
+        // Simulasi loading
+        setTimeout(() => {
+            console.log(`Navigating to: ${page}`);
+        }, 500);
+    }
+    
+    // ========== DEMO: AUTO-FILL EXAMPLE ==========
+    // Untuk kemudahan testing, klik dua kali pada logo untuk auto-fill
+    document.querySelector('.text-salem.text-5xl').addEventListener('dblclick', function() {
+        if (document.getElementById('login-form').classList.contains('hidden')) {
+            // Register form
+            document.getElementById('reg-name').value = 'Dr. Siti Aminah';
+            document.getElementById('reg-email').value = 'siti@psikologi.ac.id';
+            document.getElementById('reg-institution').value = 'Universitas Mercu Buana';
+            document.getElementById('reg-phone').value = '081298765432';
+            document.getElementById('reg-password').value = 'password123';
+            document.getElementById('reg-confirm').value = 'password123';
+            showToast('info', 'Form terisi otomatis (demo)', 'auto_awesome');
+        } else {
+            // Login form
+            document.getElementById('login-email').value = 'reviewer@psyconf.id';
+            document.getElementById('login-password').value = 'review123';
+            showToast('info', 'Form login terisi (demo)', 'auto_awesome');
+        }
+    });
+    
+    // Initialize: cek role cards selected state
+    document.addEventListener('DOMContentLoaded', function() {
+        // Set default selected role visual
+        const selectedCard = document.querySelector('.role-card.selected');
+        if (!selectedCard) {
+            document.querySelector('.role-card[data-role="peserta"]').classList.add('selected');
+        }
+    });
+</script>
+
+</body>
+</html>

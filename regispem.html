@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Registrasi & Pembayaran | PsyConf 2026</title>
+    <!-- Tailwind + DaisyUI -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.14/dist/full.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Material Icons & Font -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #faf9fa; }
+        .font-serif { font-family: 'Playfair Display', serif; }
+        .text-salem { color: #9B7B9C; }
+        .bg-salem-light { background-color: #F3ECF4; }
+        .bg-salem { background-color: #9B7B9C; }
+        .border-salem { border-color: #9B7B9C; }
+        .btn-salem { background-color: #9B7B9C; border-color: #9B7B9C; color: white; }
+        .btn-salem:hover { background-color: #7E5F7F; border-color: #7E5F7F; }
+        .btn-outline-salem { border-color: #9B7B9C; color: #9B7B9C; background: transparent; }
+        .btn-outline-salem:hover { background-color: #9B7B9C; color: white; }
+        .badge-salem { background-color: #EDE1EE; color: #5E3F5F; border: none; }
+        .step-active { background-color: #9B7B9C; color: white; }
+        .step-pending { background-color: #EDE1EE; color: #5E3F5F; }
+        .status-badge { font-size: 0.75rem; padding: 0.25rem 0.75rem; border-radius: 9999px; font-weight: 500; display: inline-flex; align-items: center; gap: 4px; }
+        .status-menunggu { background-color: #FEF3C7; color: #92400E; }
+        .status-dikonfirmasi { background-color: #D1FAE5; color: #065F46; }
+        .status-ditolak { background-color: #FEE2E2; color: #991B1B; }
+        .material-icons { vertical-align: middle; font-size: 1.25rem; }
+        .card-hover { transition: all 0.15s ease; border: 1px solid #f0eaf1; }
+        .card-hover:hover { border-color: #d4c4d6; box-shadow: 0 4px 12px rgba(155, 123, 156, 0.08); }
+        .radio-custom:checked { background-color: #9B7B9C; border-color: #9B7B9C; }
+        .upload-area { transition: border-color 0.15s ease, background-color 0.15s ease; }
+        .upload-area:hover { border-color: #9B7B9C; background-color: #F9F5FA; }
+        .divider-custom { height: 1px; background: linear-gradient(to right, transparent, #d4c4d6, transparent); }
+    </style>
+</head>
+<body class="text-gray-700 antialiased">
+
+<!-- ==================== NAVBAR ==================== -->
+<div class="navbar bg-white/95 backdrop-blur-sm shadow-sm px-4 lg:px-8 sticky top-0 z-40 border-b border-gray-100">
+    <div class="flex-1">
+        <a href="index.html" class="text-xl font-bold text-salem flex items-center gap-2">
+            <span class="material-icons text-salem text-2xl">psychology_alt</span>
+            <span class="font-serif tracking-tight">PsyConf<span class="font-light text-gray-400 ml-1 text-lg">2026</span></span>
+        </a>
+    </div>
+    <div class="flex-none gap-3">
+        <span class="hidden sm:inline text-sm text-gray-500">Registrasi & Pembayaran</span>
+        <a href="index.html" class="btn btn-ghost btn-sm rounded-full px-4">
+            <span class="material-icons text-base mr-1">arrow_back</span> Beranda
+        </a>
+    </div>
+</div>
+
+<!-- ==================== MAIN CONTENT ==================== -->
+<div class="max-w-4xl mx-auto px-4 py-8 md:py-12">
+    
+    <!-- Header dengan Step Visual -->
+    <div class="mb-10">
+        <div class="flex items-center gap-3 mb-3">
+            <span class="material-icons text-3xl text-salem">how_to_reg</span>
+            <h1 class="text-3xl md:text-4xl font-serif font-semibold text-gray-800 tracking-tight">Registrasi & Pembayaran</h1>
+        </div>
+        <p class="text-gray-500 text-base ml-11">Lengkapi data keikutsertaan Anda dalam tiga langkah mudah.</p>
+        
+        <!-- Step Indicator -->
+        <div class="flex items-center justify-between max-w-md ml-11 mt-6">
+            <div class="flex items-center gap-2">
+                <span class="w-8 h-8 rounded-full bg-salem text-white flex items-center justify-center text-sm font-medium">1</span>
+                <span class="text-sm font-medium text-gray-700">Kategori</span>
+            </div>
+            <span class="material-icons text-gray-300">arrow_forward</span>
+            <div class="flex items-center gap-2">
+                <span class="w-8 h-8 rounded-full bg-salem-light text-salem flex items-center justify-center text-sm font-medium">2</span>
+                <span class="text-sm font-medium text-gray-700">Pembayaran</span>
+            </div>
+            <span class="material-icons text-gray-300">arrow_forward</span>
+            <div class="flex items-center gap-2">
+                <span class="w-8 h-8 rounded-full bg-salem-light text-salem flex items-center justify-center text-sm font-medium">3</span>
+                <span class="text-sm font-medium text-gray-700">Konfirmasi</span>
+            </div>
+        </div>
+    </div>
+
+    <div id="app" class="space-y-6">
+        
+        <!-- ===== SECTION 1: PILIH KATEGORI & BATCH HARGA ===== -->
+        <div class="card bg-white shadow-sm card-hover rounded-2xl overflow-hidden">
+            <div class="card-body p-6 md:p-7">
+                <div class="flex items-center gap-3 mb-5">
+                    <span class="material-icons text-salem text-2xl">assignment_ind</span>
+                    <h2 class="text-xl font-semibold text-gray-800">Kategori Peserta</h2>
+                </div>
+                
+                <!-- Pilihan Role -->
+                <div class="mb-6">
+                    <label class="block text-sm font-medium text-gray-600 mb-3">Anda mendaftar sebagai?</label>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="relative">
+                            <input type="radio" name="role" value="presenter" id="rolePresenter" class="peer hidden" checked onchange="updateRoleAndPrice()">
+                            <label for="rolePresenter" class="block p-4 border-2 border-gray-200 rounded-xl cursor-pointer transition-all peer-checked:border-salem peer-checked:bg-salem-light/30 hover:border-salem/50">
+                                <div class="flex items-start gap-3">
+                                    <span class="material-icons text-salem text-xl mt-0.5">mic</span>
+                                    <div>
+                                        <span class="font-semibold text-gray-800 block">Presenter</span>
+                                        <span class="text-xs text-gray-500 block mt-0.5">Mengirimkan abstrak atau full paper</span>
+                                    </div>
+                                </div>
+                            </label>
+                        </div>
+                        <div class="relative">
+                            <input type="radio" name="role" value="peserta" id="rolePeserta" class="peer hidden" onchange="updateRoleAndPrice()">
+                            <label for="rolePeserta" class="block p-4 border-2 border-gray-200 rounded-xl cursor-pointer transition-all peer-checked:border-salem peer-checked:bg-salem-light/30 hover:border-salem/50">
+                                <div class="flex items-start gap-3">
+                                    <span class="material-icons text-salem text-xl mt-0.5">group</span>
+                                    <div>
+                                        <span class="font-semibold text-gray-800 block">Peserta</span>
+                                        <span class="text-xs text-gray-500 block mt-0.5">Hadir tanpa presentasi paper</span>
+                                    </div>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Batch Harga -->
+                <div class="mb-5">
+                    <div class="flex items-center justify-between mb-3">
+                        <label class="text-sm font-medium text-gray-600">Pilih Batch Harga</label>
+                        <span class="flex items-center gap-1.5 text-salem text-sm font-medium">
+                            <span class="material-icons text-base">schedule</span>
+                            <span id="countdownDisplay">Early Bird berakhir dalam 3 hari</span>
+                        </span>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                        <!-- Early Bird -->
+                        <div class="relative">
+                            <input type="radio" name="batch" value="early" id="batchEarly" class="peer hidden" checked onchange="updatePriceDisplay()">
+                            <label for="batchEarly" class="block p-4 border-2 border-gray-200 rounded-xl cursor-pointer transition-all peer-checked:border-salem peer-checked:bg-salem-light/20">
+                                <div class="flex flex-col">
+                                    <span class="font-bold text-gray-800">Early Bird</span>
+                                    <span class="text-lg font-semibold text-salem mt-1" id="priceEarly">Rp 350.000</span>
+                                    <span class="badge badge-salem text-xs mt-2 w-fit px-2">Hemat 30%</span>
+                                </div>
+                            </label>
+                        </div>
+                        <!-- Normal -->
+                        <div class="relative">
+                            <input type="radio" name="batch" value="normal" id="batchNormal" class="peer hidden" onchange="updatePriceDisplay()">
+                            <label for="batchNormal" class="block p-4 border-2 border-gray-200 rounded-xl cursor-pointer transition-all peer-checked:border-salem peer-checked:bg-salem-light/20">
+                                <div class="flex flex-col">
+                                    <span class="font-bold text-gray-800">Normal</span>
+                                    <span class="text-lg font-semibold text-salem mt-1" id="priceNormal">Rp 500.000</span>
+                                    <span class="text-xs text-gray-400 mt-2">&nbsp;</span>
+                                </div>
+                            </label>
+                        </div>
+                        <!-- On-site -->
+                        <div class="relative">
+                            <input type="radio" name="batch" value="onsite" id="batchOnsite" class="peer hidden" onchange="updatePriceDisplay()">
+                            <label for="batchOnsite" class="block p-4 border-2 border-gray-200 rounded-xl cursor-pointer transition-all peer-checked:border-salem peer-checked:bg-salem-light/20">
+                                <div class="flex flex-col">
+                                    <span class="font-bold text-gray-800">On-site</span>
+                                    <span class="text-lg font-semibold text-salem mt-1" id="priceOnsite">Rp 600.000</span>
+                                    <span class="text-xs text-gray-400 mt-2">&nbsp;</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Total & Info Khusus -->
+                <div class="bg-gradient-to-r from-salem-light/40 to-white p-5 rounded-xl border border-salem/10">
+                    <div class="flex items-center justify-between">
+                        <span class="text-gray-700 font-medium">Total Pembayaran</span>
+                        <span class="text-3xl font-serif font-semibold text-salem" id="totalPriceDisplay">Rp 350.000</span>
+                    </div>
+                    <div class="divider-custom my-3"></div>
+                    <div class="flex items-start gap-2">
+                        <span class="material-icons text-salem text-base">info</span>
+                        <p class="text-xs text-gray-500">Mahasiswa internal prodi dengan domain email kampus akan otomatis mendapatkan keringanan biaya.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== SECTION 2: UPLOAD BUKTI PEMBAYARAN ===== -->
+        <div class="card bg-white shadow-sm card-hover rounded-2xl overflow-hidden">
+            <div class="card-body p-6 md:p-7">
+                <div class="flex items-center gap-3 mb-5">
+                    <span class="material-icons text-salem text-2xl">upload_file</span>
+                    <h2 class="text-xl font-semibold text-gray-800">Upload Bukti Pembayaran</h2>
+                </div>
+                
+                <!-- Info Rekening -->
+                <div class="bg-gray-50 p-4 rounded-xl mb-5 border border-gray-100">
+                    <div class="flex items-start gap-3">
+                        <span class="material-icons text-salem">account_balance</span>
+                        <div>
+                            <p class="text-sm text-gray-600">Transfer ke rekening:</p>
+                            <p class="font-mono font-medium text-gray-800 text-base">Bank Mandiri 123-456-7890</p>
+                            <p class="text-xs text-gray-500 mt-1">a.n. Panitia PsyConf 2026</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Upload Area -->
+                <div class="upload-area border-2 border-dashed border-gray-300 rounded-xl p-7 text-center bg-gray-50/50 cursor-pointer transition-all" onclick="document.getElementById('fileUpload').click()">
+                    <input type="file" id="fileUpload" class="hidden" accept="image/*,.pdf" onchange="handleFileSelect(this)">
+                    <span class="material-icons text-5xl text-salem/60 mb-3">cloud_upload</span>
+                    <p class="text-gray-700 font-medium mb-1">Klik atau seret bukti transfer ke sini</p>
+                    <p class="text-xs text-gray-500 mb-4">Format JPG, PNG, atau PDF (maks. 5MB)</p>
+                    <button type="button" class="btn btn-outline-salem btn-sm px-5" onclick="event.stopPropagation();document.getElementById('fileUpload').click()">
+                        <span class="material-icons text-base mr-1">folder_open</span> Pilih File
+                    </button>
+                    <p id="fileNameDisplay" class="text-sm text-salem font-medium mt-4 min-h-[24px]"></p>
+                </div>
+                
+                <!-- Tombol Kirim -->
+                <div class="flex justify-end mt-5">
+                    <button class="btn btn-salem px-6" onclick="simulatePaymentUpload()">
+                        <span class="material-icons mr-1">send</span> Kirim Konfirmasi Pembayaran
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== SECTION 3: STATUS & DOKUMEN ===== -->
+        <div class="card bg-white shadow-sm card-hover rounded-2xl overflow-hidden">
+            <div class="card-body p-6 md:p-7">
+                <div class="flex items-center gap-3 mb-5">
+                    <span class="material-icons text-salem text-2xl">receipt_long</span>
+                    <h2 class="text-xl font-semibold text-gray-800">Status & Dokumen</h2>
+                </div>
+                
+                <!-- Status Row -->
+                <div class="flex flex-wrap items-center justify-between gap-4 p-4 bg-gray-50/70 rounded-xl border border-gray-100">
+                    <div class="flex items-center gap-4">
+                        <span class="text-sm font-medium text-gray-600">Status Pembayaran:</span>
+                        <span id="statusBadge" class="status-badge status-menunggu">
+                            <span class="material-icons text-base">pending</span> Menunggu Konfirmasi
+                        </span>
+                    </div>
+                    
+                    <!-- Panel Simulasi Admin (Dropdown) -->
+                    <div class="dropdown dropdown-end">
+                        <label tabindex="0" class="btn btn-sm btn-ghost border border-gray-300 bg-white hover:bg-gray-50">
+                            <span class="material-icons text-base mr-1">admin_panel_settings</span> Simulasi Panel Admin
+                            <span class="material-icons text-base ml-1">arrow_drop_down</span>
+                        </label>
+                        <ul tabindex="0" class="dropdown-content z-[1] menu p-1.5 shadow-lg bg-white rounded-xl border border-gray-100 w-56 mt-2">
+                            <li><a onclick="setStatus('dikonfirmasi')" class="rounded-lg py-2.5"><span class="material-icons text-green-600">check_circle</span>Set Dikonfirmasi</a></li>
+                            <li><a onclick="setStatus('ditolak')" class="rounded-lg py-2.5"><span class="material-icons text-red-500">cancel</span>Set Ditolak</a></li>
+                            <li><a onclick="setStatus('menunggu')" class="rounded-lg py-2.5"><span class="material-icons text-yellow-600">pending</span>Reset Menunggu</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Notifikasi Email -->
+                <div id="notificationArea" class="mt-4 p-4 bg-blue-50/70 border border-blue-200 rounded-xl hidden transition-all">
+                    <div class="flex items-start gap-3">
+                        <span class="material-icons text-blue-600 text-xl">mark_email_read</span>
+                        <div>
+                            <p class="text-sm font-medium text-blue-800 mb-0.5">Notifikasi Email Terkirim</p>
+                            <p id="notificationMessage" class="text-xs text-blue-700">Email notifikasi telah dikirim ke alamat terdaftar.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tombol Aksi Dokumen -->
+                <div class="flex flex-wrap gap-3 mt-6">
+                    <button id="downloadInvoiceBtn" class="btn btn-outline flex-1 border-gray-300 hover:border-salem hover:bg-salem-light/20" onclick="downloadInvoice()" disabled>
+                        <span class="material-icons mr-1">description</span> Unduh Invoice
+                    </button>
+                    <button id="downloadCertificateBtn" class="btn btn-outline flex-1 border-gray-300 hover:border-salem hover:bg-salem-light/20" onclick="downloadCertificate()" disabled>
+                        <span class="material-icons mr-1">verified</span> Unduh E-Sertifikat
+                    </button>
+                </div>
+                <p class="text-xs text-gray-400 mt-3 flex items-center gap-1">
+                    <span class="material-icons text-sm">info</span> 
+                    Invoice dan sertifikat tersedia setelah status pembayaran dikonfirmasi.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ==================== FOOTER ==================== -->
+<footer class="text-center text-gray-400 text-xs py-8 border-t border-gray-100 mt-8 bg-white/50">
+    <p>PsyConf 2026 — Program Studi Psikologi</p>
+    <p class="mt-1 opacity-60">Simulasi Interaktif Registrasi & Pembayaran</p>
+</footer>
+
+<!-- ==================== NAVIGATION MENU ==================== -->
+<script src="nav-menu.js"></script>
+
+<!-- ==================== SCRIPT SIMULASI ==================== -->
+<script>
+    (function(){
+        "use strict";
+
+        // State
+        let currentRole = 'presenter';
+        let currentBatch = 'early';
+        let paymentStatus = 'menunggu';
+        let fileName = '';
+
+        const countdownEnd = new Date();
+        countdownEnd.setDate(countdownEnd.getDate() + 3);
+        
+        const pricesPresenter = { early: 350000, normal: 500000, onsite: 600000 };
+        const pricesPeserta = { early: 150000, normal: 250000, onsite: 300000 };
+
+        const totalSpan = document.getElementById('totalPriceDisplay');
+        const countdownSpan = document.getElementById('countdownDisplay');
+        const statusBadge = document.getElementById('statusBadge');
+        const notificationArea = document.getElementById('notificationArea');
+        const notificationMsg = document.getElementById('notificationMessage');
+        const invoiceBtn = document.getElementById('downloadInvoiceBtn');
+        const certBtn = document.getElementById('downloadCertificateBtn');
+        const fileNameDisplay = document.getElementById('fileNameDisplay');
+
+        function formatRupiah(angka) {
+            return 'Rp ' + angka.toLocaleString('id-ID');
+        }
+
+        function updateTotalDisplay() {
+            const prices = currentRole === 'presenter' ? pricesPresenter : pricesPeserta;
+            totalSpan.innerText = formatRupiah(prices[currentBatch]);
+        }
+
+        window.updateRoleAndPrice = function() {
+            const roleRadios = document.getElementsByName('role');
+            for (let radio of roleRadios) {
+                if (radio.checked) { currentRole = radio.value; break; }
+            }
+            const isPresenter = currentRole === 'presenter';
+            document.getElementById('priceEarly').innerText = formatRupiah(isPresenter ? 350000 : 150000);
+            document.getElementById('priceNormal').innerText = formatRupiah(isPresenter ? 500000 : 250000);
+            document.getElementById('priceOnsite').innerText = formatRupiah(isPresenter ? 600000 : 300000);
+            updateTotalDisplay();
+        };
+
+        window.updatePriceDisplay = function() {
+            const batchRadios = document.getElementsByName('batch');
+            for (let radio of batchRadios) {
+                if (radio.checked) { currentBatch = radio.value; break; }
+            }
+            updateTotalDisplay();
+        };
+
+        function updateCountdown() {
+            const now = new Date();
+            const diff = countdownEnd - now;
+            if (diff <= 0) {
+                countdownSpan.innerText = 'Early Bird telah berakhir';
+            } else {
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff % (86400000)) / (3600000));
+                countdownSpan.innerText = `Early Bird berakhir dalam ${days} hari ${hours} jam`;
+            }
+        }
+        setInterval(updateCountdown, 60000);
+        updateCountdown();
+
+        window.handleFileSelect = function(input) {
+            if (input.files && input.files[0]) {
+                fileName = input.files[0].name;
+                fileNameDisplay.innerHTML = `<span class="flex items-center justify-center gap-1"><span class="material-icons text-sm">check_circle</span> ${fileName}</span>`;
+            } else {
+                fileName = '';
+                fileNameDisplay.innerHTML = '';
+            }
+        };
+
+        window.simulatePaymentUpload = function() {
+            if (!fileName) {
+                alert('Silakan pilih file bukti pembayaran terlebih dahulu.');
+                return;
+            }
+            setStatus('menunggu');
+            showNotification('Bukti pembayaran berhasil diunggah dan sedang menunggu verifikasi panitia.');
+        };
+
+        window.setStatus = function(newStatus) {
+            paymentStatus = newStatus;
+            updateStatusUI();
+            
+            let notifText = '';
+            if (newStatus === 'dikonfirmasi') {
+                notifText = 'Pembayaran Anda telah dikonfirmasi. Invoice dan sertifikat dapat diunduh.';
+                invoiceBtn.disabled = false;
+                certBtn.disabled = false;
+            } else if (newStatus === 'ditolak') {
+                notifText = 'Pembayaran ditolak. Silakan periksa kembali bukti transfer atau hubungi panitia.';
+                invoiceBtn.disabled = true;
+                certBtn.disabled = true;
+            } else {
+                notifText = 'Pembayaran sedang dalam proses verifikasi.';
+                invoiceBtn.disabled = true;
+                certBtn.disabled = true;
+            }
+            showNotification(notifText);
+        };
+
+        function updateStatusUI() {
+            statusBadge.className = 'status-badge ';
+            let icon = '';
+            let text = '';
+            if (paymentStatus === 'menunggu') {
+                statusBadge.classList.add('status-menunggu');
+                icon = 'pending';
+                text = 'Menunggu Konfirmasi';
+            } else if (paymentStatus === 'dikonfirmasi') {
+                statusBadge.classList.add('status-dikonfirmasi');
+                icon = 'check_circle';
+                text = 'Dikonfirmasi';
+            } else {
+                statusBadge.classList.add('status-ditolak');
+                icon = 'cancel';
+                text = 'Ditolak';
+            }
+            statusBadge.innerHTML = `<span class="material-icons text-base">${icon}</span> ${text}`;
+        }
+
+        function showNotification(message) {
+            notificationMsg.innerText = message;
+            notificationArea.classList.remove('hidden');
+            setTimeout(() => {
+                notificationArea.classList.add('hidden');
+            }, 6000);
+        }
+
+        window.downloadInvoice = function() {
+            if (paymentStatus !== 'dikonfirmasi') return;
+            alert('[Simulasi] Mengunduh Invoice untuk ' + (currentRole === 'presenter' ? 'Presenter' : 'Peserta') + ' - Batch ' + currentBatch + '.');
+        };
+
+        window.downloadCertificate = function() {
+            if (paymentStatus !== 'dikonfirmasi') return;
+            alert('[Simulasi] Mengunduh E-Sertifikat Registrasi PsyConf 2026.');
+        };
+
+        // Inisialisasi
+        updateRoleAndPrice();
+        updateStatusUI();
+    })();
+</script>
+
+</body>
+</html>

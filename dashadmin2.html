@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Admin Lengkap | PsyConf 2026</title>
+    <!-- Tailwind + DaisyUI -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.14/dist/full.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background: #f9fafb; }
+        .text-salem { color: #9B7B9C; }
+        .bg-salem { background-color: #9B7B9C; }
+        .bg-salem-light { background-color: #F3ECF4; }
+        .border-salem { border-color: #9B7B9C; }
+        .btn-salem { background-color: #9B7B9C; border-color: #9B7B9C; color: white; }
+        .btn-salem:hover { background-color: #7E5F7F; border-color: #7E5F7F; }
+        .btn-outline-salem { border-color: #9B7B9C; color: #9B7B9C; }
+        .btn-outline-salem:hover { background-color: #9B7B9C; color: white; }
+        .badge-salem { background-color: #EDE1EE; color: #5E3F5F; border: none; }
+        .stat-card { transition: all 0.2s; border-left: 4px solid #9B7B9C; }
+        .material-icons { vertical-align: middle; }
+        .table-header { background-color: #F3ECF4; }
+        .page-content { display: none; }
+        .page-content.active { display: block; }
+        .sidebar-item { transition: all 0.15s; }
+        .sidebar-item.active { background-color: #F3ECF4; color: #9B7B9C; font-weight: 500; }
+    </style>
+</head>
+<body class="antialiased">
+
+<div class="drawer lg:drawer-open">
+    <input id="admin-drawer" type="checkbox" class="drawer-toggle" />
+    
+    <!-- Main Content Area -->
+    <div class="drawer-content flex flex-col">
+        <!-- Top Navbar -->
+        <div class="navbar bg-white shadow-sm px-4 lg:px-8 sticky top-0 z-40">
+            <div class="navbar-start">
+                <label for="admin-drawer" class="btn btn-ghost btn-circle lg:hidden">
+                    <span class="material-icons">menu</span>
+                </label>
+                <span class="text-xl font-bold text-salem ml-2 flex items-center gap-2">
+                    <span class="material-icons">admin_panel_settings</span>
+                    Panel Admin
+                </span>
+            </div>
+            <div class="navbar-center hidden lg:flex">
+                <div class="breadcrumbs text-sm">
+                    <ul>
+                        <li><a onclick="switchPage('dashboard')">Dashboard</a></li>
+                        <li><span id="breadcrumb-current">Dashboard</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="navbar-end gap-3">
+                <div class="badge badge-salem px-3 py-2">
+                    <span class="material-icons text-sm mr-1">calendar_today</span>
+                    12-14 Nov 2026
+                </div>
+                <div class="dropdown dropdown-end">
+                    <div tabindex="0" class="btn btn-ghost btn-circle avatar">
+                        <span class="material-icons">account_circle</span>
+                    </div>
+                    <ul tabindex="0" class="menu dropdown-content mt-3 z-50 p-2 shadow bg-white rounded-box w-52">
+                        <li><a onclick="simulateAction('Profil Admin')"><span class="material-icons mr-2">person</span>Profil</a></li>
+                        <li><a onclick="simulateAction('Pengaturan Akun')"><span class="material-icons mr-2">settings</span>Pengaturan</a></li>
+                        <li><a class="text-red-500" onclick="simulateAction('Logout')"><span class="material-icons mr-2">logout</span>Keluar</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dynamic Page Content Container -->
+        <div class="p-6 lg:p-8 max-w-7xl mx-auto w-full">
+            
+            <!-- ========== PAGE: DASHBOARD ========== -->
+            <div id="page-dashboard" class="page-content active space-y-8">
+                <h2 class="text-2xl font-bold text-gray-800 flex items-center gap-2">
+                    <span class="material-icons text-salem">dashboard</span>
+                    Ringkasan Statistik
+                </h2>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="stat bg-white rounded-xl shadow-sm border border-gray-100 stat-card p-5">
+                        <div class="stat-figure text-salem"><span class="material-icons text-3xl">groups</span></div>
+                        <div class="stat-title text-gray-500 text-sm">Total Peserta</div>
+                        <div class="stat-value text-3xl font-bold text-gray-800">187</div>
+                        <div class="stat-desc text-green-600 text-xs mt-1">12 baru minggu ini</div>
+                    </div>
+                    <div class="stat bg-white rounded-xl shadow-sm border border-gray-100 stat-card p-5">
+                        <div class="stat-figure text-salem"><span class="material-icons text-3xl">record_voice_over</span></div>
+                        <div class="stat-title text-gray-500 text-sm">Presenter</div>
+                        <div class="stat-value text-3xl font-bold text-gray-800">64</div>
+                        <div class="stat-desc text-gray-400 text-xs mt-1">34 abstrak diterima</div>
+                    </div>
+                    <div class="stat bg-white rounded-xl shadow-sm border border-gray-100 stat-card p-5">
+                        <div class="stat-figure text-salem"><span class="material-icons text-3xl">description</span></div>
+                        <div class="stat-title text-gray-500 text-sm">Paper Masuk</div>
+                        <div class="stat-value text-3xl font-bold text-gray-800">42</div>
+                        <div class="stat-desc text-gray-400 text-xs mt-1">12 dalam review</div>
+                    </div>
+                    <div class="stat bg-white rounded-xl shadow-sm border border-gray-100 stat-card p-5">
+                        <div class="stat-figure text-salem"><span class="material-icons text-3xl">verified</span></div>
+                        <div class="stat-title text-gray-500 text-sm">Terkonfirmasi</div>
+                        <div class="stat-value text-3xl font-bold text-gray-800">156</div>
+                        <div class="stat-desc text-amber-600 text-xs mt-1">31 menunggu bayar</div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+                    <h3 class="text-lg font-bold text-gray-800 mb-4">Aktivitas Terbaru</h3>
+                    <div class="space-y-3">
+                        <div class="flex items-center gap-3 text-sm"><span class="material-icons text-green-600">check_circle</span> Pembayaran Budi Santoso dikonfirmasi</div>
+                        <div class="flex items-center gap-3 text-sm"><span class="material-icons text-blue-600">description</span> Paper baru: "Mindfulness & Stres Akademik"</div>
+                        <div class="flex items-center gap-3 text-sm"><span class="material-icons text-orange-600">pending</span> 3 pembayaran menunggu verifikasi</div>
+                        <div class="flex items-center gap-3 text-sm"><span class="material-icons text-purple-600">rate_review</span> Dr. Andi menyelesaikan review #P042</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ========== PAGE: PESERTA ========== -->
+            <div id="page-peserta" class="page-content space-y-6">
+                <div class="flex items-center justify-between">
+                    <h2 class="text-2xl font-bold text-gray-800 flex items-center gap-2">
+                        <span class="material-icons text-salem">groups</span>
+                        Manajemen Peserta
+                    </h2>
+                    <button class="btn btn-salem btn-sm" onclick="simulateAction('Tambah peserta baru')">
+                        <span class="material-icons text-sm">person_add</span> Tambah
+                    </button>
+                </div>
+                
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+                    <div class="flex flex-wrap gap-3 mb-4 justify-between">
+                        <div class="flex gap-2">
+                            <input type="text" placeholder="Cari peserta..." class="input input-bordered input-sm w-64" />
+                            <button class="btn btn-sm btn-outline" onclick="simulateAction('Filter peserta')">
+                                <span class="material-icons text-sm">filter_alt</span>
+                            </button>
+                        </div>
+                        <div class="join">
+                            <button class="btn btn-sm join-item btn-outline-salem" onclick="simulateAction('Export CSV')">
+                                <span class="material-icons text-sm">download</span> CSV
+                            </button>
+                            <button class="btn btn-sm join-item btn-outline-salem" onclick="simulateAction('Export Excel')">
+                                <span class="material-icons text-sm">table_view</span> Excel
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="overflow-x-auto">
+                        <table class="table table-zebra">
+                            <thead>
+                                <tr class="table-header text-gray-700">
+                                    <th><input type="checkbox" class="checkbox checkbox-sm" /></th>
+                                    <th>Nama</th>
+                                    <th>Email</th>
+                                    <th>Institusi</th>
+                                    <th>Role</th>
+                                    <th>Status</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td><input type="checkbox" class="checkbox checkbox-sm" /></td><td>Dr. Maya Sari</td><td>maya@univ.ac.id</td><td>Universitas A</td><td><span class="badge badge-salem">Presenter</span></td><td><span class="badge badge-success text-white">Lunas</span></td><td><button class="btn btn-xs btn-ghost" onclick="simulateAction('Edit Maya Sari')"><span class="material-icons text-sm">edit</span></button></td></tr>
+                                <tr><td><input type="checkbox" class="checkbox checkbox-sm" /></td><td>Budi Santoso</td><td>budi@student.ac.id</td><td>Universitas B</td><td><span class="badge badge-ghost">Peserta</span></td><td><span class="badge badge-warning">Menunggu</span></td><td><button class="btn btn-xs btn-ghost" onclick="simulateAction('Edit Budi Santoso')"><span class="material-icons text-sm">edit</span></button></td></tr>
+                                <tr><td><input type="checkbox" class="checkbox checkbox-sm" /></td><td>Prof. Andi Wijaya</td><td>andi.w@lecturer.id</td><td>Universitas C</td><td><span class="badge badge-salem">Presenter</span></td><td><span class="badge badge-success text-white">Lunas</span></td><td><button class="btn btn-xs btn-ghost" onclick="simulateAction('Edit Andi Wijaya')"><span class="material-icons text-sm">edit</span></button></td></tr>
+                                <tr><td><input type="checkbox" class="checkbox checkbox-sm" /></td><td>Siti Rahma</td><td>siti.rahma@gmail.com</td><td>Umum</td><td><span class="badge badge-ghost">Peserta</span></td><td><span class="badge badge-error text-white">Ditolak</span></td><td><button class="btn btn-xs btn-ghost" onclick="simulateAction('Edit Siti Rahma')"><span class="material-icons text-sm">edit</span></button></td></tr>
+                                <tr><td><input type="checkbox" class="checkbox checkbox-sm" /></td><td>Dewi Lestari</td><td>dewi@research.id</td><td>Lembaga Riset</td><td><span class="badge badge-salem">Presenter</span></td><td><span class="badge badge-success text-white">Lunas</span></td><td><button class="btn btn-xs btn-ghost" onclick="simulateAction('Edit Dewi Lestari')"><span class="material-icons text-sm">edit</span></button></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="flex justify-between items-center mt-4">
+                        <span class="text-sm text-gray-500">Menampilkan 5 dari 187 peserta</span>
+                        <div class="join">
+                            <button class="btn btn-xs join-item">«</button>
+                            <button class="btn btn-xs join-item btn-active">1</button>
+                            <button class="btn btn-xs join-item">2</button>
+                            <button class="btn btn-xs join-item">3</button>
+                            <button class="btn btn-xs join-item">»</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ========== PAGE: SUBMISSION ========== -->
+            <div id="page-submission" class="page-content space-y-6">
+                <div class="flex items-center justify-between">
+                    <h2 class="text-2xl font-bold text-gray-800 flex items-center gap-2">
+                        <span class="material-icons text-salem">description</span>
+                        Manajemen Submission
+                    </h2>
+                    <button class="btn btn-outline-salem btn-sm" onclick="simulateAction('Export data submission')">
+                        <span class="material-icons text-sm">download</span> Export
+                    </button>
+                </div>
+                
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+                    <div class="tabs tabs-boxed mb-4 bg-gray-50 p-1">
+                        <a class="tab tab-active" onclick="simulateAction('Filter: Semua')">Semua (42)</a>
+                        <a class="tab" onclick="simulateAction('Filter: Dalam Review')">Review (12)</a>
+                        <a class="tab" onclick="simulateAction('Filter: Diterima')">Diterima (28)</a>
+                        <a class="tab" onclick="simulateAction('Filter: Ditolak')">Ditolak (2)</a>
+                    </div>
+                    
+                    <div class="overflow-x-auto">
+                        <table class="table table-zebra">
+                            <thead>
+                                <tr class="table-header text-gray-700">
+                                    <th>ID</th>
+                                    <th>Judul Paper</th>
+                                    <th>Penulis</th>
+                                    <th>Topik</th>
+                                    <th>Status</th>
+                                    <th>Reviewer</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>#P042</td>
+                                    <td>Mindfulness & Stres Akademik</td>
+                                    <td>Dr. Maya Sari</td>
+                                    <td>Klinis</td>
+                                    <td><span class="badge badge-warning">Review</span></td>
+                                    <td>
+                                        <select class="select select-bordered select-xs w-32" onchange="simulateAction('Reviewer diubah ke ' + this.value)">
+                                            <option>Belum</option>
+                                            <option selected>Dr. Andi</option>
+                                            <option>Prof. Ratna</option>
+                                            <option>Dr. Budi</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <div class="flex gap-1">
+                                            <button class="btn btn-xs btn-ghost" onclick="simulateAction('Lihat paper #P042')"><span class="material-icons text-sm">visibility</span></button>
+                                            <button class="btn btn-xs btn-outline-salem" onclick="simulateAction('Assign reviewer #P042')">Assign</button>
+                                            <button class="btn btn-xs btn-ghost" onclick="simulateAction('Ubah status #P042')">Status</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>#P041</td>
+                                    <td>Digital Wellbeing Remaja</td>
+                                    <td>Prof. Andi Wijaya</td>
+                                    <td>PIO</td>
+                                    <td><span class="badge badge-success text-white">Accepted</span></td>
+                                    <td>Dr. Budi</td>
+                                    <td>
+                                        <div class="flex gap-1">
+                                            <button class="btn btn-xs btn-ghost" onclick="simulateAction('Lihat paper #P041')"><span class="material-icons text-sm">visibility</span></button>
+                                            <button class="btn btn-xs btn-outline-salem" onclick="simulateAction('Assign reviewer #P041')">Assign</button>
+                                            <button class="btn btn-xs btn-ghost" onclick="simulateAction('Ubah status #P041')">Status</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>#P040</td>
+                                    <td>Efektivitas CBT Online</td>
+                                    <td>Dewi Lestari</td>
+                                    <td>Klinis</td>
+                                    <td><span class="badge badge-info text-white">Revisi</span></td>
+                                    <td>Prof. Ratna</td>
+                                    <td>
+                                        <div class="flex gap-1">
+                                            <button class="btn btn-xs btn-ghost" onclick="simulateAction('Lihat paper #P040')"><span class="material-icons text-sm">visibility</span></button>
+                                            <button class="btn btn-xs btn-outline-salem" onclick="simulateAction('Assign reviewer #P040')">Assign</button>
+                                            <button class="btn btn-xs btn-ghost" onclick="simulateAction('Ubah status #P040')">Status</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ========== PAGE: REVIEWER ========== -->
+            <div id="page-reviewer" class="page-content space-y-6">
+                <div class="flex items-center justify-between">
+                    <h2 class="text-2xl font-bold text-gray-800 flex items-center gap-2">
+                        <span class="material-icons text-salem">rate_review</span>
+                        Manajemen Reviewer
+                    </h2>
+                    <button class="btn btn-salem btn-sm" onclick="simulateAction('Tambah reviewer baru')">
+                        <span class="material-icons text-sm">person_add</span> Tambah Reviewer
+                    </button>
+                </div>
+                
+                <div class="grid md:grid-cols-3 gap-4">
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5">
+                        <div class="flex items-center gap-3 mb-2"><span class="material-icons text-salem">person</span><span class="font-bold">Dr. Andi Saputra</span></div>
+                        <p class="text-sm text-gray-500 mb-2">Universitas Gadjah Mada</p>
+                        <p class="text-xs mb-3">Bidang: Klinis, Psikometri</p>
+                        <div class="flex justify-between items-center"><span class="badge badge-sm">3 paper ditugaskan</span><button class="btn btn-xs btn-ghost" onclick="simulateAction('Edit reviewer Dr. Andi')"><span class="material-icons text-sm">edit</span></button></div>
+                    </div>
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5">
+                        <div class="flex items-center gap-3 mb-2"><span class="material-icons text-salem">person</span><span class="font-bold">Prof. Ratna Wulandari</span></div>
+                        <p class="text-sm text-gray-500 mb-2">Universitas Indonesia</p>
+                        <p class="text-xs mb-3">Bidang: Klinis, Perkembangan</p>
+                        <div class="flex justify-between items-center"><span class="badge badge-sm">5 paper ditugaskan</span><button class="btn btn-xs btn-ghost" onclick="simulateAction('Edit reviewer Prof. Ratna')"><span class="material-icons text-sm">edit</span></button></div>
+                    </div>
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5">
+                        <div class="flex items-center gap-3 mb-2"><span class="material-icons text-salem">person</span><span class="font-bold">Dr. Budi Santoso</span></div>
+                        <p class="text-sm text-gray-500 mb-2">Universitas Padjadjaran</p>
+                        <p class="text-xs mb-3">Bidang: PIO, Digital Wellbeing</p>
+                        <div class="flex justify-between items-center"><span class="badge badge-sm">2 paper ditugaskan</span><button class="btn btn-xs btn-ghost" onclick="simulateAction('Edit reviewer Dr. Budi')"><span class="material-icons text-sm">edit</span></button></div>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+                    <h3 class="font-bold mb-3">Daftar Semua Reviewer</h3>
+                    <table class="table table-zebra">
+                        <thead><tr class="table-header"><th>Nama</th><th>Institusi</th><th>Bidang</th><th>Paper Aktif</th><th>Status</th></tr></thead>
+                        <tbody>
+                            <tr><td>Dr. Andi Saputra</td><td>UGM</td><td>Klinis</td><td>3</td><td><span class="badge badge-success">Aktif</span></td></tr>
+                            <tr><td>Prof. Ratna Wulandari</td><td>UI</td><td>Klinis, Perkembangan</td><td>5</td><td><span class="badge badge-success">Aktif</span></td></tr>
+                            <tr><td>Dr. Budi Santoso</td><td>Unpad</td><td>PIO</td><td>2</td><td><span class="badge badge-success">Aktif</span></td></tr>
+                            <tr><td>Dr. Siti Aisyah</td><td>UNAIR</td><td>Neuropsikologi</td><td>1</td><td><span class="badge badge-warning">Cuti</span></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- ========== PAGE: PEMBAYARAN ========== -->
+            <div id="page-pembayaran" class="page-content space-y-6">
+                <h2 class="text-2xl font-bold text-gray-800 flex items-center gap-2">
+                    <span class="material-icons text-salem">payments</span>
+                    Konfirmasi Pembayaran
+                </h2>
+                
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+                        <h3 class="font-bold mb-3 flex items-center gap-2"><span class="material-icons text-salem">pending_actions</span>Menunggu Konfirmasi (3)</h3>
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between bg-gray-50 p-3 rounded-lg">
+                                <div><span class="font-medium">Budi Santoso</span><br><span class="text-xs text-gray-500">Transfer BCA - Rp 350.000</span></div>
+                                <div class="flex gap-1">
+                                    <button class="btn btn-xs btn-success" onclick="simulateAction('Pembayaran Budi Santoso disetujui')">Approve</button>
+                                    <button class="btn btn-xs btn-error btn-outline" onclick="simulateAction('Pembayaran Budi Santoso ditolak')">Reject</button>
+                                    <button class="btn btn-xs btn-ghost" onclick="simulateAction('Lihat bukti Budi Santoso')"><span class="material-icons text-sm">receipt</span></button>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between bg-gray-50 p-3 rounded-lg">
+                                <div><span class="font-medium">Dewi Lestari</span><br><span class="text-xs text-gray-500">QRIS - Rp 500.000</span></div>
+                                <div class="flex gap-1">
+                                    <button class="btn btn-xs btn-success" onclick="simulateAction('Pembayaran Dewi Lestari disetujui')">Approve</button>
+                                    <button class="btn btn-xs btn-error btn-outline" onclick="simulateAction('Pembayaran Dewi Lestari ditolak')">Reject</button>
+                                    <button class="btn btn-xs btn-ghost" onclick="simulateAction('Lihat bukti Dewi Lestari')"><span class="material-icons text-sm">receipt</span></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+                        <h3 class="font-bold mb-3 flex items-center gap-2"><span class="material-icons text-salem">history</span>Riwayat Konfirmasi</h3>
+                        <div class="space-y-2 text-sm">
+                            <div class="flex items-center gap-2"><span class="material-icons text-green-600 text-sm">check_circle</span> Prof. Andi Wijaya - Disetujui (Hari ini)</div>
+                            <div class="flex items-center gap-2"><span class="material-icons text-green-600 text-sm">check_circle</span> Dr. Maya Sari - Disetujui (Kemarin)</div>
+                            <div class="flex items-center gap-2"><span class="material-icons text-red-600 text-sm">cancel</span> Siti Rahma - Ditolak (2 hari lalu)</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+                    <h3 class="font-bold mb-3">Upload Bukti Manual</h3>
+                    <div class="border-dashed border-2 border-salem rounded-xl p-6 text-center bg-gray-50">
+                        <span class="material-icons text-4xl text-salem mb-2">cloud_upload</span>
+                        <p class="text-gray-600 mb-2">Klik atau drag file bukti transfer</p>
+                        <button class="btn btn-outline-salem" onclick="simulateAction('Upload bukti pembayaran manual')">
+                            <span class="material-icons text-sm">attach_file</span> Pilih File
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ========== PAGE: JADWAL ========== -->
+            <div id="page-jadwal" class="page-content space-y-6">
+                <div class="flex items-center justify-between">
+                    <h2 class="text-2xl font-bold text-gray-800 flex items-center gap-2">
+                        <span class="material-icons text-salem">edit_calendar</span>
+                        Manajemen Jadwal
+                    </h2>
+                    <button class="btn btn-salem btn-sm" onclick="simulateAction('Tambah sesi baru')">
+                        <span class="material-icons text-sm">add</span> Tambah Sesi
+                    </button>
+                </div>
+                
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+                    <div class="grid md:grid-cols-4 gap-3 mb-4">
+                        <input type="text" placeholder="Nama Sesi" class="input input-bordered input-sm" value="Keynote 2" />
+                        <input type="text" placeholder="Waktu" class="input input-bordered input-sm" value="13:00 - 14:30" />
+                        <input type="text" placeholder="Ruangan" class="input input-bordered input-sm" value="Main Hall" />
+                        <input type="text" placeholder="Pembicara" class="input input-bordered input-sm" value="Dr. Budi Santoso" />
+                    </div>
+                    <button class="btn btn-sm btn-outline-salem w-full mb-6" onclick="simulateAction('Sesi baru ditambahkan')">Simpan Sesi</button>
+                    
+                    <h3 class="font-bold mb-3">Jadwal Hari 1 (12 Nov 2026)</h3>
+                    <table class="table table-zebra">
+                        <thead><tr class="table-header"><th>Waktu</th><th>Sesi</th><th>Ruangan</th><th>Pembicara/Moderator</th><th>Aksi</th></tr></thead>
+                        <tbody>
+                            <tr><td>08:00 - 09:00</td><td>Registrasi</td><td>Lobby</td><td>Panitia</td><td><button class="btn btn-xs btn-ghost" onclick="simulateAction('Edit sesi Registrasi')"><span class="material-icons text-sm">edit</span></button></td></tr>
+                            <tr><td>09:00 - 10:30</td><td>Pembukaan & Keynote 1</td><td>Main Hall</td><td>Prof. Ratna W.</td><td><button class="btn btn-xs btn-ghost" onclick="simulateAction('Edit sesi Keynote 1')"><span class="material-icons text-sm">edit</span></button></td></tr>
+                            <tr><td>10:30 - 12:00</td><td>Sesi Paralel 1</td><td>R.201, R.202</td><td>Pemakalah</td><td><button class="btn btn-xs btn-ghost" onclick="simulateAction('Edit sesi Paralel 1')"><span class="material-icons text-sm">edit</span></button></td></tr>
+                            <tr><td>13:00 - 14:30</td><td>Keynote 2</td><td>Main Hall</td><td>Dr. Budi Santoso</td><td><button class="btn btn-xs btn-ghost" onclick="simulateAction('Edit sesi Keynote 2')"><span class="material-icons text-sm">edit</span></button></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- ========== PAGE: PENGATURAN ========== -->
+            <div id="page-pengaturan" class="page-content space-y-6">
+                <h2 class="text-2xl font-bold text-gray-800 flex items-center gap-2">
+                    <span class="material-icons text-salem">settings</span>
+                    Pengaturan Sistem
+                </h2>
+                
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+                    <div class="tabs tabs-boxed mb-6">
+                        <a class="tab tab-active">Umum</a>
+                        <a class="tab" onclick="simulateAction('Pengaturan Pembayaran')">Pembayaran</a>
+                        <a class="tab" onclick="simulateAction('Pengaturan Email')">Email</a>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <div class="form-control">
+                            <label class="label"><span class="label-text">Nama Konferensi</span></label>
+                            <input type="text" class="input input-bordered" value="PsyConf 2026: Transformasi Psikologi di Era Digital" />
+                        </div>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="form-control">
+                                <label class="label"><span class="label-text">Tanggal Mulai</span></label>
+                                <input type="date" class="input input-bordered" value="2026-11-12" />
+                            </div>
+                            <div class="form-control">
+                                <label class="label"><span class="label-text">Tanggal Selesai</span></label>
+                                <input type="date" class="input input-bordered" value="2026-11-14" />
+                            </div>
+                        </div>
+                        <div class="form-control">
+                            <label class="label"><span class="label-text">Lokasi</span></label>
+                            <input type="text" class="input input-bordered" value="Auditorium Utama, Kampus Psikologi, Yogyakarta" />
+                        </div>
+                        <div class="form-control">
+                            <label class="label"><span class="label-text">Batas Abstrak</span></label>
+                            <input type="date" class="input input-bordered" value="2026-06-30" />
+                        </div>
+                        <div class="form-control">
+                            <label class="label"><span class="label-text">Batas Full Paper</span></label>
+                            <input type="date" class="input input-bordered" value="2026-09-30" />
+                        </div>
+                        <button class="btn btn-salem mt-4" onclick="simulateAction('Pengaturan disimpan')">Simpan Perubahan</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ========== PAGE: TEMPLATE EMAIL ========== -->
+            <div id="page-template-email" class="page-content space-y-6">
+                <h2 class="text-2xl font-bold text-gray-800 flex items-center gap-2">
+                    <span class="material-icons text-salem">email</span>
+                    Template Email
+                </h2>
+                
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+                    <div class="flex gap-4 mb-6">
+                        <select class="select select-bordered w-64">
+                            <option>Template Penerimaan Abstrak</option>
+                            <option>Template Penolakan Abstrak</option>
+                            <option>Template Konfirmasi Pembayaran</option>
+                            <option>Template Pengingat Batas Akhir</option>
+                            <option>Template Sertifikat</option>
+                        </select>
+                        <button class="btn btn-outline-salem" onclick="simulateAction('Reset ke default')">Reset Default</button>
+                    </div>
+                    
+                    <div class="form-control mb-4">
+                        <label class="label"><span class="label-text">Subjek Email</span></label>
+                        <input type="text" class="input input-bordered" value="[PsyConf 2026] Abstrak Anda Diterima - {JUDUL}" />
+                    </div>
+                    
+                    <div class="form-control mb-4">
+                        <label class="label"><span class="label-text">Isi Email</span></label>
+                        <textarea class="textarea textarea-bordered h-64 font-mono text-sm">
+Yth. {NAMA_PESERTA},
+
+Dengan hormat, kami sampaikan bahwa abstrak dengan judul:
+"{JUDUL}"
+
+TELAH DITERIMA untuk dipresentasikan pada PsyConf 2026.
+
+Selanjutnya, mohon untuk mengunggah full paper paling lambat {BATAS_FULLPAPER} melalui sistem submission.
+
+Variabel yang tersedia:
+{NAMA_PESERTA} - Nama lengkap peserta
+{JUDUL} - Judul paper
+{ID_SUBMISSION} - ID submission
+{BATAS_FULLPAPER} - Batas akhir full paper
+{LINK_SUBMISSION} - Link upload full paper
+
+Terima kasih.
+Panitia PsyConf 2026
+                        </textarea>
+                    </div>
+                    
+                    <div class="flex gap-3">
+                        <button class="btn btn-salem" onclick="simulateAction('Template disimpan')">Simpan Template</button>
+                        <button class="btn btn-outline" onclick="simulateAction('Preview email template')">
+                            <span class="material-icons text-sm">preview</span> Preview
+                        </button>
+                        <button class="btn btn-ghost" onclick="simulateAction('Kirim email uji coba')">
+                            <span class="material-icons text-sm">send</span> Uji Coba
+                        </button>
+                    </div>
+                    
+                    <div class="divider my-6">Variabel Global</div>
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-2 text-sm">
+                        <div class="bg-gray-100 p-2 rounded"><code>{NAMA_PESERTA}</code> - Nama lengkap</div>
+                        <div class="bg-gray-100 p-2 rounded"><code>{EMAIL}</code> - Alamat email</div>
+                        <div class="bg-gray-100 p-2 rounded"><code>{JUDUL}</code> - Judul paper</div>
+                        <div class="bg-gray-100 p-2 rounded"><code>{ID_SUBMISSION}</code> - ID submission</div>
+                        <div class="bg-gray-100 p-2 rounded"><code>{BATAS_ABSTRAK}</code> - Deadline abstrak</div>
+                        <div class="bg-gray-100 p-2 rounded"><code>{BATAS_FULLPAPER}</code> - Deadline full paper</div>
+                        <div class="bg-gray-100 p-2 rounded"><code>{LINK_SUBMISSION}</code> - Link upload</div>
+                        <div class="bg-gray-100 p-2 rounded"><code>{LINK_SERTIFIKAT}</code> - Link sertifikat</div>
+                        <div class="bg-gray-100 p-2 rounded"><code>{NAMA_KONFERENSI}</code> - Nama acara</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="drawer-side">
+        <label for="admin-drawer" aria-label="close sidebar" class="drawer-overlay"></label>
+        <ul class="menu p-4 w-64 min-h-full bg-white text-gray-700 border-r border-gray-200">
+            <li class="mb-2">
+                <a class="sidebar-item" onclick="switchPage('dashboard')">
+                    <span class="material-icons mr-3">dashboard</span>Dashboard
+                </a>
+            </li>
+            <li class="menu-title text-xs text-gray-400 mt-4">MANAJEMEN</li>
+            <li><a class="sidebar-item" onclick="switchPage('peserta')"><span class="material-icons mr-3">groups</span>Peserta</a></li>
+            <li><a class="sidebar-item" onclick="switchPage('submission')"><span class="material-icons mr-3">description</span>Submission</a></li>
+            <li><a class="sidebar-item" onclick="switchPage('reviewer')"><span class="material-icons mr-3">rate_review</span>Reviewer</a></li>
+            <li><a class="sidebar-item" onclick="switchPage('pembayaran')"><span class="material-icons mr-3">payments</span>Pembayaran</a></li>
+            <li class="menu-title text-xs text-gray-400 mt-4">KONFIGURASI</li>
+            <li><a class="sidebar-item" onclick="switchPage('jadwal')"><span class="material-icons mr-3">event_note</span>Jadwal</a></li>
+            <li><a class="sidebar-item" onclick="switchPage('pengaturan')"><span class="material-icons mr-3">settings</span>Pengaturan</a></li>
+            <li><a class="sidebar-item" onclick="switchPage('template-email')"><span class="material-icons mr-3">email</span>Template Email</a></li>
+            <li class="mt-auto pt-8">
+                <div class="bg-salem-light p-3 rounded-xl">
+                    <p class="text-xs font-semibold text-salem">PsyConf 2026 v1.0</p>
+                    <p class="text-xs text-gray-500">Prodi Psikologi</p>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<script src="nav-menu.js"></script>
+<script>
+    // Page switching logic
+    function switchPage(pageId) {
+        // Hide all pages
+        document.querySelectorAll('.page-content').forEach(page => {
+            page.classList.remove('active');
+        });
+        // Show selected page
+        document.getElementById('page-' + pageId).classList.add('active');
+        
+        // Update active state on sidebar
+        document.querySelectorAll('.sidebar-item').forEach(item => {
+            item.classList.remove('active');
+        });
+        event.currentTarget.classList.add('active');
+        
+        // Update breadcrumb
+        const pageNames = {
+            'dashboard': 'meong',
+            'peserta': 'Manajemen Peserta',
+            'submission': 'Manajemen Submission',
+            'reviewer': 'Manajemen Reviewer',
+            'pembayaran': 'Konfirmasi Pembayaran',
+            'jadwal': 'Manajemen Jadwal',
+            'pengaturan': 'Pengaturan',
+            'template-email': 'Template Email'
+        };
+        document.getElementById('breadcrumb-current').textContent = pageNames[pageId] || pageId;
+        
+        // Close drawer on mobile after navigation
+        document.getElementById('admin-drawer').checked = false;
+    }
+
+    function simulateAction(message) {
+        alert('[SIMULASI] ' + message + '\n\nFitur ini hanya demonstrasi interaktif.');
+    }
+
+    // Set default active sidebar item
+    document.addEventListener('DOMContentLoaded', function() {
+        const dashboardLink = document.querySelector('.sidebar-item');
+        if(dashboardLink) dashboardLink.classList.add('active');
+    });
+
+    // Additional simulation for interactive elements
+    document.addEventListener('click', function(e) {
+        if(e.target.closest('.tab') && !e.target.closest('.tab').hasAttribute('onclick')) {
+            const tabText = e.target.closest('.tab').textContent.trim();
+            simulateAction('Beralih ke tab: ' + tabText);
+        }
+    });
+</script>
+
+</body>
+</html>

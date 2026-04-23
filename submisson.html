@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Submission Paper | PsyConf 2026</title>
+    <!-- Tailwind + DaisyUI -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.14/dist/full.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Material Icons & Font -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital@0;1&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .font-serif-display { font-family: 'Playfair Display', serif; }
+        .text-salem { color: #9B7B9C; }
+        .bg-salem-light { background-color: #F3ECF4; }
+        .bg-salem { background-color: #9B7B9C; }
+        .border-salem { border-color: #9B7B9C; }
+        .btn-salem { background-color: #9B7B9C; border-color: #9B7B9C; color: white; }
+        .btn-salem:hover { background-color: #7E5F7F; border-color: #7E5F7F; }
+        .btn-outline-salem { border-color: #9B7B9C; color: #9B7B9C; background: transparent; }
+        .btn-outline-salem:hover { background-color: #9B7B9C; color: white; }
+        .badge-salem { background-color: #EDE1EE; color: #5E3F5F; border: none; }
+        .badge-success-custom { background-color: #D1FAE5; color: #065F46; }
+        .badge-warning-custom { background-color: #FEF3C7; color: #92400E; }
+        .badge-error-custom { background-color: #FEE2E2; color: #991B1B; }
+        .card-hover { transition: all 0.2s ease; }
+        .card-hover:hover { transform: translateY(-4px); box-shadow: 0 20px 25px -5px rgba(155, 123, 156, 0.1), 0 10px 10px -5px rgba(155, 123, 156, 0.04); }
+        .step-active .step-circle { background-color: #9B7B9C; color: white; }
+        .step-completed .step-circle { background-color: #9B7B9C; color: white; }
+        .step-pending .step-circle { background-color: #E5E7EB; color: #6B7280; }
+        .material-icons { vertical-align: middle; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-700 antialiased">
+
+<!-- ==================== NAVBAR ==================== -->
+<div class="navbar bg-white/95 backdrop-blur-md shadow-sm sticky top-0 z-50 px-4 lg:px-8 border-b border-gray-100">
+    <div class="navbar-start">
+        <a href="#" class="text-xl font-bold text-salem flex items-center gap-2">
+            <span class="material-icons text-salem">psychology_alt</span>
+            <span>PsyConf<span class="font-light text-gray-500 ml-1">2026</span></span>
+        </a>
+    </div>
+    <div class="navbar-center hidden lg:flex">
+        <ul class="menu menu-horizontal px-1 text-sm font-medium">
+            <li><a href="#" class="hover:text-salem">Dashboard</a></li>
+            <li><a href="#" class="hover:text-salem bg-salem-light text-salem font-semibold">Submission</a></li>
+            <li><a href="#" class="hover:text-salem">Pembayaran</a></li>
+            <li><a href="#" class="hover:text-salem">Sertifikat</a></li>
+        </ul>
+    </div>
+    <div class="navbar-end flex items-center gap-3">
+        <div class="dropdown dropdown-end">
+            <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar placeholder">
+                <div class="bg-salem text-white rounded-full w-10">
+                    <span class="text-lg">AP</span>
+                </div>
+            </div>
+            <ul tabindex="0" class="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
+                <li><a><span class="material-icons mr-2 text-base">person</span> Profil</a></li>
+                <li><a><span class="material-icons mr-2 text-base">logout</span> Logout</a></li>
+            </ul>
+        </div>
+        <span class="text-sm text-gray-600 hidden md:block">Andi Pratama (Presenter)</span>
+    </div>
+</div>
+
+<!-- ==================== PAGE HEADER ==================== -->
+<div class="bg-white border-b border-gray-200 py-6 px-4 md:px-8">
+    <div class="max-w-7xl mx-auto">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+            <div>
+                <h1 class="text-2xl md:text-3xl font-bold text-gray-800 flex items-center gap-3">
+                    <span class="material-icons text-salem text-3xl">description</span>
+                    Submission Paper
+                </h1>
+                <p class="text-gray-500 mt-1 flex items-center gap-2">
+                    <span class="material-icons text-sm">folder</span>
+                    Track ID: PSY-2026-0042
+                </p>
+            </div>
+            <div class="flex gap-2">
+                <button class="btn btn-outline-salem btn-sm">
+                    <span class="material-icons mr-1">help_outline</span> Panduan
+                </button>
+                <button class="btn btn-salem btn-sm">
+                    <span class="material-icons mr-1">upload</span> Submit Baru
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ==================== MAIN CONTENT ==================== -->
+<main class="max-w-7xl mx-auto py-8 px-4 md:px-8">
+
+    <!-- ===== STATUS TRACKING (PROGRESS STEPS) ===== -->
+    <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 mb-8">
+        <h2 class="text-lg font-semibold text-gray-800 mb-6 flex items-center gap-2">
+            <span class="material-icons text-salem">timeline</span>
+            Status Tracking Paper
+        </h2>
+        
+        <!-- Step indicator -->
+        <div class="flex flex-wrap justify-between items-start gap-2">
+            <!-- Step 1: Submit Abstrak -->
+            <div class="flex-1 min-w-[100px] text-center">
+                <div class="flex flex-col items-center">
+                    <div class="w-10 h-10 rounded-full bg-salem text-white flex items-center justify-center mb-2">
+                        <span class="material-icons text-xl">check</span>
+                    </div>
+                    <span class="text-sm font-medium text-gray-800">Submit Abstrak</span>
+                    <span class="text-xs text-gray-500 mt-1 block">10 Jun 2026</span>
+                </div>
+            </div>
+            <div class="text-gray-300 text-2xl hidden sm:block">→</div>
+            <!-- Step 2: Notifikasi Review -->
+            <div class="flex-1 min-w-[100px] text-center">
+                <div class="flex flex-col items-center">
+                    <div class="w-10 h-10 rounded-full bg-salem text-white flex items-center justify-center mb-2">
+                        <span class="material-icons text-xl">check</span>
+                    </div>
+                    <span class="text-sm font-medium text-gray-800">Notifikasi Review</span>
+                    <span class="text-xs text-gray-500 mt-1 block">15 Jul 2026</span>
+                </div>
+            </div>
+            <div class="text-gray-300 text-2xl hidden sm:block">→</div>
+            <!-- Step 3: Submit Full Paper -->
+            <div class="flex-1 min-w-[100px] text-center">
+                <div class="flex flex-col items-center">
+                    <div class="w-10 h-10 rounded-full bg-salem text-white flex items-center justify-center mb-2">
+                        <span class="material-icons text-xl">check</span>
+                    </div>
+                    <span class="text-sm font-medium text-gray-800">Submit Full Paper</span>
+                    <span class="text-xs text-gray-500 mt-1 block">25 Sep 2026</span>
+                </div>
+            </div>
+            <div class="text-gray-300 text-2xl hidden sm:block">→</div>
+            <!-- Step 4: Review Full Paper -->
+            <div class="flex-1 min-w-[100px] text-center">
+                <div class="flex flex-col items-center">
+                    <div class="w-10 h-10 rounded-full bg-yellow-500 text-white flex items-center justify-center mb-2">
+                        <span class="material-icons text-xl">pending</span>
+                    </div>
+                    <span class="text-sm font-medium text-gray-800">Review Full Paper</span>
+                    <span class="text-xs text-gray-500 mt-1 block">Sedang diproses</span>
+                </div>
+            </div>
+            <div class="text-gray-300 text-2xl hidden sm:block">→</div>
+            <!-- Step 5: Revisi -->
+            <div class="flex-1 min-w-[100px] text-center">
+                <div class="flex flex-col items-center">
+                    <div class="w-10 h-10 rounded-full bg-gray-300 text-gray-500 flex items-center justify-center mb-2">
+                        <span class="material-icons text-xl">edit_note</span>
+                    </div>
+                    <span class="text-sm font-medium text-gray-800">Revisi</span>
+                    <span class="text-xs text-gray-500 mt-1 block">-</span>
+                </div>
+            </div>
+            <div class="text-gray-300 text-2xl hidden sm:block">→</div>
+            <!-- Step 6: Final Accepted -->
+            <div class="flex-1 min-w-[100px] text-center">
+                <div class="flex flex-col items-center">
+                    <div class="w-10 h-10 rounded-full bg-gray-300 text-gray-500 flex items-center justify-center mb-2">
+                        <span class="material-icons text-xl">verified</span>
+                    </div>
+                    <span class="text-sm font-medium text-gray-800">Final Accepted</span>
+                    <span class="text-xs text-gray-500 mt-1 block">-</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        
+        <!-- ===== LEFT COLUMN (2/3) ===== -->
+        <div class="lg:col-span-2 space-y-8">
+            
+            <!-- SUBMIT ABSTRAK CARD -->
+            <div class="card bg-white shadow-sm border border-gray-200 rounded-2xl">
+                <div class="card-body p-6">
+                    <div class="flex items-start justify-between">
+                        <h3 class="card-title text-gray-800 text-lg flex items-center gap-2">
+                            <span class="material-icons text-salem">edit_note</span>
+                            Submit Abstrak
+                            <span class="badge badge-success-custom ml-2 text-xs">Selesai</span>
+                        </h3>
+                    </div>
+                    <div class="divider my-2"></div>
+                    
+                    <!-- Data yang sudah disubmit -->
+                    <div class="space-y-4">
+                        <div>
+                            <label class="text-sm font-medium text-gray-600 block mb-1">Judul Paper</label>
+                            <p class="text-gray-800 bg-gray-50 p-3 rounded-lg border border-gray-200">Pengaruh Mindfulness-Based Intervention terhadap Stres Akademik Mahasiswa Psikologi</p>
+                        </div>
+                        <div>
+                            <label class="text-sm font-medium text-gray-600 block mb-1">Abstrak</label>
+                            <p class="text-gray-700 bg-gray-50 p-3 rounded-lg border border-gray-200 text-sm">Penelitian ini bertujuan menguji efektivitas intervensi berbasis mindfulness dalam menurunkan tingkat stres akademik pada mahasiswa psikologi. Metode eksperimen kuasi dengan desain pretest-posttest control group digunakan. Hasil menunjukkan penurunan signifikan pada kelompok eksperimen...</p>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="text-sm font-medium text-gray-600 block mb-1">Keywords</label>
+                                <p class="text-gray-800 bg-gray-50 p-3 rounded-lg border border-gray-200">mindfulness, stres akademik, mahasiswa, psikologi</p>
+                            </div>
+                            <div>
+                                <label class="text-sm font-medium text-gray-600 block mb-1">Topik Bidang</label>
+                                <p class="text-gray-800 bg-gray-50 p-3 rounded-lg border border-gray-200">Psikologi Klinis & Kesehatan Mental</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Simulasi edit (nonaktif, hanya view) -->
+                    <div class="card-actions justify-end mt-4">
+                        <button class="btn btn-outline-salem btn-sm" disabled>
+                            <span class="material-icons mr-1">visibility</span> Lihat Detail
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- NOTIFIKASI REVIEW CARD -->
+            <div class="card bg-white shadow-sm border border-gray-200 rounded-2xl">
+                <div class="card-body p-6">
+                    <div class="flex items-start justify-between">
+                        <h3 class="card-title text-gray-800 text-lg flex items-center gap-2">
+                            <span class="material-icons text-salem">notifications_active</span>
+                            Notifikasi Review (Abstrak)
+                            <span class="badge badge-success-custom ml-2 text-xs">Diterima</span>
+                        </h3>
+                    </div>
+                    <div class="divider my-2"></div>
+                    
+                    <div class="bg-green-50 border border-green-200 rounded-xl p-4 flex items-start gap-3">
+                        <span class="material-icons text-green-600">check_circle</span>
+                        <div>
+                            <p class="font-medium text-gray-800">Abstrak Anda Diterima</p>
+                            <p class="text-sm text-gray-600 mt-1">Selamat! Abstrak Anda telah diterima untuk dipresentasikan di PsyConf 2026. Silakan lanjutkan ke tahap submit full paper.</p>
+                            <p class="text-xs text-gray-500 mt-2 flex items-center gap-1">
+                                <span class="material-icons text-sm">schedule</span>
+                                15 Juli 2026, 09:30 WIB
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="text-sm text-gray-500 mt-2 flex items-center gap-1">
+                        <span class="material-icons text-sm">mail</span>
+                        Notifikasi juga dikirim ke email: andi.pratama@email.com
+                    </div>
+                </div>
+            </div>
+            
+            <!-- SUBMIT FULL PAPER CARD -->
+            <div class="card bg-white shadow-sm border border-gray-200 rounded-2xl">
+                <div class="card-body p-6">
+                    <div class="flex items-start justify-between">
+                        <h3 class="card-title text-gray-800 text-lg flex items-center gap-2">
+                            <span class="material-icons text-salem">upload_file</span>
+                            Submit Full Paper
+                            <span class="badge badge-success-custom ml-2 text-xs">Selesai</span>
+                        </h3>
+                    </div>
+                    <div class="divider my-2"></div>
+                    
+                    <!-- File yang sudah diupload -->
+                    <div class="bg-gray-50 border border-gray-200 rounded-xl p-4">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-3">
+                                <span class="material-icons text-salem text-2xl">picture_as_pdf</span>
+                                <div>
+                                    <p class="font-medium text-gray-800">Full_Paper_Andi_Pratama_PsyConf2026.pdf</p>
+                                    <p class="text-xs text-gray-500">Diunggah: 25 Sep 2026, 14:20 WIB | 1.2 MB</p>
+                                </div>
+                            </div>
+                            <button class="btn btn-ghost btn-sm">
+                                <span class="material-icons">download</span>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Info template -->
+                    <div class="mt-3 text-sm flex items-center gap-2 text-gray-500">
+                        <span class="material-icons text-sm">info</span>
+                        Paper telah sesuai template (Times New Roman 12, spasi 1.5, APA 7th).
+                    </div>
+                </div>
+            </div>
+            
+            <!-- REVIEW FULL PAPER CARD -->
+            <div class="card bg-white shadow-sm border border-gray-200 rounded-2xl">
+                <div class="card-body p-6">
+                    <div class="flex items-start justify-between">
+                        <h3 class="card-title text-gray-800 text-lg flex items-center gap-2">
+                            <span class="material-icons text-salem">rate_review</span>
+                            Review Full Paper
+                            <span class="badge badge-warning-custom ml-2 text-xs">Sedang Direview</span>
+                        </h3>
+                    </div>
+                    <div class="divider my-2"></div>
+                    
+                    <!-- Status review (simulasi: belum ada hasil) -->
+                    <div class="bg-yellow-50 border border-yellow-200 rounded-xl p-4 flex items-start gap-3">
+                        <span class="material-icons text-yellow-600">pending_actions</span>
+                        <div>
+                            <p class="font-medium text-gray-800">Full Paper Sedang Dalam Proses Review</p>
+                            <p class="text-sm text-gray-600 mt-1">Paper Anda sedang dinilai oleh 2 reviewer. Hasil review beserta catatan akan muncul di halaman ini setelah proses selesai.</p>
+                            <div class="mt-3 flex items-center gap-4 text-xs text-gray-500">
+                                <span class="flex items-center gap-1"><span class="material-icons text-sm">person</span> Reviewer 1: Dalam proses</span>
+                                <span class="flex items-center gap-1"><span class="material-icons text-sm">person</span> Reviewer 2: Dalam proses</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Simulasi: reviewer sudah selesai? (disabled view) -->
+                    <div class="mt-4 opacity-60">
+                        <p class="text-sm font-medium text-gray-600 mb-2">Catatan Reviewer (akan muncul setelah review selesai):</p>
+                        <div class="bg-gray-100 p-3 rounded-lg text-sm text-gray-400 italic">
+                            Belum ada catatan review tersedia.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- REVISI CARD -->
+            <div class="card bg-white shadow-sm border border-gray-200 rounded-2xl">
+                <div class="card-body p-6">
+                    <div class="flex items-start justify-between">
+                        <h3 class="card-title text-gray-800 text-lg flex items-center gap-2">
+                            <span class="material-icons text-salem">edit_note</span>
+                            Revisi
+                            <span class="badge bg-gray-200 text-gray-600 ml-2 text-xs">Belum Tersedia</span>
+                        </h3>
+                    </div>
+                    <div class="divider my-2"></div>
+                    
+                    <div class="bg-gray-50 border border-gray-200 rounded-xl p-4 text-center">
+                        <span class="material-icons text-gray-400 text-4xl mb-2">folder_off</span>
+                        <p class="text-gray-500">Tahap revisi akan tersedia setelah proses review full paper selesai.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- FINAL ACCEPTED CARD -->
+            <div class="card bg-white shadow-sm border border-gray-200 rounded-2xl">
+                <div class="card-body p-6">
+                    <div class="flex items-start justify-between">
+                        <h3 class="card-title text-gray-800 text-lg flex items-center gap-2">
+                            <span class="material-icons text-salem">verified</span>
+                            Final Accepted
+                            <span class="badge bg-gray-200 text-gray-600 ml-2 text-xs">Menunggu</span>
+                        </h3>
+                    </div>
+                    <div class="divider my-2"></div>
+                    
+                    <div class="bg-gray-50 border border-gray-200 rounded-xl p-4 text-center">
+                        <span class="material-icons text-gray-400 text-4xl mb-2">hourglass_empty</span>
+                        <p class="text-gray-500">Paper akan masuk ke proceedings setelah dinyatakan "Final Accepted".</p>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        
+        <!-- ===== RIGHT COLUMN (1/3) - INFO & SIMULASI INTERAKTIF ===== -->
+        <div class="space-y-6">
+            
+            <!-- Info Paper Ringkas -->
+            <div class="card bg-salem-light/50 shadow-sm border border-gray-200 rounded-2xl">
+                <div class="card-body p-5">
+                    <h4 class="font-semibold text-gray-800 flex items-center gap-2 text-md">
+                        <span class="material-icons text-salem">info</span>
+                        Informasi Paper
+                    </h4>
+                    <div class="space-y-3 mt-2 text-sm">
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">ID Paper:</span>
+                            <span class="font-medium">PSY-2026-0042</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Kategori:</span>
+                            <span class="font-medium">Presenter (Oral)</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Status Keseluruhan:</span>
+                            <span class="badge badge-warning-custom">Review Full Paper</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Deadline Revisi:</span>
+                            <span class="font-medium">-</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Panduan Singkat -->
+            <div class="card bg-white shadow-sm border border-gray-200 rounded-2xl">
+                <div class="card-body p-5">
+                    <h4 class="font-semibold text-gray-800 flex items-center gap-2 text-md mb-3">
+                        <span class="material-icons text-salem">menu_book</span>
+                        Alur Submission
+                    </h4>
+                    <ul class="space-y-3 text-sm">
+                        <li class="flex gap-3">
+                            <span class="material-icons text-green-600 text-lg">check_circle</span>
+                            <span>Submit abstrak sebelum deadline</span>
+                        </li>
+                        <li class="flex gap-3">
+                            <span class="material-icons text-green-600 text-lg">check_circle</span>
+                            <span>Tunggu notifikasi hasil review abstrak</span>
+                        </li>
+                        <li class="flex gap-3">
+                            <span class="material-icons text-green-600 text-lg">check_circle</span>
+                            <span>Upload full paper sesuai template</span>
+                        </li>
+                        <li class="flex gap-3">
+                            <span class="material-icons text-yellow-600 text-lg">pending</span>
+                            <span>Reviewer menilai dan memberi catatan</span>
+                        </li>
+                        <li class="flex gap-3">
+                            <span class="material-icons text-gray-400 text-lg">radio_button_unchecked</span>
+                            <span>Revisi paper jika diperlukan</span>
+                        </li>
+                        <li class="flex gap-3">
+                            <span class="material-icons text-gray-400 text-lg">radio_button_unchecked</span>
+                            <span>Final accepted dan masuk proceedings</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Simulasi Interaktif: Tombol-tombol aksi -->
+            <div class="card bg-white shadow-sm border border-gray-200 rounded-2xl">
+                <div class="card-body p-5">
+                    <h4 class="font-semibold text-gray-800 flex items-center gap-2 text-md mb-4">
+                        <span class="material-icons text-salem">smart_button</span>
+                        Simulasi Fitur
+                    </h4>
+                    <div class="space-y-3">
+                        <button id="simulateReviewDoneBtn" class="btn btn-outline-salem w-full justify-start">
+                            <span class="material-icons mr-2">rate_review</span>
+                            Simulasi: Review Full Paper Selesai
+                        </button>
+                        <button id="simulateRevisionNeededBtn" class="btn btn-outline-salem w-full justify-start">
+                            <span class="material-icons mr-2">edit_note</span>
+                            Simulasi: Perlu Revisi
+                        </button>
+                        <button id="simulateAcceptedBtn" class="btn btn-outline-salem w-full justify-start">
+                            <span class="material-icons mr-2">verified</span>
+                            Simulasi: Final Accepted
+                        </button>
+                        <button id="simulateRejectedBtn" class="btn btn-outline-salem w-full justify-start text-red-500 border-red-300 hover:bg-red-50">
+                            <span class="material-icons mr-2">cancel</span>
+                            Simulasi: Ditolak
+                        </button>
+                        <div class="divider text-xs text-gray-400 my-1">atau</div>
+                        <button id="resetSimulationBtn" class="btn btn-ghost w-full text-gray-500">
+                            <span class="material-icons mr-2">restart_alt</span>
+                            Reset ke Status Awal
+                        </button>
+                    </div>
+                    <p class="text-xs text-gray-400 mt-4 text-center">
+                        Klik tombol di atas untuk simulasi perubahan status.
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Kontak Bantuan -->
+            <div class="card bg-white shadow-sm border border-gray-200 rounded-2xl">
+                <div class="card-body p-5">
+                    <h4 class="font-semibold text-gray-800 flex items-center gap-2 text-md">
+                        <span class="material-icons text-salem">support_agent</span>
+                        Butuh Bantuan?
+                    </h4>
+                    <p class="text-sm text-gray-600 mt-1">Hubungi tim editorial untuk pertanyaan seputar submission.</p>
+                    <div class="mt-3 space-y-2 text-sm">
+                        <div class="flex items-center gap-2"><span class="material-icons text-salem text-lg">mail</span> editor@psyconf2026.ac.id</div>
+                        <div class="flex items-center gap-2"><span class="material-icons text-salem text-lg">call</span> +62 812-3456-7890</div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</main>
+
+<!-- ==================== FOOTER ==================== -->
+<footer class="footer footer-center p-8 bg-white text-gray-500 border-t border-gray-200 mt-12">
+    <aside>
+        <span class="material-icons text-salem text-3xl">psychology_alt</span>
+        <p class="font-bold text-salem">PsyConf 2026</p> 
+        <p class="text-xs"> 2026 Program Studi Psikologi. Submission System v1.0</p>
+    </aside>
+</footer>
+
+<script src="nav-menu.js"></script>
+<script>
+    (function(){
+        // Helper untuk update UI secara dinamis (simulasi)
+        const reviewSection = document.querySelector('.card:has(h3:contains("Review Full Paper"))');
+        const revisionSection = document.querySelector('.card:has(h3:contains("Revisi"))');
+        const finalSection = document.querySelector('.card:has(h3:contains("Final Accepted"))');
+        
+        // Fungsi untuk reset tampilan (status awal: review sedang diproses)
+        function resetToInitial() {
+            // Review Full Paper
+            const reviewCard = document.querySelector('.card:has(h3:contains("Review Full Paper")) .bg-yellow-50');
+            if(reviewCard) {
+                reviewCard.innerHTML = `
+                    <span class="material-icons text-yellow-600">pending_actions</span>
+                    <div>
+                        <p class="font-medium text-gray-800">Full Paper Sedang Dalam Proses Review</p>
+                        <p class="text-sm text-gray-600 mt-1">Paper Anda sedang dinilai oleh 2 reviewer. Hasil review beserta catatan akan muncul di halaman ini setelah proses selesai.</p>
+                        <div class="mt-3 flex items-center gap-4 text-xs text-gray-500">
+                            <span class="flex items-center gap-1"><span class="material-icons text-sm">person</span> Reviewer 1: Dalam proses</span>
+                            <span class="flex items-center gap-1"><span class="material-icons text-sm">person</span> Reviewer 2: Dalam proses</span>
+                        </div>
+                    </div>
+                `;
+            }
+            // badge status review
+            const reviewBadge = document.querySelector('.card:has(h3:contains("Review Full Paper")) .badge');
+            if(reviewBadge) {
+                reviewBadge.className = 'badge badge-warning-custom ml-2 text-xs';
+                reviewBadge.textContent = 'Sedang Direview';
+            }
+            // revisi
+            const revCard = document.querySelector('.card:has(h3:contains("Revisi")) .bg-gray-50');
+            if(revCard) {
+                revCard.innerHTML = `
+                    <span class="material-icons text-gray-400 text-4xl mb-2">folder_off</span>
+                    <p class="text-gray-500">Tahap revisi akan tersedia setelah proses review full paper selesai.</p>
+                `;
+            }
+            const revBadge = document.querySelector('.card:has(h3:contains("Revisi")) .badge');
+            if(revBadge) {
+                revBadge.className = 'badge bg-gray-200 text-gray-600 ml-2 text-xs';
+                revBadge.textContent = 'Belum Tersedia';
+            }
+            // final
+            const finalCard = document.querySelector('.card:has(h3:contains("Final Accepted")) .bg-gray-50');
+            if(finalCard) {
+                finalCard.innerHTML = `
+                    <span class="material-icons text-gray-400 text-4xl mb-2">hourglass_empty</span>
+                    <p class="text-gray-500">Paper akan masuk ke proceedings setelah dinyatakan "Final Accepted".</p>
+                `;
+            }
+            const finalBadge = document.querySelector('.card:has(h3:contains("Final Accepted")) .badge');
+            if(finalBadge) {
+                finalBadge.className = 'badge bg-gray-200 text-gray-600 ml-2 text-xs';
+                finalBadge.textContent = 'Menunggu';
+            }
+            // update step progress
+            updateStepProgress('review');
+        }
+        
+        function updateStepProgress(stage) {
+            const steps = document.querySelectorAll('.flex.flex-wrap.justify-between .flex-1');
+            // index: 0=abstrak,1=notif,2=fullpaper,3=review,4=revisi,5=final
+            if(stage === 'revision') {
+                // review completed, revisi available
+                if(steps[3]) steps[3].querySelector('.w-10').className = 'w-10 h-10 rounded-full bg-salem text-white flex items-center justify-center mb-2';
+                if(steps[4]) steps[4].querySelector('.w-10').className = 'w-10 h-10 rounded-full bg-yellow-500 text-white flex items-center justify-center mb-2';
+            } else if(stage === 'accepted') {
+                if(steps[3]) steps[3].querySelector('.w-10').className = 'w-10 h-10 rounded-full bg-salem text-white flex items-center justify-center mb-2';
+                if(steps[4]) steps[4].querySelector('.w-10').className = 'w-10 h-10 rounded-full bg-salem text-white flex items-center justify-center mb-2';
+                if(steps[5]) steps[5].querySelector('.w-10').className = 'w-10 h-10 rounded-full bg-salem text-white flex items-center justify-center mb-2';
+            } else if(stage === 'review') {
+                if(steps[3]) steps[3].querySelector('.w-10').className = 'w-10 h-10 rounded-full bg-yellow-500 text-white flex items-center justify-center mb-2';
+                if(steps[4]) steps[4].querySelector('.w-10').className = 'w-10 h-10 rounded-full bg-gray-300 text-gray-500 flex items-center justify-center mb-2';
+                if(steps[5]) steps[5].querySelector('.w-10').className = 'w-10 h-10 rounded-full bg-gray-300 text-gray-500 flex items-center justify-center mb-2';
+            }
+        }
+        
+        // Selector custom :contains polyfill
+        document.querySelectorAll('.card').forEach(card => {
+            const h3 = card.querySelector('h3');
+            if(h3 && h3.textContent.includes('Review Full Paper')) {
+                // attach functions later
+            }
+        });
+        
+        // Simulasi tombol
+        document.getElementById('simulateReviewDoneBtn').addEventListener('click', function(){
+            // Review selesai, tampilkan hasil review
+            const reviewDiv = document.querySelector('.card:has(h3:contains("Review Full Paper")) .bg-yellow-50');
+            if(reviewDiv) {
+                reviewDiv.className = 'bg-blue-50 border border-blue-200 rounded-xl p-4 flex items-start gap-3';
+                reviewDiv.innerHTML = `
+                    <span class="material-icons text-blue-600">checklist</span>
+                    <div>
+                        <p class="font-medium text-gray-800">Review Full Paper Selesai</p>
+                        <p class="text-sm text-gray-600 mt-1">Kedua reviewer telah menyelesaikan penilaian. Silakan lihat catatan di bawah.</p>
+                    </div>
+                `;
+            }
+            // munculkan catatan reviewer
+            const notesDiv = document.querySelector('.card:has(h3:contains("Review Full Paper")) .mt-4 .bg-gray-100');
+            if(notesDiv) {
+                notesDiv.className = 'bg-white border border-gray-200 p-3 rounded-lg text-sm text-gray-700';
+                notesDiv.innerHTML = `
+                    <p class="font-medium mb-1">Catatan Reviewer 1:</p>
+                    <p class="mb-2">Metodologi sudah baik, namun perlu penambahan analisis statistik lebih detail pada bagian hasil.</p>
+                    <p class="font-medium mb-1 mt-3">Catatan Reviewer 2:</p>
+                    <p>Referensi perlu diperbarui (minimal 5 tahun terakhir). Rekomendasi: Minor Revision.</p>
+                `;
+            }
+            // ubah badge review
+            const badge = document.querySelector('.card:has(h3:contains("Review Full Paper")) .badge');
+            if(badge) {
+                badge.className = 'badge badge-success-custom ml-2 text-xs';
+                badge.textContent = 'Selesai Review';
+            }
+            // revisi jadi available
+            const revCard = document.querySelector('.card:has(h3:contains("Revisi")) .bg-gray-50');
+            if(revCard) {
+                revCard.className = 'bg-salem-light/40 border border-salem/30 rounded-xl p-4';
+                revCard.innerHTML = `
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-2"><span class="material-icons text-salem">edit_note</span><span class="font-medium">Upload Revisi</span></div>
+                        <button class="btn btn-salem btn-sm"><span class="material-icons mr-1">upload</span> Pilih File</button>
+                    </div>
+                    <p class="text-xs text-gray-500 mt-2">Upload file revisi (PDF/DOCX). Deadline: 30 Oktober 2026.</p>
+                `;
+            }
+            const revBadge = document.querySelector('.card:has(h3:contains("Revisi")) .badge');
+            if(revBadge) {
+                revBadge.className = 'badge badge-warning-custom ml-2 text-xs';
+                revBadge.textContent = 'Perlu Revisi';
+            }
+            updateStepProgress('revision');
+        });
+        
+        document.getElementById('simulateRevisionNeededBtn').addEventListener('click', function(){
+            // sama dengan review done + perlihatkan revisi
+            document.getElementById('simulateReviewDoneBtn').click();
+        });
+        
+        document.getElementById('simulateAcceptedBtn').addEventListener('click', function(){
+            // final accepted
+            resetToInitial();
+            // set review selesai, revisi accepted, final accepted
+            const revCard = document.querySelector('.card:has(h3:contains("Revisi")) .bg-gray-50');
+            if(revCard) {
+                revCard.className = 'bg-green-50 border border-green-200 rounded-xl p-4 text-center';
+                revCard.innerHTML = `<span class="material-icons text-green-600 text-3xl mb-1">check_circle</span><p class="text-green-700">Revisi telah disetujui.</p>`;
+            }
+            const revBadge = document.querySelector('.card:has(h3:contains("Revisi")) .badge');
+            if(revBadge) revBadge.textContent = 'Selesai';
+            
+            const finalCard = document.querySelector('.card:has(h3:contains("Final Accepted")) .bg-gray-50');
+            if(finalCard) {
+                finalCard.className = 'bg-green-50 border border-green-200 rounded-xl p-4 text-center';
+                finalCard.innerHTML = `
+                    <span class="material-icons text-green-600 text-4xl mb-2">verified</span>
+                    <p class="font-medium text-green-800">Paper Diterima (Final Accepted)</p>
+                    <p class="text-sm text-green-700 mt-1">Paper Anda akan diterbitkan dalam prosiding PsyConf 2026.</p>
+                `;
+            }
+            const finalBadge = document.querySelector('.card:has(h3:contains("Final Accepted")) .badge');
+            if(finalBadge) {
+                finalBadge.className = 'badge badge-success-custom ml-2 text-xs';
+                finalBadge.textContent = 'Accepted';
+            }
+            updateStepProgress('accepted');
+        });
+        
+        document.getElementById('simulateRejectedBtn').addEventListener('click', function(){
+            resetToInitial();
+            const reviewDiv = document.querySelector('.card:has(h3:contains("Review Full Paper")) .bg-yellow-50');
+            if(reviewDiv) {
+                reviewDiv.className = 'bg-red-50 border border-red-200 rounded-xl p-4 flex items-start gap-3';
+                reviewDiv.innerHTML = `
+                    <span class="material-icons text-red-600">cancel</span>
+                    <div>
+                        <p class="font-medium text-gray-800">Paper Ditolak</p>
+                        <p class="text-sm text-gray-600 mt-1">Maaf, paper Anda tidak memenuhi kriteria publikasi. Terima kasih atas partisipasinya.</p>
+                    </div>
+                `;
+            }
+            const badge = document.querySelector('.card:has(h3:contains("Review Full Paper")) .badge');
+            if(badge) {
+                badge.className = 'badge badge-error-custom ml-2 text-xs';
+                badge.textContent = 'Ditolak';
+            }
+        });
+        
+        document.getElementById('resetSimulationBtn').addEventListener('click', resetToInitial);
+        
+        // Initialize
+        resetToInitial();
+    })();
+</script>
+<!-- perlu polyfill kecil untuk :contains, gunakan pendekatan manual -->
+<script>
+    // Sederhanakan selektor :contains via manual check
+    (function patchHas(){
+        // tidak ada native :contains, kita override query untuk demo
+        const originalQuery = document.querySelectorAll;
+        // untuk demo, kita akan assign manual
+    })();
+    // manual set untuk simulasi
+    window.addEventListener('load', function(){
+        // reassign card references
+    });
+</script>
+</body>
+</html>

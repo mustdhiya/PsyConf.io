@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>PsyConf 2026 | Konferensi Psikologi</title>
+    <!-- Tailwind + DaisyUI -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.14/dist/full.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Material Icons & Font -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital@0;1&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .font-serif-display { font-family: 'Playfair Display', serif; }
+        /* custom smooth scroll & gradient */
+        .hero-gradient { background: linear-gradient(135deg, #f5f0ff 0%, #fef7f5 100%); }
+        .text-salem { color: #9B7B9C; } /* ungu salem medium */
+        .bg-salem-light { background-color: #F3ECF4; }
+        .bg-salem { background-color: #9B7B9C; }
+        .border-salem { border-color: #9B7B9C; }
+        .btn-salem { background-color: #9B7B9C; border-color: #9B7B9C; color: white; }
+        .btn-salem:hover { background-color: #7E5F7F; border-color: #7E5F7F; }
+        .btn-outline-salem { border-color: #9B7B9C; color: #9B7B9C; background: transparent; }
+        .btn-outline-salem:hover { background-color: #9B7B9C; color: white; }
+        .badge-salem { background-color: #EDE1EE; color: #5E3F5F; border: none; }
+        .timeline-dot { background-color: #9B7B9C; }
+        .card-hover { transition: all 0.2s ease; }
+        .card-hover:hover { transform: translateY(-4px); box-shadow: 0 20px 25px -5px rgba(155, 123, 156, 0.1), 0 10px 10px -5px rgba(155, 123, 156, 0.04); }
+        /* material icons align */
+        .material-icons { vertical-align: middle; font-size: 1.4rem; }
+        .material-icons.md-18 { font-size: 18px; }
+        .material-icons.md-24 { font-size: 24px; }
+        .material-icons.md-36 { font-size: 36px; }
+    </style>
+</head>
+<body class="bg-white text-gray-700 antialiased">
+
+<!-- ==================== NAVBAR ==================== -->
+<div class="navbar bg-white/80 backdrop-blur-md shadow-sm sticky top-0 z-50 px-4 lg:px-8">
+    <div class="navbar-start">
+        <div class="dropdown">
+            <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
+                <span class="material-icons">menu</span>
+            </div>
+            <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+                <li><a href="#home"><span class="material-icons mr-2">home</span>Beranda</a></li>
+                <li><a href="#timeline"><span class="material-icons mr-2">schedule</span>Tanggal Penting</a></li>
+                <li><a href="#speakers"><span class="material-icons mr-2">groups</span>Pembicara</a></li>
+                <li><a href="#schedule"><span class="material-icons mr-2">event_note</span>Rundown</a></li>
+                <li><a href="#callforpapers"><span class="material-icons mr-2">description</span>Call for Papers</a></li>
+                <li><a href="#faq"><span class="material-icons mr-2">help_outline</span>FAQ</a></li>
+                <li><a href="#contact"><span class="material-icons mr-2">mail</span>Kontak</a></li>
+            </ul>
+        </div>
+        <a class="text-xl font-bold text-salem flex items-center gap-2">
+            <span class="material-icons text-salem">psychology_alt</span>
+            <span>PsyConf<span class="font-light text-gray-500 ml-1">2026</span></span>
+        </a>
+    </div>
+    <div class="navbar-center hidden lg:flex">
+        <ul class="menu menu-horizontal px-1 text-sm font-medium">
+            <li><a href="#home" class="hover:text-salem">Beranda</a></li>
+            <li><a href="#timeline" class="hover:text-salem">Timeline</a></li>
+            <li><a href="#speakers" class="hover:text-salem">Pembicara</a></li>
+            <li><a href="#schedule" class="hover:text-salem">Rundown</a></li>
+            <li><a href="#callforpapers" class="hover:text-salem">Call for Papers</a></li>
+            <li><a href="#faq" class="hover:text-salem">FAQ</a></li>
+            <li><a href="#contact" class="hover:text-salem">Kontak</a></li>
+        </ul>
+    </div>
+    <div class="navbar-end">
+        <a href="autent.html" class="btn btn-salem btn-sm rounded-full px-5 shadow-md">
+            <span class="material-icons mr-1">how_to_reg</span> Registrasi
+        </a>
+    </div>
+</div>
+
+<!-- ==================== HERO SECTION ==================== -->
+<section id="home" class="hero-gradient pt-12 pb-20 px-4 md:px-8">
+    <div class="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-10">
+        <div class="flex-1 text-center lg:text-left">
+            <div class="badge badge-salem mb-4 px-4 py-3 text-sm font-medium">
+                <span class="material-icons mr-1 text-sm">calendar_today</span> 12-14 November 2026 • Yogyakarta
+            </div>
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-gray-800">
+                <span class="text-salem">Transformasi</span> Psikologi <br/>
+                <span class="font-serif-display italic font-medium">di Era Digital</span>
+            </h1>
+            <p class="py-6 text-lg text-gray-600 max-w-2xl lg:mx-0 mx-auto">
+                Konferensi Internasional Psikologi ke-5. Menjembatani riset terkini, praktik klinis, dan teknologi untuk kesehatan mental yang inklusif.
+            </p>
+            <div class="flex flex-wrap gap-4 justify-center lg:justify-start">
+                <button class="btn btn-salem btn-lg rounded-full px-8 shadow-lg">
+                    <span class="material-icons mr-2">assignment</span> Daftar Sekarang
+                </button>
+                <button class="btn btn-outline-salem btn-lg rounded-full px-8">
+                    <span class="material-icons mr-2">description</span> Panduan
+                </button>
+            </div>
+            <div class="mt-8 flex items-center gap-6 justify-center lg:justify-start text-sm">
+                <div class="flex items-center gap-2"><span class="material-icons text-salem">location_on</span> Auditorium Utama, Kampus Psikologi</div>
+                <div class="flex items-center gap-2"><span class="material-icons text-salem">language</span> Hybrid (Online + Offline)</div>
+            </div>
+        </div>
+        <div class="flex-1 flex justify-center">
+            <div class="relative w-72 h-72 md:w-96 md:h-96 bg-salem-light rounded-full flex items-center justify-center shadow-2xl">
+                <div class="absolute inset-0 bg-[url('https://placecats.com/300/300')] bg-cover bg-center rounded-full opacity-40 mix-blend-multiply"></div>
+                <div class="bg-white/70 backdrop-blur-sm p-8 rounded-full shadow-xl border-4 border-white">
+                    <span class="material-icons text-7xl text-salem">psychology</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== TIMELINE / IMPORTANT DATES ==================== -->
+<section id="timeline" class="py-16 px-4 md:px-8 bg-white">
+    <div class="max-w-6xl mx-auto">
+        <div class="text-center mb-12">
+            <span class="material-icons text-salem text-4xl mb-2">schedule</span>
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-800">Tanggal Penting</h2>
+            <div class="w-20 h-1 bg-salem mx-auto mt-4 rounded-full"></div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <!-- timeline items with daisyUI card -->
+            <div class="card bg-salem-light/40 shadow-sm border border-gray-100 card-hover">
+                <div class="card-body items-center text-center p-5">
+                    <span class="material-icons text-salem text-3xl mb-1">edit_note</span>
+                    <h3 class="card-title text-lg text-gray-800">Batas Akhir Abstrak</h3>
+                    <p class="text-2xl font-bold text-salem">30 Jun 2026</p>
+                    <p class="text-sm text-gray-500 mt-1">23:59 WIB</p>
+                    <div class="badge badge-outline mt-2">Extended</div>
+                </div>
+            </div>
+            <div class="card bg-salem-light/40 shadow-sm border border-gray-100 card-hover">
+                <div class="card-body items-center text-center p-5">
+                    <span class="material-icons text-salem text-3xl mb-1">notifications_active</span>
+                    <h3 class="card-title text-lg text-gray-800">Pengumuman Abstrak</h3>
+                    <p class="text-2xl font-bold text-salem">15 Jul 2026</p>
+                    <p class="text-sm text-gray-500 mt-1">Via Email</p>
+                    <div class="badge badge-outline mt-2">Rolling</div>
+                </div>
+            </div>
+            <div class="card bg-salem-light/40 shadow-sm border border-gray-100 card-hover">
+                <div class="card-body items-center text-center p-5">
+                    <span class="material-icons text-salem text-3xl mb-1">assignment_turned_in</span>
+                    <h3 class="card-title text-lg text-gray-800">Full Paper Deadline</h3>
+                    <p class="text-2xl font-bold text-salem">30 Sep 2026</p>
+                    <p class="text-sm text-gray-500 mt-1">Wajib revisi</p>
+                </div>
+            </div>
+            <div class="card bg-salem-light/40 shadow-sm border border-gray-100 card-hover">
+                <div class="card-body items-center text-center p-5">
+                    <span class="material-icons text-salem text-3xl mb-1">event_available</span>
+                    <h3 class="card-title text-lg text-gray-800">Pelaksanaan</h3>
+                    <p class="text-2xl font-bold text-salem">12-14 Nov 2026</p>
+                    <p class="text-sm text-gray-500 mt-1">Hybrid</p>
+                    <div class="badge badge-salem mt-2">Save the date</div>
+                </div>
+            </div>
+        </div>
+        <div class="text-center mt-8">
+            <a href="#" class="btn btn-ghost text-salem">
+                <span class="material-icons mr-2">calendar_month</span> Tambahkan ke Google Calendar
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== KEYNOTE SPEAKERS ==================== -->
+<section id="speakers" class="py-16 px-4 md:px-8 bg-salem-light/30">
+    <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-12">
+            <span class="material-icons text-salem text-4xl mb-2">diversity_3</span>
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-800">Keynote Speakers</h2>
+            <p class="text-gray-600 mt-2">Pakar dan praktisi terkemuka di bidang psikologi</p>
+            <div class="w-20 h-1 bg-salem mx-auto mt-4 rounded-full"></div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- speaker 1 -->
+            <div class="card bg-white shadow-lg border border-gray-100 card-hover">
+                <figure class="px-6 pt-8">
+                    <div class="avatar">
+                        <div class="w-32 rounded-full ring ring-salem ring-offset-base-100 ring-offset-2">
+                            <img src="https://placecats.com/300/300" alt="Prof. Dr. Ratna" />
+                        </div>
+                    </div>
+                </figure>
+                <div class="card-body items-center text-center">
+                    <h3 class="card-title text-xl text-gray-800">Prof. Dr. Ratna Wulandari</h3>
+                    <p class="text-salem font-medium text-sm">Universitas Gadjah Mada</p>
+                    <p class="text-gray-600 mt-1 text-sm">Pakar Psikologi Klinis, fokus pada intervensi berbasis mindfulness dan trauma healing.</p>
+                    <div class="card-actions mt-2">
+                        <div class="badge badge-salem">Keynote 1</div>
+                    </div>
+                </div>
+            </div>
+            <!-- speaker 2 -->
+            <div class="card bg-white shadow-lg border border-gray-100 card-hover">
+                <figure class="px-6 pt-8">
+                    <div class="avatar">
+                        <div class="w-32 rounded-full ring ring-salem ring-offset-base-100 ring-offset-2">
+                            <img src="https://placecats.com/301/301" alt="Dr. Budi Santoso" />
+                        </div>
+                    </div>
+                </figure>
+                <div class="card-body items-center text-center">
+                    <h3 class="card-title text-xl text-gray-800">Dr. Budi Santoso, M.Si</h3>
+                    <p class="text-salem font-medium text-sm">Universitas Indonesia</p>
+                    <p class="text-gray-600 mt-1 text-sm">Psikologi Industri & Organisasi, digital wellbeing dan manajemen stres kerja.</p>
+                    <div class="card-actions mt-2">
+                        <div class="badge badge-salem">Plenary</div>
+                    </div>
+                </div>
+            </div>
+            <!-- speaker 3 -->
+            <div class="card bg-white shadow-lg border border-gray-100 card-hover">
+                <figure class="px-6 pt-8">
+                    <div class="avatar">
+                        <div class="w-32 rounded-full ring ring-salem ring-offset-base-100 ring-offset-2">
+                            <img src="https://placecats.com/302/302" alt="Dr. Siti Aisyah" />
+                        </div>
+                    </div>
+                </figure>
+                <div class="card-body items-center text-center">
+                    <h3 class="card-title text-xl text-gray-800">Dr. Siti Aisyah, Psikolog</h3>
+                    <p class="text-salem font-medium text-sm">Praktisi & Konsultan</p>
+                    <p class="text-gray-600 mt-1 text-sm">Spesialis neuropsikologi, pengaruh digital screen time terhadap perkembangan anak.</p>
+                    <div class="card-actions mt-2">
+                        <div class="badge badge-salem">Invited</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== RUNDOWN / SCHEDULE ==================== -->
+<section id="schedule" class="py-16 px-4 md:px-8 bg-white">
+    <div class="max-w-6xl mx-auto">
+        <div class="text-center mb-12">
+            <span class="material-icons text-salem text-4xl mb-2">event_note</span>
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-800">Rundown Acara</h2>
+            <p class="text-gray-600 mt-2">Sesi paralel & pleno (WIB)</p>
+            <div class="w-20 h-1 bg-salem mx-auto mt-4 rounded-full"></div>
+        </div>
+
+        <div class="overflow-x-auto">
+            <table class="table table-zebra w-full rounded-box shadow-sm">
+                <thead>
+                    <tr class="bg-salem-light text-gray-700 text-sm">
+                        <th class="text-center">Waktu</th>
+                        <th>Sesi</th>
+                        <th>Ruangan</th>
+                        <th>Pembicara/Moderator</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td class="font-medium">08:00 - 09:00</td><td>Registrasi & Coffee Morning</td><td>Lobby Utama</td><td>Panitia</td></tr>
+                    <tr><td class="font-medium">09:00 - 10:30</td><td>Pembukaan & Keynote Speech 1</td><td>Main Hall</td><td>Prof. Dr. Ratna W.</td></tr>
+                    <tr><td class="font-medium">10:30 - 12:00</td><td>Sesi Paralel 1 (A & B)</td><td>R. 201, R. 202</td><td>Pemakalah</td></tr>
+                    <tr><td class="font-medium">13:00 - 14:30</td><td>Plenary 2: Psikologi Digital</td><td>Main Hall</td><td>Dr. Budi Santoso</td></tr>
+                    <tr><td class="font-medium">14:45 - 16:15</td><td>Sesi Paralel 2 (C & D)</td><td>R. 201, R. 202</td><td>Pemakalah</td></tr>
+                    <tr><td class="font-medium">16:30 - 17:30</td><td>Diskusi Panel & Penutupan Hari 1</td><td>Main Hall</td><td>Moderator</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <p class="text-sm text-gray-500 mt-4 text-center">*Jadwal dapat berubah, pantau website untuk update.</p>
+        <div class="text-center mt-6">
+            <button class="btn btn-outline-salem">
+                <span class="material-icons mr-2">download</span> Unduh Rundown Lengkap (PDF)
+            </button>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== CALL FOR PAPERS ==================== -->
+<section id="callforpapers" class="py-16 px-4 md:px-8 bg-salem-light/40">
+    <div class="max-w-6xl mx-auto">
+        <div class="flex flex-col lg:flex-row gap-12 items-start">
+            <div class="flex-1">
+                <span class="material-icons text-salem text-4xl mb-2">campaign</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800">Call for Papers</h2>
+                <div class="w-20 h-1 bg-salem mt-4 mb-6 rounded-full"></div>
+                <p class="text-gray-700 mb-6 leading-relaxed">
+                    Kami mengundang peneliti, akademisi, dan praktisi untuk mengirimkan abstrak (250-300 kata) dalam bahasa Indonesia atau Inggris. 
+                    Topik yang diterima meliputi namun tidak terbatas pada:
+                </p>
+                <ul class="space-y-3 mb-8">
+                    <li class="flex items-start gap-3"><span class="material-icons text-salem mt-1">check_circle</span> Psikologi Klinis & Kesehatan Mental</li>
+                    <li class="flex items-start gap-3"><span class="material-icons text-salem mt-1">check_circle</span> Psikologi Pendidikan & Perkembangan</li>
+                    <li class="flex items-start gap-3"><span class="material-icons text-salem mt-1">check_circle</span> Psikologi Industri & Organisasi (Digital Wellbeing)</li>
+                    <li class="flex items-start gap-3"><span class="material-icons text-salem mt-1">check_circle</span> Neuropsikologi & Sains Kognitif</li>
+                    <li class="flex items-start gap-3"><span class="material-icons text-salem mt-1">check_circle</span> Psikometri & Assesmen</li>
+                </ul>
+            </div>
+            <div class="flex-1 bg-white p-8 rounded-2xl shadow-lg border border-gray-100">
+                <h3 class="text-2xl font-bold text-gray-800 flex items-center gap-2 mb-4">
+                    <span class="material-icons text-salem">description</span> Panduan Penulisan
+                </h3>
+                <ul class="list-disc list-inside space-y-3 text-gray-700">
+                    <li>Template full paper dapat diunduh <a href="#" class="text-salem underline">di sini (DOCX)</a>.</li>
+                    <li>Abstrak maksimal 300 kata, 3-5 keywords.</li>
+                    <li>Full paper 6-10 halaman, spasi 1.5, font Times New Roman 12.</li>
+                    <li>Referensi menggunakan APA Style 7th.</li>
+                    <li>Kirim melalui sistem submission (akan diarahkan setelah registrasi).</li>
+                </ul>
+                <div class="mt-8 flex gap-4">
+                    <button class="btn btn-salem flex-1"><span class="material-icons mr-1">upload</span>Submit Abstrak</button>
+                    <button class="btn btn-outline-salem flex-1"><span class="material-icons mr-1">download</span>Template</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== FAQ ==================== -->
+<section id="faq" class="py-16 px-4 md:px-8 bg-white">
+    <div class="max-w-4xl mx-auto">
+        <div class="text-center mb-12">
+            <span class="material-icons text-salem text-4xl mb-2">help_outline</span>
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-800">Pertanyaan Umum (FAQ)</h2>
+            <div class="w-20 h-1 bg-salem mx-auto mt-4 rounded-full"></div>
+        </div>
+
+        <div class="join join-vertical w-full">
+            <div class="collapse collapse-arrow join-item border border-gray-200 bg-white rounded-lg mb-2">
+                <input type="radio" name="faq-accordion" checked="checked" /> 
+                <div class="collapse-title text-lg font-medium text-gray-800">
+                    Bagaimana cara mendaftar sebagai presenter?
+                </div>
+                <div class="collapse-content text-gray-600"> 
+                    <p>Klik tombol Registrasi, pilih kategori "Presenter", lengkapi data, lalu submit abstrak setelah akun aktif.</p>
+                </div>
+            </div>
+            <div class="collapse collapse-arrow join-item border border-gray-200 bg-white rounded-lg mb-2">
+                <input type="radio" name="faq-accordion" /> 
+                <div class="collapse-title text-lg font-medium text-gray-800">
+                    Apakah konferensi ini hybrid?
+                </div>
+                <div class="collapse-content text-gray-600"> 
+                    <p>Ya, peserta dapat hadir langsung di Yogyakarta atau mengikuti secara daring via Zoom. Link akan dikirim H-1.</p>
+                </div>
+            </div>
+            <div class="collapse collapse-arrow join-item border border-gray-200 bg-white rounded-lg mb-2">
+                <input type="radio" name="faq-accordion" /> 
+                <div class="collapse-title text-lg font-medium text-gray-800">
+                    Apakah ada biaya pendaftaran?
+                </div>
+                <div class="collapse-content text-gray-600"> 
+                    <p>Presenter: Early Bird Rp 350.000, Normal Rp 500.000. Peserta (non-pemakalah): Rp 150.000. Mahasiswa prodi psikologi internal gratis.</p>
+                </div>
+            </div>
+            <div class="collapse collapse-arrow join-item border border-gray-200 bg-white rounded-lg mb-2">
+                <input type="radio" name="faq-accordion" /> 
+                <div class="collapse-title text-lg font-medium text-gray-800">
+                    Bagaimana proses review paper?
+                </div>
+                <div class="collapse-content text-gray-600"> 
+                    <p>Setiap paper akan melalui proses blind review oleh minimal dua reviewer ahli. Hasil review diumumkan via email.</p>
+                </div>
+            </div>
+            <div class="collapse collapse-arrow join-item border border-gray-200 bg-white rounded-lg">
+                <input type="radio" name="faq-accordion" /> 
+                <div class="collapse-title text-lg font-medium text-gray-800">
+                    Apakah sertifikat disediakan?
+                </div>
+                <div class="collapse-content text-gray-600"> 
+                    <p>Ya, e-sertifikat akan diberikan kepada semua peserta dan presenter yang hadir. Sertifikat pemakalah terpisah.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== CONTACT & SPONSORSHIP ==================== -->
+<section id="contact" class="py-16 px-4 md:px-8 bg-salem-light/30">
+    <div class="max-w-7xl mx-auto">
+        <div class="grid md:grid-cols-2 gap-12">
+            <!-- Contact -->
+            <div>
+                <span class="material-icons text-salem text-4xl mb-2">connect_without_contact</span>
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">Hubungi Kami</h2>
+                <div class="space-y-4">
+                    <div class="flex items-center gap-3"><span class="material-icons text-salem">mail</span> psyconf2026@psikologi.ac.id</div>
+                    <div class="flex items-center gap-3"><span class="material-icons text-salem">call</span> +62 812-3456-7890 (Sekretariat)</div>
+                    <div class="flex items-center gap-3"><span class="material-icons text-salem">location_on</span> Gedung Fakultas Psikologi, Lt.2, Kampus UMBY</div>
+                    <div class="flex gap-4 mt-6">
+                        <a class="btn btn-circle btn-outline border-salem text-salem"><span class="material-icons">smart_display</span></a>
+                        <a class="btn btn-circle btn-outline border-salem text-salem"><span class="material-icons">photo_camera</span></a>
+                    </div>
+                </div>
+            </div>
+            <!-- Sponsorship -->
+            <div>
+                <span class="material-icons text-salem text-4xl mb-2">handshake</span>
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">Sponsorship</h2>
+                <p class="text-gray-700 mb-4">Dukung konferensi ini dan jangkau audiens profesional di bidang psikologi.</p>
+                <div class="bg-white/60 p-6 rounded-xl shadow-sm border border-gray-100">
+                    <div class="flex flex-wrap gap-4 items-center">
+                        <span class="text-gray-500 text-sm">Didukung oleh:</span>
+                        <div class="flex gap-4 items-center opacity-70">
+                            <span class="text-xl font-semibold text-salem">🧠 MindCare</span>
+                            <span class="text-xl font-semibold text-salem">📚 PustakaJiwa</span>
+                            <span class="text-xl font-semibold text-salem">🏥 Klinik Sehati</span>
+                        </div>
+                    </div>
+                    <button class="btn btn-outline-salem mt-6 w-full">
+                        <span class="material-icons mr-2">partner_exchange</span> Jadi Sponsor
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== FOOTER ==================== -->
+<footer class="footer footer-center p-10 bg-white text-gray-600 border-t border-gray-200">
+    <aside>
+        <span class="material-icons text-salem text-4xl">psychology_alt</span>
+        <p class="font-bold text-salem text-lg">PsyConf 2026</p> 
+        <p>© 2026 Program Studi Psikologi - Universitas Mercu Buana Yogyakarta</p>
+        <p class="text-xs mt-2">Dikembangkan dengan DaisyUI & Material Icons.</p>
+    </aside>
+</footer>
+
+<!-- simple interactive simulation: smooth scroll + material icons active -->
+<script src="nav-menu.js"></script>
+<script>
+    (function(){
+        // smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if(href === "#" || href === "") return;
+                const target = document.querySelector(href);
+                if(target) {
+                    e.preventDefault();
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+        // simulate active registration toasts (just for demo)
+        const btns = document.querySelectorAll('.btn-salem, .btn-outline-salem');
+        btns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                if(btn.textContent.includes('Registrasi') || btn.textContent.includes('Daftar') || btn.textContent.includes('Submit')){
+                    e.preventDefault();
+                    alert('🎯 Simulasi: Ini akan mengarah ke halaman pendaftaran / submission. (Demo interaktif)');
+                } else if(btn.textContent.includes('Unduh') || btn.textContent.includes('Template')){
+                    e.preventDefault();
+                    alert('📄 Simulasi: File akan diunduh (PDF/DOCX).');
+                } else if(btn.textContent.includes('Sponsor')){
+                    e.preventDefault();
+                    alert('🤝 Terima kasih! Tim sponsorship akan menghubungi Anda.');
+                }
+            });
+        });
+    })();
+</script>
+<!-- DaisyUI requires no additional JS for components, but tailwind is loaded -->
+</body>
+</html>
