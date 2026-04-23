@@ -6,7 +6,7 @@
 ![DaisyUI](https://img.shields.io/badge/DaisyUI-4.x-5A0EF8?style=flat-square)
 ![License](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)
 
-Sistem Manajemen Konferensi Ilmiah untuk Program Studi Psikologi Universitas Mercu Buana Yogyakarta. Platform ini dirancang untuk mengelola seluruh alur konferensi akademik mulai dari pendaftaran, submisi paper, proses review, hingga penerbitan sertifikat.
+Sistem Manajemen Konferensi Ilmiah untuk Program Studi Psikologi Universitas Muhammadiyah Kalimantan Timur. Platform ini dirancang untuk mengelola seluruh alur konferensi akademik mulai dari pendaftaran, submisi paper, proses review, hingga penerbitan sertifikat.
 
 ---
 
