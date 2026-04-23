@@ -3,233 +3,417 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-    <title>PsyConf 2026 | Fitur Interaktif (Simulasi)</title>
+    <title>PsyConf 2026 | Fitur Tambahan</title>
     <!-- Tailwind + DaisyUI -->
     <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.14/dist/full.css" rel="stylesheet" type="text/css" />
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Material Icons & Font -->
+    <!-- Google Material Icons -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- QR Code Library (Simulasi) -->
-    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- QR Code Library -->
+    <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+    <link rel="shortcut icon" href="logo.png" type="image/x-icon"/>
     <style>
-        body { font-family: 'Inter', sans-serif; }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background: linear-gradient(145deg, #FAF6FB 0%, #F5F0F7 100%);
+            min-height: 100vh;
+        }
+        .font-serif { font-family: 'Playfair Display', serif; }
         .text-salem { color: #9B7B9C; }
-        .bg-salem-light { background-color: #F3ECF4; }
+        .bg-salem-light { background-color: #F8F3F9; }
         .bg-salem { background-color: #9B7B9C; }
         .border-salem { border-color: #9B7B9C; }
-        .btn-salem { background-color: #9B7B9C; border-color: #9B7B9C; color: white; }
-        .btn-salem:hover { background-color: #7E5F7F; border-color: #7E5F7F; }
-        .btn-outline-salem { border-color: #9B7B9C; color: #9B7B9C; background: transparent; }
-        .btn-outline-salem:hover { background-color: #9B7B9C; color: white; }
-        .badge-salem { background-color: #EDE1EE; color: #5E3F5F; border: none; }
-        .material-icons { vertical-align: middle; }
-        .card-hover { transition: all 0.2s ease; }
-        .card-hover:hover { transform: translateY(-4px); box-shadow: 0 20px 25px -5px rgba(155, 123, 156, 0.1); }
-        /* Live schedule indicator */
-        .live-pulse { animation: pulse 2s infinite; }
-        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
-        .qr-container { background: white; padding: 1rem; border-radius: 1rem; display: inline-block; }
+        .btn-salem { 
+            background: linear-gradient(135deg, #9B7B9C 0%, #8A6B8B 100%);
+            border: none; 
+            color: white; 
+            box-shadow: 0 4px 12px rgba(155, 123, 156, 0.25);
+            transition: all 0.3s ease;
+        }
+        .btn-salem:hover { 
+            background: linear-gradient(135deg, #8A6B8B 0%, #7B5C7C 100%);
+            box-shadow: 0 6px 16px rgba(155, 123, 156, 0.35);
+            transform: translateY(-1px);
+        }
+        .btn-outline-salem { 
+            border: 1.5px solid #9B7B9C; 
+            color: #9B7B9C; 
+            background: transparent;
+            transition: all 0.3s ease;
+        }
+        .btn-outline-salem:hover { 
+            background-color: #9B7B9C; 
+            color: white;
+            border-color: #9B7B9C;
+        }
+        .badge-salem { 
+            background-color: #EDE1EE; 
+            color: #5E3F5F; 
+            border: none; 
+        }
+        .tab-button {
+            position: relative;
+            padding: 1rem 1.5rem;
+            font-weight: 500;
+            color: #6B7280;
+            border-bottom: 3px solid transparent;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            background: none;
+            border-top: none;
+            border-left: none;
+            border-right: none;
+        }
+        .tab-button:hover {
+            color: #9B7B9C;
+            background-color: #F8F3F9;
+        }
+        .tab-button.active {
+            color: #9B7B9C;
+            border-bottom-color: #9B7B9C;
+            font-weight: 600;
+        }
+        .tab-content-panel {
+            display: none;
+        }
+        .tab-content-panel.active {
+            display: block;
+        }
+        .card-hover { 
+            transition: all 0.2s ease; 
+        }
+        .card-hover:hover { 
+            transform: translateY(-2px); 
+            box-shadow: 0 10px 20px -5px rgba(155, 123, 156, 0.15); 
+        }
+        .material-icons { 
+            vertical-align: middle; 
+        }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-700">
+<body class="text-gray-700 antialiased min-h-screen">
 
-<!-- ==================== NAVBAR SIMPLE ==================== -->
-<div class="navbar bg-white/90 backdrop-blur-sm shadow-sm sticky top-0 z-40 px-4 lg:px-8">
-    <div class="flex-1">
-        <a class="text-xl font-bold text-salem flex items-center gap-2">
+<!-- ==================== NAVBAR ==================== -->
+<div class="navbar bg-white/90 backdrop-blur-md shadow-sm px-4 lg:px-8 border-b border-gray-200 sticky top-0 z-40">
+    <div class="navbar-start">
+        <a href="index.html" class="text-xl font-bold text-salem flex items-center gap-2">
             <span class="material-icons">psychology_alt</span>
-            <span>PsyConf<span class="font-light text-gray-500 ml-1">2026</span></span>
+            <span class="font-serif">PsyConf<span class="font-light text-gray-500 ml-1">2026</span></span>
         </a>
     </div>
-    <div class="flex-none">
-        <span class="badge badge-salem gap-1 px-3 py-2">
-            <span class="material-icons text-sm">verified</span> Modul Simulasi
+    <div class="navbar-center hidden lg:flex">
+        <span class="badge badge-salem px-4 py-3 text-sm font-medium">
+            <span class="material-icons mr-1 text-sm">science</span> 
+            Simulasi Fitur Tambahan
         </span>
+    </div>
+    <div class="navbar-end">
+        <a href="index.html" class="btn btn-ghost btn-sm">
+            <span class="material-icons mr-1">arrow_back</span> 
+            Beranda
+        </a>
     </div>
 </div>
 
 <!-- ==================== HEADER ==================== -->
-<div class="max-w-7xl mx-auto px-4 md:px-8 pt-12 pb-6">
-    <div class="text-center md:text-left">
-        <h1 class="text-3xl md:text-4xl font-bold text-gray-800 flex items-center gap-3 justify-center md:justify-start">
+<div class="bg-gradient-to-r from-salem-light to-white py-10 px-4 border-b border-gray-200">
+    <div class="max-w-7xl mx-auto">
+        <h1 class="text-3xl md:text-4xl font-bold text-gray-800 font-serif flex items-center gap-3">
             <span class="material-icons text-salem text-4xl">auto_awesome</span>
-            Fitur Tambahan Interaktif
+            Fitur Tambahan Konferensi
         </h1>
-        <p class="text-gray-600 mt-2 max-w-3xl">Simulasi fungsional untuk E-Certificate, QR Check-in, Proceedings, dan Live Schedule. Klik tombol untuk mencoba.</p>
+        <p class="text-gray-600 mt-3 max-w-3xl text-base leading-relaxed">
+            Halaman simulasi interaktif untuk E-Certificate Generator, QR Code Check-in, 
+            Proceedings, dan Live Schedule. Semua data bersifat dummy untuk keperluan demonstrasi.
+        </p>
     </div>
 </div>
 
-<!-- ==================== GRID 4 FITUR ==================== -->
-<div class="max-w-7xl mx-auto px-4 md:px-8 pb-16">
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        
-        <!-- 1. E-CERTIFICATE GENERATOR -->
-        <div class="card bg-white shadow-md border border-gray-200 card-hover">
-            <div class="card-body p-6">
-                <div class="flex items-start gap-3 mb-4">
-                    <span class="material-icons text-salem text-3xl">verified</span>
-                    <div>
-                        <h2 class="card-title text-2xl text-gray-800">E-Certificate Generator</h2>
-                        <p class="text-sm text-gray-500">Simulasi pembuatan sertifikat otomatis pasca acara.</p>
-                    </div>
-                </div>
-                
-                <div class="bg-salem-light/50 p-5 rounded-xl">
-                    <!-- Preview sederhana sertifikat -->
-                    <div id="certificatePreview" class="bg-white p-6 rounded-lg border-2 border-dashed border-salem text-center transition-all">
-                        <div class="flex justify-center mb-3">
-                            <span class="material-icons text-salem text-5xl">workspace_premium</span>
+<!-- ==================== TAB NAVIGATION ==================== -->
+<div class="max-w-7xl mx-auto px-4 pt-8">
+    <div class="flex flex-wrap gap-1 border-b border-gray-200">
+        <button class="tab-button active" data-tab="certificate">
+            <span class="material-icons mr-2">verified</span>
+            E-Certificate
+        </button>
+        <button class="tab-button" data-tab="qrcode">
+            <span class="material-icons mr-2">qr_code_scanner</span>
+            QR Check-in
+        </button>
+        <button class="tab-button" data-tab="proceedings">
+            <span class="material-icons mr-2">description</span>
+            Proceedings
+        </button>
+        <button class="tab-button" data-tab="liveschedule">
+            <span class="material-icons mr-2">sensors</span>
+            Live Schedule
+        </button>
+    </div>
+</div>
+
+<!-- ==================== TAB CONTENTS ==================== -->
+<div class="max-w-7xl mx-auto px-4 py-8">
+
+    <!-- TAB 1: E-CERTIFICATE GENERATOR -->
+    <div id="tab-certificate" class="tab-content-panel active">
+        <div class="grid lg:grid-cols-3 gap-8">
+            <div class="lg:col-span-1">
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
+                    <h2 class="text-xl font-semibold text-gray-800 flex items-center gap-2 mb-5">
+                        <span class="material-icons text-salem">edit_note</span>
+                        Generate Sertifikat
+                    </h2>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-600 mb-1.5">Nama Lengkap</label>
+                            <input type="text" id="certName" value="Dr. Siti Aminah, M.Psi"
+                                   class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:border-salem focus:bg-white transition-all">
                         </div>
-                        <div class="text-xs text-gray-400 uppercase tracking-wider mb-1">Sertifikat Penghargaan</div>
-                        <div class="text-xl font-bold text-gray-800" id="certNameDisplay">[ Nama Peserta ]</div>
-                        <div class="text-sm text-gray-600 mt-2">Telah berpartisipasi sebagai</div>
-                        <div class="text-md font-semibold text-salem my-1" id="certRoleDisplay">Presenter</div>
-                        <div class="text-xs text-gray-400 mt-4 border-t pt-2">PsyConf 2026 • 14 November 2026</div>
-                    </div>
-                    
-                    <div class="mt-5 space-y-3">
-                        <label class="input input-bordered flex items-center gap-2 bg-white">
-                            <span class="material-icons text-gray-400">badge</span>
-                            <input type="text" id="certNameInput" class="grow" placeholder="Nama lengkap penerima" value="Dr. Sarah Amalia, M.Psi." />
-                        </label>
-                        <div class="flex gap-3">
-                            <select id="certRoleSelect" class="select select-bordered w-full max-w-xs bg-white">
-                                <option value="Presenter">Presenter (Pemakalah)</option>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-600 mb-1.5">Jenis Sertifikat</label>
+                            <select id="certType" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:border-salem focus:bg-white transition-all cursor-pointer">
+                                <option value="Pemakalah (Presenter)">Pemakalah (Presenter)</option>
                                 <option value="Peserta">Peserta</option>
-                                <option value="Pemakalah Terbaik">Pemakalah Terbaik</option>
+                                <option value="Pemakalah Terbaik" selected>Pemakalah Terbaik</option>
                             </select>
-                            <button id="generateCertBtn" class="btn btn-salem flex-1">
-                                <span class="material-icons mr-2">autorenew</span> Generate
-                            </button>
                         </div>
-                        <button id="downloadCertSim" class="btn btn-outline-salem w-full">
-                            <span class="material-icons mr-2">download</span> Simulasi Unduh PDF
+                        <div>
+                            <label class="block text-sm font-medium text-gray-600 mb-1.5">Judul Paper (opsional)</label>
+                            <input type="text" id="certTitle" value="Pengaruh Mindfulness terhadap Stres Akademik"
+                                   class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:border-salem focus:bg-white transition-all">
+                        </div>
+                        <button id="generateCertBtn" class="btn-salem w-full py-3 rounded-xl font-medium flex items-center justify-center gap-2 mt-4">
+                            <span class="material-icons">download</span>
+                            Generate Sertifikat
                         </button>
+                        <p class="text-xs text-gray-400 flex items-center gap-1 mt-2">
+                            <span class="material-icons text-sm">info</span>
+                            Sertifikat akan ditampilkan sebagai pratinjau
+                        </p>
                     </div>
                 </div>
-                <p class="text-xs text-gray-400 mt-2 flex items-center"><span class="material-icons text-sm mr-1">info</span> Data hanya simulasi, tidak tersimpan.</p>
+            </div>
+
+            <div class="lg:col-span-2">
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200 h-full">
+                    <div class="flex items-center justify-between mb-5">
+                        <h2 class="text-xl font-semibold text-gray-800 flex items-center gap-2">
+                            <span class="material-icons text-salem">preview</span>
+                            Pratinjau E-Certificate
+                        </h2>
+                        <span class="badge badge-salem">Template Psikologi</span>
+                    </div>
+                    <div id="certificatePreview" class="border-8 border-double border-salem-light rounded-xl p-6 md:p-8 bg-gradient-to-br from-white to-salem-light/20">
+                        <div class="text-center space-y-3">
+                            <span class="material-icons text-5xl text-salem">verified</span>
+                            <h3 class="text-3xl font-serif text-salem font-semibold tracking-wide">SERTIFIKAT</h3>
+                            <p class="text-sm text-gray-500">Nomor: 042/PSYCONF/XI/2026</p>
+                            <p class="text-gray-600 mt-4">Diberikan kepada:</p>
+                            <h4 id="previewName" class="text-2xl md:text-3xl font-bold text-gray-800 mt-2">Dr. Siti Aminah, M.Psi</h4>
+                            <p class="text-gray-600 mt-2">Sebagai</p>
+                            <p id="previewType" class="text-xl font-medium text-salem mt-1">Pemakalah Terbaik</p>
+                            <p id="previewTitle" class="text-sm text-gray-600 italic mt-2">"Pengaruh Mindfulness terhadap Stres Akademik"</p>
+                            <p class="text-gray-600 mt-4">pada Konferensi Psikologi Nasional 2026<br>12-14 November 2026, Yogyakarta</p>
+                            <div class="flex justify-center gap-12 mt-8">
+                                <div class="text-center"><div class="border-t border-gray-400 w-32 pt-2 text-sm">Ketua Panitia</div></div>
+                                <div class="text-center"><div class="border-t border-gray-400 w-32 pt-2 text-sm">Dekan</div></div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-xs text-gray-400 mt-4 text-center">Ini adalah simulasi tampilan, file asli akan dikirim via email</p>
+                </div>
             </div>
         </div>
+    </div>
 
-        <!-- 2. QR CODE CHECK-IN -->
-        <div class="card bg-white shadow-md border border-gray-200 card-hover">
-            <div class="card-body p-6">
-                <div class="flex items-start gap-3 mb-4">
-                    <span class="material-icons text-salem text-3xl">qr_code_scanner</span>
+    <!-- TAB 2: QR CODE CHECK-IN -->
+    <div id="tab-qrcode" class="tab-content-panel">
+        <div class="grid md:grid-cols-2 gap-8">
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
+                <h2 class="text-xl font-semibold text-gray-800 flex items-center gap-2 mb-5">
+                    <span class="material-icons text-salem">qr_code_2</span>
+                    Generate QR Check-in
+                </h2>
+                <div class="space-y-4">
                     <div>
-                        <h2 class="card-title text-2xl text-gray-800">QR Check-in (Hari H)</h2>
-                        <p class="text-sm text-gray-500">Simulasi generate QR untuk check-in peserta.</p>
+                        <label class="block text-sm font-medium text-gray-600 mb-1.5">ID Registrasi / Email</label>
+                        <input type="text" id="qrDataInput" value="REG-PSY-2026-042"
+                               class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:border-salem focus:bg-white transition-all">
                     </div>
-                </div>
-                
-                <div class="bg-salem-light/50 p-5 rounded-xl">
-                    <div class="flex flex-col items-center">
-                        <!-- QR Canvas -->
-                        <div id="qrcodeContainer" class="qr-container shadow-sm mb-3">
-                            <canvas id="qrcodeCanvas" width="180" height="180" style="width:180px; height:180px;"></canvas>
-                        </div>
-                        <div class="text-sm font-medium text-gray-800 mb-1" id="qrParticipantName">Dr. Sarah Amalia</div>
-                        <div class="badge badge-outline mb-4" id="qrParticipantId">ID: PSY-2026-001</div>
-                        
-                        <div class="w-full space-y-3">
-                            <label class="input input-bordered flex items-center gap-2 bg-white">
-                                <span class="material-icons text-gray-400">person</span>
-                                <input type="text" id="qrNameInput" class="grow" placeholder="Nama peserta" value="Dr. Sarah Amalia" />
-                            </label>
-                            <label class="input input-bordered flex items-center gap-2 bg-white">
-                                <span class="material-icons text-gray-400">fingerprint</span>
-                                <input type="text" id="qrIdInput" class="grow" placeholder="ID Registrasi" value="PSY-2026-001" />
-                            </label>
-                            <button id="generateQrBtn" class="btn btn-salem w-full">
-                                <span class="material-icons mr-2">qr_code</span> Generate QR Code
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <!-- Simulasi scan -->
-                <div class="mt-3 flex items-center justify-between">
-                    <span class="text-xs text-gray-500 flex items-center"><span class="material-icons text-sm mr-1">info</span> Scan QR di meja registrasi.</span>
-                    <button id="simulateScanBtn" class="btn btn-xs btn-outline">
-                        <span class="material-icons text-sm mr-1">checklist</span> Simulasi Scan
+                    <button id="generateQrBtn" class="btn-salem w-full py-3 rounded-xl font-medium flex items-center justify-center gap-2">
+                        <span class="material-icons">qr_code</span>
+                        Buat QR Code
                     </button>
                 </div>
-            </div>
-        </div>
-
-        <!-- 3. PROCEEDINGS PAGE (List Paper Lolos) -->
-        <div class="card bg-white shadow-md border border-gray-200 card-hover">
-            <div class="card-body p-6">
-                <div class="flex items-start gap-3 mb-4">
-                    <span class="material-icons text-salem text-3xl">library_books</span>
-                    <div>
-                        <h2 class="card-title text-2xl text-gray-800">Proceedings</h2>
-                        <p class="text-sm text-gray-500">Daftar paper lolos dan dapat diunduh publik.</p>
+                <div class="divider my-6 text-gray-400 text-sm">ATAU</div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-600 mb-2">Scan untuk simulasi check-in</label>
+                    <div class="bg-gray-50 p-5 rounded-xl text-center border border-gray-200">
+                        <span class="material-icons text-4xl text-gray-400 mb-2">qr_code_scanner</span>
+                        <p class="text-sm text-gray-500 mb-3">Arahkan kamera ke QR Code (simulasi)</p>
+                        <button id="simulateScanBtn" class="btn-outline-salem w-full py-2.5 rounded-xl font-medium flex items-center justify-center gap-2">
+                            <span class="material-icons">photo_camera</span>
+                            Simulasikan Scan
+                        </button>
                     </div>
                 </div>
-                
-                <div class="bg-salem-light/50 p-5 rounded-xl">
+            </div>
+
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
+                <h2 class="text-xl font-semibold text-gray-800 flex items-center gap-2 mb-5">
+                    <span class="material-icons text-salem">center_focus_weak</span>
+                    QR Code & Status Check-in
+                </h2>
+                <div class="flex flex-col items-center">
+                    <div class="bg-gray-50 p-5 rounded-xl border border-gray-200 mb-4">
+                        <div id="qrcodeElement" class="w-48 h-48 flex items-center justify-center text-gray-400">
+                            <span class="material-icons text-5xl">qr_code</span>
+                        </div>
+                    </div>
+                    <div id="checkinStatus" class="w-full">
+                        <div class="bg-gray-50 p-4 rounded-xl text-center border border-gray-200">
+                            <span class="material-icons text-3xl text-gray-400">hourglass_empty</span>
+                            <p class="font-medium mt-1">Belum Check-in</p>
+                            <p class="text-xs text-gray-400 mt-1">QR Code belum di-scan</p>
+                        </div>
+                    </div>
+                    <button id="simulateCheckinBtn" class="btn-salem w-full py-3 rounded-xl font-medium flex items-center justify-center gap-2 mt-4 opacity-50 cursor-not-allowed" disabled>
+                        <span class="material-icons">how_to_reg</span>
+                        Check-in Sekarang
+                    </button>
+                    <p class="text-xs text-gray-400 flex items-center gap-1 mt-3">
+                        <span class="material-icons text-sm">info</span>
+                        Data disimpan di localStorage simulasi
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="mt-6 bg-white p-5 rounded-xl border border-gray-200">
+            <div class="flex items-center gap-2 mb-3">
+                <span class="material-icons text-salem">history</span>
+                <span class="font-medium text-gray-700">Riwayat Check-in (Simulasi)</span>
+            </div>
+            <div id="checkinLog" class="text-sm text-gray-600 space-y-1 max-h-32 overflow-y-auto">
+                <p class="text-gray-400 italic">Belum ada aktivitas check-in</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 3: PROCEEDINGS -->
+    <div id="tab-proceedings" class="tab-content-panel">
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
+            <div class="p-6 border-b border-gray-200 flex flex-wrap justify-between items-center gap-3">
+                <h2 class="text-xl font-semibold text-gray-800 flex items-center gap-2">
+                    <span class="material-icons text-salem">collections_bookmark</span>
+                    Daftar Paper yang Lolos (Proceedings)
+                </h2>
+                <div class="flex gap-2">
+                    <div class="join">
+                        <input type="text" placeholder="Cari judul atau penulis..." 
+                               class="input input-bordered input-sm join-item w-56 focus:outline-salem" id="searchPaperInput">
+                        <button class="btn btn-sm join-item btn-outline-salem" id="searchPaperBtn">
+                            <span class="material-icons">search</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="table w-full">
+                    <thead>
+                        <tr class="bg-salem-light/50 text-gray-700 text-sm">
+                            <th>Kode</th>
+                            <th>Judul Paper</th>
+                            <th>Penulis</th>
+                            <th>Bidang</th>
+                            <th class="text-center">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody id="proceedingsTableBody"></tbody>
+                </table>
+            </div>
+            <div class="p-4 bg-gray-50 text-sm text-gray-500 flex items-center gap-2 border-t border-gray-200">
+                <span class="material-icons text-salem">cloud_download</span>
+                <span>Klik tombol unduh untuk mendapatkan PDF paper (simulasi)</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 4: LIVE SCHEDULE -->
+    <div id="tab-liveschedule" class="tab-content-panel">
+        <div class="grid lg:grid-cols-4 gap-6">
+            <div class="lg:col-span-1">
+                <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-200 sticky top-24">
+                    <h3 class="font-semibold text-gray-800 flex items-center gap-2 mb-4">
+                        <span class="material-icons text-salem">tune</span>
+                        Kontrol Simulasi
+                    </h3>
+                    <div class="space-y-3">
+                        <div>
+                            <label class="text-sm text-gray-500">Status Konferensi</label>
+                            <div class="mt-1 flex items-center gap-2">
+                                <span class="relative flex h-3 w-3">
+                                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                                    <span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+                                </span>
+                                <span class="text-sm font-medium text-green-600">Sedang Berlangsung</span>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="text-sm text-gray-500">Sesi Saat Ini</label>
+                            <p class="font-medium text-gray-800" id="currentSessionDisplay">Sesi Paralel 2A</p>
+                            <p class="text-xs text-gray-400" id="currentTimeDisplay">14:45 - 16:15 WIB</p>
+                        </div>
+                        <div class="divider my-1"></div>
+                        <button id="refreshScheduleBtn" class="btn-outline-salem w-full py-2.5 rounded-xl font-medium flex items-center justify-center gap-2 text-sm">
+                            <span class="material-icons">refresh</span>
+                            Refresh Jadwal
+                        </button>
+                        <p class="text-xs text-gray-400 flex items-center gap-1 mt-2">
+                            <span class="material-icons text-sm">info</span>
+                            Update setiap 30 detik (simulasi)
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="lg:col-span-3">
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
+                    <div class="p-5 border-b border-gray-200">
+                        <h2 class="text-xl font-semibold text-gray-800 flex items-center gap-2">
+                            <span class="material-icons text-salem">schedule</span>
+                            Live Schedule - Hari Pertama
+                        </h2>
+                    </div>
                     <div class="overflow-x-auto">
-                        <table class="table table-sm">
+                        <table class="table w-full">
                             <thead>
-                                <tr class="text-gray-600 border-b border-salem/30">
-                                    <th>Judul Paper</th>
-                                    <th>Penulis</th>
-                                    <th class="text-center">Aksi</th>
+                                <tr class="bg-salem-light/30 text-gray-600 text-sm">
+                                    <th>Waktu</th>
+                                    <th>Sesi</th>
+                                    <th>Ruangan</th>
+                                    <th>Status</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr><td>Mindfulness untuk Remaja</td><td>Amalia, S. dkk</td><td class="text-center"><button class="btn btn-xs btn-ghost text-salem download-proc-sim"><span class="material-icons text-sm">download</span></button></td></tr>
-                                <tr><td>Digital Wellbeing di Tempat Kerja</td><td>Prasetyo, B.</td><td class="text-center"><button class="btn btn-xs btn-ghost text-salem download-proc-sim"><span class="material-icons text-sm">download</span></button></td></tr>
-                                <tr><td>Asesmen Kognitif Berbasis Game</td><td>Wijaya, R. dkk</td><td class="text-center"><button class="btn btn-xs btn-ghost text-salem download-proc-sim"><span class="material-icons text-sm">download</span></button></td></tr>
-                                <tr><td>Stres Akademik Mahasiswa</td><td>Kusuma, D.</td><td class="text-center"><button class="btn btn-xs btn-ghost text-salem download-proc-sim"><span class="material-icons text-sm">download</span></button></td></tr>
-                            </tbody>
+                            <tbody id="liveScheduleBody"></tbody>
                         </table>
                     </div>
-                    <div class="flex items-center gap-3 mt-4">
-                        <span class="badge badge-salem">12 Paper Tersedia</span>
-                        <button id="browseAllProcBtn" class="btn btn-xs btn-outline-salem">Lihat Semua</button>
-                    </div>
-                    <p class="text-xs text-gray-400 mt-3">Proceedings lengkap tersedia dalam bentuk book of abstract.</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- 4. LIVE SCHEDULE (Update Real-time) -->
-        <div class="card bg-white shadow-md border border-gray-200 card-hover">
-            <div class="card-body p-6">
-                <div class="flex items-start gap-3 mb-4">
-                    <span class="material-icons text-salem text-3xl">schedule</span>
-                    <div>
-                        <h2 class="card-title text-2xl text-gray-800 flex items-center gap-2">
-                            Live Schedule 
-                            <span class="badge badge-error badge-sm live-pulse text-white">LIVE</span>
-                        </h2>
-                        <p class="text-sm text-gray-500">Jadwal real-time selama konferensi berlangsung.</p>
+                    <div class="p-4 bg-gray-50 text-xs text-gray-500 flex justify-between items-center border-t">
+                        <span class="flex items-center gap-1">
+                            <span class="material-icons text-sm">update</span> 
+                            Terakhir diperbarui: <span id="lastUpdateTime">baru saja</span>
+                        </span>
+                        <span class="badge badge-ghost">Hari 1 dari 3</span>
                     </div>
                 </div>
-                
-                <div class="bg-salem-light/50 p-5 rounded-xl">
-                    <!-- Current session indicator -->
-                    <div class="flex items-center justify-between mb-3 bg-white p-3 rounded-lg">
-                        <span class="text-sm font-medium text-gray-700">Sesi Berlangsung:</span>
-                        <span class="font-bold text-salem" id="currentSessionName">Plenary 2: Psikologi Digital</span>
-                        <span class="badge badge-outline text-xs" id="sessionTimeLeft">Sisa 45 menit</span>
+                <div class="mt-4 grid grid-cols-2 gap-4 text-sm">
+                    <div class="bg-blue-50/50 p-4 rounded-xl border border-blue-100 flex items-start gap-3">
+                        <span class="material-icons text-blue-600">meeting_room</span>
+                        <div><span class="font-medium">Ruang 201:</span> Sesi Paralel Psikologi Klinis</div>
                     </div>
-                    
-                    <div class="space-y-2 max-h-64 overflow-y-auto pr-1" id="liveScheduleList">
-                        <!-- jadwal dinamis via js -->
+                    <div class="bg-purple-50/50 p-4 rounded-xl border border-purple-100 flex items-start gap-3">
+                        <span class="material-icons text-purple-600">meeting_room</span>
+                        <div><span class="font-medium">Ruang 202:</span> Sesi Paralel Psikologi Pendidikan</div>
                     </div>
-                    
-                    <div class="flex gap-3 mt-5">
-                        <button id="refreshScheduleBtn" class="btn btn-salem btn-sm flex-1">
-                            <span class="material-icons mr-1">refresh</span> Refresh Jadwal
-                        </button>
-                        <button id="nextSessionSimBtn" class="btn btn-outline-salem btn-sm flex-1">
-                            <span class="material-icons mr-1">skip_next</span> Simulasi Sesi Berikutnya
-                        </button>
-                    </div>
-                    <p class="text-xs text-gray-400 mt-3">Update otomatis setiap 5 menit (simulasi).</p>
                 </div>
             </div>
         </div>
@@ -237,185 +421,317 @@
 </div>
 
 <!-- ==================== FOOTER ==================== -->
-<footer class="footer footer-center p-6 bg-white text-gray-500 border-t text-sm">
+<footer class="footer footer-center p-8 bg-white text-gray-500 border-t border-gray-200 mt-12">
     <aside>
-        <p>© 2026 PsyConf - Simulasi Modul Tambahan | Dibangun dengan DaisyUI + Material Icons</p>
+        <span class="material-icons text-salem text-3xl">psychology_alt</span>
+        <p class="text-sm mt-2">Simulasi Fitur Tambahan - PsyConf 2026</p>
+        <p class="text-xs opacity-60">Program Studi Psikologi</p>
     </aside>
 </footer>
 
+<!-- Floating Navigation Menu -->
 <script src="nav-menu.js"></script>
+
 <script>
     (function(){
         "use strict";
 
-        // ---------- E-CERTIFICATE SIMULATION ----------
-        const certNameDisplay = document.getElementById('certNameDisplay');
-        const certRoleDisplay = document.getElementById('certRoleDisplay');
-        const certNameInput = document.getElementById('certNameInput');
-        const certRoleSelect = document.getElementById('certRoleSelect');
-        const generateCertBtn = document.getElementById('generateCertBtn');
-        const downloadCertSim = document.getElementById('downloadCertSim');
-
-        function updateCertificatePreview() {
-            if(certNameDisplay && certRoleDisplay) {
-                certNameDisplay.textContent = certNameInput.value || '[ Nama Peserta ]';
-                certRoleDisplay.textContent = certRoleSelect.value;
+        // ========== TAB SWITCHING (DIPERBAIKI) ==========
+        const tabButtons = document.querySelectorAll('.tab-button');
+        const tabPanels = document.querySelectorAll('.tab-content-panel');
+        
+        function switchTab(tabId) {
+            // Sembunyikan semua panel
+            tabPanels.forEach(panel => {
+                panel.classList.remove('active');
+            });
+            
+            // Tampilkan panel yang dipilih
+            const activePanel = document.getElementById(`tab-${tabId}`);
+            if (activePanel) {
+                activePanel.classList.add('active');
+            }
+            
+            // Update active state pada tombol
+            tabButtons.forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.tab === tabId) {
+                    btn.classList.add('active');
+                }
+            });
+            
+            // Trigger QR generate jika tab qrcode aktif dan belum ada QR
+            if (tabId === 'qrcode' && !window.qrGenerated) {
+                setTimeout(() => generateQRFromInput(), 50);
             }
         }
-        if(generateCertBtn) {
-            generateCertBtn.addEventListener('click', (e) => {
+        
+        tabButtons.forEach(btn => {
+            btn.addEventListener('click', function(e) {
                 e.preventDefault();
-                updateCertificatePreview();
-                // sedikit animasi
-                const preview = document.getElementById('certificatePreview');
-                preview.classList.add('scale-105');
-                setTimeout(() => preview.classList.remove('scale-105'), 150);
-            });
-        }
-        if(downloadCertSim) {
-            downloadCertSim.addEventListener('click', (e) => {
-                e.preventDefault();
-                const name = certNameInput.value || 'Peserta';
-                alert('[SIMULASI] Sertifikat untuk "' + name + '" akan diunduh sebagai PDF. (Demo interaktif)');
-            });
-        }
-        // init
-        updateCertificatePreview();
-
-        // ---------- QR CODE SIMULATION ----------
-        const qrCanvas = document.getElementById('qrcodeCanvas');
-        const qrNameInput = document.getElementById('qrNameInput');
-        const qrIdInput = document.getElementById('qrIdInput');
-        const qrParticipantName = document.getElementById('qrParticipantName');
-        const qrParticipantId = document.getElementById('qrParticipantId');
-        const generateQrBtn = document.getElementById('generateQrBtn');
-        const simulateScanBtn = document.getElementById('simulateScanBtn');
-
-        function generateQRCode(text) {
-            if(qrCanvas && text) {
-                QRCode.toCanvas(qrCanvas, text, { width: 180, margin: 1 }, (error) => {
-                    if (error) console.error(error);
-                });
-            }
-        }
-        function updateQrDisplay() {
-            const name = qrNameInput.value || 'Peserta';
-            const id = qrIdInput.value || 'ID-UNKNOWN';
-            qrParticipantName.textContent = name;
-            qrParticipantId.textContent = `ID: ${id}`;
-            const qrData = `PSYCONF2026|${name}|${id}|CHECKIN`;
-            generateQRCode(qrData);
-        }
-        if(generateQrBtn) {
-            generateQrBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                updateQrDisplay();
-            });
-        }
-        if(simulateScanBtn) {
-            simulateScanBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                const name = qrParticipantName.textContent;
-                const id = qrParticipantId.textContent;
-                alert('[SIMULASI SCAN] QR Code peserta "' + name + '" (' + id + ') berhasil di-scan. Status: Check-in sukses.');
-            });
-        }
-        // generate awal
-        setTimeout(() => { updateQrDisplay(); }, 100);
-
-        // ---------- PROCEEDINGS SIMULATION (DOWNLOAD) ----------
-        const downloadProcBtns = document.querySelectorAll('.download-proc-sim');
-        downloadProcBtns.forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                e.preventDefault();
-                const row = btn.closest('tr');
-                const title = row ? row.cells[0].textContent : 'paper';
-                alert('[SIMULASI] Mengunduh proceeding: ' + title + '.pdf (Demo)');
+                const tabId = this.dataset.tab;
+                if (tabId) {
+                    switchTab(tabId);
+                }
             });
         });
-        const browseAllBtn = document.getElementById('browseAllProcBtn');
-        if(browseAllBtn) {
-            browseAllBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                alert('[SIMULASI] Menampilkan seluruh daftar proceeding (12 paper).');
-            });
+
+        // ========== E-CERTIFICATE ==========
+        const nameInput = document.getElementById('certName');
+        const typeSelect = document.getElementById('certType');
+        const titleInput = document.getElementById('certTitle');
+        const previewName = document.getElementById('previewName');
+        const previewType = document.getElementById('previewType');
+        const previewTitle = document.getElementById('previewTitle');
+        const generateBtn = document.getElementById('generateCertBtn');
+
+        function updateCertificatePreview() {
+            previewName.textContent = nameInput.value || 'Nama Peserta';
+            previewType.textContent = typeSelect.value;
+            if (typeSelect.value.includes('Pemakalah') && titleInput.value) {
+                previewTitle.textContent = `"${titleInput.value}"`;
+            } else {
+                previewTitle.textContent = '';
+            }
         }
 
-        // ---------- LIVE SCHEDULE SIMULATION ----------
-        const scheduleData = [
-            { time: '08:00 - 09:00', session: 'Registrasi & Coffee', room: 'Lobby', status: 'done' },
-            { time: '09:00 - 10:30', session: 'Keynote Speech 1', room: 'Main Hall', status: 'done' },
-            { time: '10:30 - 12:00', session: 'Sesi Paralel 1 (A&B)', room: 'R.201/202', status: 'done' },
-            { time: '13:00 - 14:30', session: 'Plenary 2: Psikologi Digital', room: 'Main Hall', status: 'ongoing' },
-            { time: '14:45 - 16:15', session: 'Sesi Paralel 2 (C&D)', room: 'R.201/202', status: 'upcoming' },
-            { time: '16:30 - 17:30', session: 'Diskusi Panel', room: 'Main Hall', status: 'upcoming' }
-        ];
-        
-        const liveScheduleList = document.getElementById('liveScheduleList');
-        const currentSessionName = document.getElementById('currentSessionName');
-        const sessionTimeLeft = document.getElementById('sessionTimeLeft');
+        nameInput.addEventListener('input', updateCertificatePreview);
+        typeSelect.addEventListener('change', updateCertificatePreview);
+        titleInput.addEventListener('input', updateCertificatePreview);
+        generateBtn.addEventListener('click', () => {
+            updateCertificatePreview();
+            alert('[Simulasi] Sertifikat atas nama "' + previewName.textContent + '" telah digenerate. File akan diunduh (dummy).');
+        });
 
-        function renderSchedule() {
-            if(!liveScheduleList) return;
-            let ongoingSession = scheduleData.find(s => s.status === 'ongoing');
-            if(currentSessionName) currentSessionName.textContent = ongoingSession ? ongoingSession.session : 'Tidak ada sesi';
-            
-            let html = '';
-            scheduleData.forEach(item => {
-                let statusClass = 'text-gray-400';
-                let icon = 'schedule';
-                if(item.status === 'ongoing') { statusClass = 'text-salem font-medium'; icon = 'play_circle'; }
-                else if(item.status === 'done') { statusClass = 'text-gray-400 line-through'; icon = 'check_circle'; }
-                else { icon = 'pending'; }
-                
-                html += `<div class="flex items-center gap-3 p-2 rounded-lg ${item.status === 'ongoing' ? 'bg-salem-light border-l-4 border-salem' : 'bg-white/40'}">
-                    <span class="material-icons text-sm ${statusClass}">${icon}</span>
-                    <span class="text-sm w-24">${item.time}</span>
-                    <span class="text-sm flex-1 ${statusClass}">${item.session}</span>
-                    <span class="text-xs text-gray-400">${item.room}</span>
+        // ========== QR CODE CHECK-IN ==========
+        const qrDataInput = document.getElementById('qrDataInput');
+        const generateQrBtn = document.getElementById('generateQrBtn');
+        const qrcodeElement = document.getElementById('qrcodeElement');
+        const checkinStatus = document.getElementById('checkinStatus');
+        const simulateCheckinBtn = document.getElementById('simulateCheckinBtn');
+        const simulateScanBtn = document.getElementById('simulateScanBtn');
+        const checkinLog = document.getElementById('checkinLog');
+        let currentQRData = '';
+
+        function generateQRCode(text) {
+            qrcodeElement.innerHTML = '';
+            try {
+                new QRCode(qrcodeElement, {
+                    text: text,
+                    width: 192,
+                    height: 192,
+                    colorDark: "#9B7B9C",
+                    colorLight: "#ffffff",
+                    correctLevel: QRCode.CorrectLevel.H
+                });
+                currentQRData = text;
+                window.qrGenerated = true;
+                updateCheckinUI(false);
+                simulateCheckinBtn.disabled = false;
+                simulateCheckinBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+            } catch (e) {
+                qrcodeElement.innerHTML = '<span class="material-icons text-red-400">error</span><p class="text-xs">Gagal generate</p>';
+            }
+        }
+
+        function generateQRFromInput() {
+            const val = qrDataInput.value.trim();
+            if (!val) {
+                alert('Masukkan ID Registrasi atau Email');
+                return;
+            }
+            generateQRCode(val);
+        }
+
+        function updateCheckinUI(isCheckedIn) {
+            if (isCheckedIn) {
+                checkinStatus.innerHTML = `<div class="bg-green-50 p-4 rounded-xl border border-green-200 text-center">
+                    <span class="material-icons text-3xl text-green-600">check_circle</span>
+                    <p class="font-medium text-green-700 mt-1">Sudah Check-in</p>
+                    <p class="text-xs text-green-600">ID: ${currentQRData}</p>
+                    <p class="text-xs text-gray-500 mt-1">${new Date().toLocaleTimeString('id-ID')}</p>
                 </div>`;
-            });
-            liveScheduleList.innerHTML = html;
-            if(sessionTimeLeft) sessionTimeLeft.textContent = 'Sisa 45 menit';
+                simulateCheckinBtn.disabled = true;
+                simulateCheckinBtn.classList.add('opacity-50', 'cursor-not-allowed');
+            } else {
+                checkinStatus.innerHTML = `<div class="bg-gray-50 p-4 rounded-xl text-center border border-gray-200">
+                    <span class="material-icons text-3xl text-gray-400">hourglass_empty</span>
+                    <p class="font-medium mt-1">Belum Check-in</p>
+                    <p class="text-xs text-gray-400 mt-1">QR Code belum di-scan</p>
+                </div>`;
+                simulateCheckinBtn.disabled = false;
+                simulateCheckinBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+            }
         }
-        
-        const refreshBtn = document.getElementById('refreshScheduleBtn');
-        const nextSessionBtn = document.getElementById('nextSessionSimBtn');
-        
-        if(refreshBtn) {
-            refreshBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                renderSchedule();
-                alert('[SIMULASI] Jadwal diperbarui. (real-time update)');
-            });
-        }
-        if(nextSessionBtn) {
-            nextSessionBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                // simulasi pindah sesi berikutnya
-                const ongoingIdx = scheduleData.findIndex(s => s.status === 'ongoing');
-                if(ongoingIdx !== -1) {
-                    scheduleData[ongoingIdx].status = 'done';
-                    if(ongoingIdx + 1 < scheduleData.length) {
-                        scheduleData[ongoingIdx+1].status = 'ongoing';
-                    }
-                }
-                renderSchedule();
-                alert('[SIMULASI] Sesi berganti ke berikutnya.');
-            });
-        }
-        
-        renderSchedule();
 
-        // sedikit inisialisasi tambahan: bila ada tombol lain yang belum tercakup
-        document.querySelectorAll('.btn').forEach(b => {
-            if(!b.hasAttribute('data-listener')){
-                b.setAttribute('data-listener','true');
-                // hindari double alert global
+        function addLogEntry(message, type = 'checkin') {
+            const p = document.createElement('p');
+            p.className = 'text-sm py-1.5 border-b border-gray-100 last:border-0';
+            const iconName = type === 'checkin' ? 'how_to_reg' : 'qr_code_scanner';
+            const iconColor = type === 'checkin' ? 'text-green-600' : 'text-blue-600';
+            p.innerHTML = `<span class="material-icons text-xs mr-1 ${iconColor}">${iconName}</span> ${message}`;
+            
+            const firstChild = checkinLog.children[0];
+            if (firstChild && firstChild.classList.contains('italic')) {
+                checkinLog.innerHTML = '';
+            }
+            checkinLog.prepend(p);
+            if (checkinLog.children.length > 5) {
+                checkinLog.lastChild.remove();
+            }
+        }
+
+        generateQrBtn.addEventListener('click', generateQRFromInput);
+        simulateCheckinBtn.addEventListener('click', () => {
+            if (!currentQRData) return;
+            updateCheckinUI(true);
+            const timestamp = new Date().toLocaleTimeString('id-ID');
+            addLogEntry(`Check-in berhasil: ${currentQRData} (${timestamp})`, 'checkin');
+            
+            const checkins = JSON.parse(localStorage.getItem('psyconf_checkins') || '[]');
+            checkins.push({ id: currentQRData, time: new Date().toISOString() });
+            localStorage.setItem('psyconf_checkins', JSON.stringify(checkins));
+        });
+        simulateScanBtn.addEventListener('click', () => {
+            if (!currentQRData) {
+                alert('Generate QR Code terlebih dahulu.');
+                return;
+            }
+            addLogEntry(`Scan simulasi: ${currentQRData}`, 'scan');
+            alert(`[Simulasi Scan] QR Code terbaca: ${currentQRData}`);
+        });
+
+        // ========== PROCEEDINGS ==========
+        const papers = [
+            { code: 'PSY001', title: 'Pengaruh Mindfulness terhadap Stres Akademik', authors: 'Aminah, S. et al.', field: 'Klinis' },
+            { code: 'PSY002', title: 'Digital Wellbeing pada Pekerja Remote', authors: 'Santoso, B.', field: 'Industri' },
+            { code: 'PSY003', title: 'Perkembangan Kognitif Anak di Era Digital', authors: 'Wijaya, R.', field: 'Perkembangan' },
+            { code: 'PSY004', title: 'Validitas Alat Ukur Resiliensi Versi Indonesia', authors: 'Kusuma, D.', field: 'Psikometri' },
+            { code: 'PSY005', title: 'Intervensi Singkat untuk Kecemasan Sosial', authors: 'Putri, A. & Hadi, M.', field: 'Klinis' },
+            { code: 'PSY006', title: 'Pengaruh Musik terhadap Konsentrasi Belajar', authors: 'Nugroho, F.', field: 'Pendidikan' },
+        ];
+
+        function renderProceedings(filterText = '') {
+            const tbody = document.getElementById('proceedingsTableBody');
+            const filtered = papers.filter(p => 
+                p.title.toLowerCase().includes(filterText.toLowerCase()) || 
+                p.authors.toLowerCase().includes(filterText.toLowerCase()) ||
+                p.code.toLowerCase().includes(filterText.toLowerCase())
+            );
+            tbody.innerHTML = filtered.map(p => `
+                <tr>
+                    <td class="font-mono text-sm">${p.code}</td>
+                    <td class="font-medium">${p.title}</td>
+                    <td>${p.authors}</td>
+                    <td><span class="badge badge-salem badge-sm">${p.field}</span></td>
+                    <td class="text-center">
+                        <button class="btn btn-ghost btn-xs text-salem download-paper" data-code="${p.code}">
+                            <span class="material-icons text-base">download</span> PDF
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
+            
+            document.querySelectorAll('.download-paper').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    alert(`[Simulasi] Mengunduh paper ${btn.dataset.code}.pdf (dummy file).`);
+                });
+            });
+        }
+        
+        renderProceedings();
+        document.getElementById('searchPaperBtn').addEventListener('click', () => {
+            renderProceedings(document.getElementById('searchPaperInput').value);
+        });
+        document.getElementById('searchPaperInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                renderProceedings(e.target.value);
+            }
+        });
+
+        // ========== LIVE SCHEDULE ==========
+        const scheduleData = [
+            { time: '08:00 - 09:00', session: 'Registrasi & Coffee', room: 'Lobby', status: 'selesai' },
+            { time: '09:00 - 10:30', session: 'Keynote Speech 1', room: 'Main Hall', status: 'selesai' },
+            { time: '10:30 - 12:00', session: 'Sesi Paralel 1A (Klinis)', room: 'R.201', status: 'selesai' },
+            { time: '13:00 - 14:30', session: 'Plenary 2: Digital Wellbeing', room: 'Main Hall', status: 'sedang' },
+            { time: '14:45 - 16:15', session: 'Sesi Paralel 2A', room: 'R.201', status: 'mendatang' },
+            { time: '14:45 - 16:15', session: 'Sesi Paralel 2B', room: 'R.202', status: 'mendatang' },
+            { time: '16:30 - 17:30', session: 'Diskusi Panel', room: 'Main Hall', status: 'mendatang' },
+        ];
+
+        function renderLiveSchedule() {
+            const tbody = document.getElementById('liveScheduleBody');
+            let currentFound = false;
+            
+            tbody.innerHTML = scheduleData.map(item => {
+                let statusBadge = '';
+                if (item.status === 'selesai') {
+                    statusBadge = '<span class="badge badge-ghost text-gray-500 text-xs">Selesai</span>';
+                } else if (item.status === 'sedang') {
+                    statusBadge = '<span class="badge badge-success badge-sm gap-1"><span class="material-icons text-xs">fiber_manual_record</span> Sedang Berlangsung</span>';
+                    currentFound = true;
+                    document.getElementById('currentSessionDisplay').textContent = item.session;
+                    document.getElementById('currentTimeDisplay').textContent = item.time + ' WIB';
+                } else {
+                    statusBadge = '<span class="badge badge-ghost text-gray-400 text-xs">Mendatang</span>';
+                }
+                return `<tr class="${item.status === 'sedang' ? 'bg-green-50/50' : ''}">
+                    <td class="font-medium">${item.time}</td>
+                    <td>${item.session}</td>
+                    <td>${item.room}</td>
+                    <td>${statusBadge}</td>
+                </tr>`;
+            }).join('');
+            
+            if (!currentFound) {
+                document.getElementById('currentSessionDisplay').textContent = 'Istirahat / Tidak ada sesi';
+                document.getElementById('currentTimeDisplay').textContent = '--:--';
+            }
+            document.getElementById('lastUpdateTime').textContent = new Date().toLocaleTimeString('id-ID');
+        }
+
+        renderLiveSchedule();
+        document.getElementById('refreshScheduleBtn').addEventListener('click', () => {
+            renderLiveSchedule();
+            alert('Jadwal diperbarui (simulasi real-time).');
+        });
+
+        setInterval(() => {
+            const livePanel = document.getElementById('tab-liveschedule');
+            if (livePanel && livePanel.classList.contains('active')) {
+                renderLiveSchedule();
+            }
+        }, 30000);
+
+        // ========== LOAD CHECK-IN HISTORY ==========
+        const stored = localStorage.getItem('psyconf_checkins');
+        if (stored) {
+            try {
+                const checks = JSON.parse(stored);
+                if (checks.length) {
+                    checkinLog.innerHTML = '';
+                    checks.slice(-3).reverse().forEach(c => {
+                        const p = document.createElement('p');
+                        p.className = 'text-sm py-1.5 border-b border-gray-100 last:border-0';
+                        p.innerHTML = `<span class="material-icons text-xs mr-1 text-green-600">how_to_reg</span> ${c.id} (${new Date(c.time).toLocaleTimeString('id-ID')})`;
+                        checkinLog.appendChild(p);
+                    });
+                }
+            } catch(e) {}
+        }
+
+        // ========== AUTO-FILL DEMO ==========
+        document.querySelector('.font-serif').addEventListener('dblclick', function() {
+            if (document.getElementById('tab-certificate').classList.contains('active')) {
+                nameInput.value = 'Prof. Desti Purnamasari, M.Psi';
+                typeSelect.value = 'Pemakalah (Presenter)';
+                titleInput.value = 'Transformasi Digital dalam Intervensi Psikologi Klinis';
+                updateCertificatePreview();
+                alert('[Demo] Data sertifikat terisi otomatis');
             }
         });
     })();
 </script>
-<!-- tambahan kecil untuk memastikan QR code library terpanggil -->
 </body>
 </html>

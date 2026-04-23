@@ -4,546 +4,821 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panel Reviewer | PsyConf 2026</title>
+    
+    <!-- DaisyUI & Tailwind -->
     <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.14/dist/full.css" rel="stylesheet" type="text/css" />
     <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts & Icons -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="logo.png" type="image/x-icon"/>
+    
     <style>
-        body { font-family: 'Inter', sans-serif; }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background: linear-gradient(135deg, #faf8fb 0%, #f5f0f5 100%);
+            min-height: 100vh;
+        }
+        
+        /* Warna Tema Ungu Salem */
         .text-salem { color: #9B7B9C; }
         .bg-salem-light { background-color: #F3ECF4; }
         .bg-salem { background-color: #9B7B9C; }
+        .bg-salem-dark { background-color: #7E5F7F; }
         .border-salem { border-color: #9B7B9C; }
-        .btn-salem { background-color: #9B7B9C; border-color: #9B7B9C; color: white; }
-        .btn-salem:hover { background-color: #7E5F7F; border-color: #7E5F7F; }
-        .badge-salem { background-color: #EDE1EE; color: #5E3F5F; border: none; }
-        .badge-warning-soft { background-color: #FEF3C7; color: #92400E; }
-        .badge-success-soft { background-color: #D1FAE5; color: #065F46; }
-        .badge-info-soft { background-color: #DBEAFE; color: #1E3A8A; }
-        .material-icons { vertical-align: middle; }
+        .btn-salem { 
+            background-color: #9B7B9C; 
+            border-color: #9B7B9C; 
+            color: white; 
+            transition: all 0.2s ease;
+        }
+        .btn-salem:hover { 
+            background-color: #7E5F7F; 
+            border-color: #7E5F7F; 
+        }
+        .btn-outline-salem { 
+            border-color: #9B7B9C; 
+            color: #9B7B9C; 
+            background: transparent;
+            transition: all 0.2s ease;
+        }
+        .btn-outline-salem:hover { 
+            background-color: #9B7B9C; 
+            color: white; 
+        }
+        
+        /* Badge Kustom */
+        .badge-salem { 
+            background-color: #EDE1EE; 
+            color: #5E3F5F; 
+            border: none; 
+        }
+        .badge-warning-soft { 
+            background-color: #FEF3C7; 
+            color: #92400E; 
+        }
+        .badge-info-soft { 
+            background-color: #DBEAFE; 
+            color: #1E3A8A; 
+        }
+        .badge-success-soft { 
+            background-color: #D1FAE5; 
+            color: #065F46; 
+        }
+        .badge-error-soft { 
+            background-color: #FEE2E2; 
+            color: #991B1B; 
+        }
+        
+        /* Card Hover Effect */
+        .card-hover {
+            transition: all 0.25s ease;
+            border: 1px solid #f0e6f0;
+        }
+        .card-hover:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px -8px rgba(155, 123, 156, 0.12);
+            border-color: #e0d0e0;
+        }
+        
+        /* Stat Card */
+        .stat-card {
+            background: white;
+            border-radius: 16px;
+            padding: 1.25rem;
+            border: 1px solid #f0e6f0;
+            transition: all 0.2s ease;
+        }
+        .stat-card:hover {
+            border-color: #d4c0d4;
+            box-shadow: 0 4px 12px rgba(155, 123, 156, 0.06);
+        }
+        
+        /* Progress Indicator */
+        .review-progress {
+            height: 4px;
+            background: #f0e6f0;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+        .review-progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #9B7B9C 0%, #b89aba 100%);
+            border-radius: 2px;
+        }
+        
+        /* Material Icons Alignment */
+        .material-icons { 
+            vertical-align: middle; 
+        }
+        
+        /* Divider Custom */
+        .divider-soft {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #e8dce8, transparent);
+        }
+        
+        /* Animation */
+        @keyframes pulse-soft {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        .pulse-soft {
+            animation: pulse-soft 2s ease-in-out infinite;
+        }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-700">
+<body class="text-gray-700">
 
-<div class="max-w-7xl mx-auto px-4 py-6 md:py-8">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 py-6 md:py-10">
     
-    <!-- HEADER REVIEWER -->
-    <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-6 gap-4">
-        <div class="flex items-center gap-3">
-            <span class="material-icons text-salem text-4xl">rate_review</span>
+    <!-- ==================== HEADER ==================== -->
+    <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-5 mb-8">
+        <div class="flex items-center gap-4">
+            <div class="w-14 h-14 rounded-2xl bg-salem-light flex items-center justify-center">
+                <span class="material-icons text-salem text-3xl">rate_review</span>
+            </div>
             <div>
-                <h1 class="text-2xl md:text-3xl font-bold text-gray-800">Panel Reviewer</h1>
-                <p class="text-gray-500 text-sm">Dr. Budi Santoso, M.Si - Bidang: Psikologi Industri & Organisasi</p>
+                <h1 class="text-2xl md:text-3xl font-bold text-gray-800 tracking-tight">Panel Reviewer</h1>
+                <div class="flex items-center gap-3 mt-1">
+                    <p class="text-gray-600">Desti Purnamasari, M.Psi</p>
+                    <span class="w-1 h-1 bg-gray-300 rounded-full"></span>
+                    <span class="text-sm text-salem font-medium">Psikologi Industri & Organisasi</span>
+                </div>
             </div>
         </div>
+        
         <div class="flex items-center gap-3">
-            <div class="badge badge-salem gap-1 px-3 py-3">
-                <span class="material-icons text-sm">assignment</span>
-                <span>4 Paper Ditugaskan</span>
+            <div class="badge badge-salem gap-2 px-4 py-3">
+                <span class="material-icons text-base">assignment</span>
+                <span class="font-medium">4 Paper Ditugaskan</span>
             </div>
-            <button class="btn btn-outline btn-sm rounded-full border-salem text-salem">
+            <button class="btn btn-outline-salem btn-sm rounded-full" onclick="alert('Data diperbarui.')">
                 <span class="material-icons">refresh</span>
             </button>
         </div>
     </div>
 
-    <!-- STATISTIK REVIEW CEPAT -->
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
-        <div class="stat bg-white rounded-xl shadow-sm border border-gray-100 p-4">
-            <div class="stat-figure text-salem"><span class="material-icons">pending_actions</span></div>
-            <div class="stat-title text-xs text-gray-500">Belum Review</div>
-            <div class="stat-value text-2xl text-gray-700">2</div>
+    <!-- ==================== RINGKASAN PROGRESS ==================== -->
+    <div class="mb-8">
+        <div class="flex items-center justify-between mb-3">
+            <h2 class="text-sm font-semibold text-gray-500 uppercase tracking-wider">Progress Review</h2>
+            <span class="text-sm text-gray-500">1 dari 4 selesai</span>
         </div>
-        <div class="stat bg-white rounded-xl shadow-sm border border-gray-100 p-4">
-            <div class="stat-figure text-amber-500"><span class="material-icons">edit_note</span></div>
-            <div class="stat-title text-xs text-gray-500">Sedang Review</div>
-            <div class="stat-value text-2xl text-gray-700">1</div>
-        </div>
-        <div class="stat bg-white rounded-xl shadow-sm border border-gray-100 p-4">
-            <div class="stat-figure text-emerald-600"><span class="material-icons">check_circle</span></div>
-            <div class="stat-title text-xs text-gray-500">Selesai</div>
-            <div class="stat-value text-2xl text-gray-700">1</div>
-        </div>
-        <div class="stat bg-white rounded-xl shadow-sm border border-gray-100 p-4">
-            <div class="stat-figure text-rose-500"><span class="material-icons">hourglass_bottom</span></div>
-            <div class="stat-title text-xs text-gray-500">Mendekati Deadline</div>
-            <div class="stat-value text-2xl text-gray-700">1</div>
+        <div class="review-progress">
+            <div class="review-progress-bar" style="width: 25%"></div>
         </div>
     </div>
 
-    <!-- DAFTAR PAPER ASSIGNMENT -->
+    <!-- ==================== STATISTIK ==================== -->
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+        <!-- Belum Review -->
+        <div class="stat-card flex items-center justify-between">
+            <div>
+                <p class="text-xs text-gray-500 font-medium mb-1">Belum Review</p>
+                <p class="text-3xl font-bold text-gray-800">2</p>
+                <p class="text-xs text-gray-400 mt-1">menunggu</p>
+            </div>
+            <div class="w-10 h-10 rounded-xl bg-amber-50 flex items-center justify-center">
+                <span class="material-icons text-amber-600">pending_actions</span>
+            </div>
+        </div>
+        
+        <!-- Sedang Review -->
+        <div class="stat-card flex items-center justify-between">
+            <div>
+                <p class="text-xs text-gray-500 font-medium mb-1">Sedang Review</p>
+                <p class="text-3xl font-bold text-gray-800">1</p>
+                <p class="text-xs text-gray-400 mt-1">draft tersimpan</p>
+            </div>
+            <div class="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center">
+                <span class="material-icons text-blue-600">edit_note</span>
+            </div>
+        </div>
+        
+        <!-- Selesai -->
+        <div class="stat-card flex items-center justify-between">
+            <div>
+                <p class="text-xs text-gray-500 font-medium mb-1">Selesai</p>
+                <p class="text-3xl font-bold text-gray-800">1</p>
+                <p class="text-xs text-gray-400 mt-1">terkirim</p>
+            </div>
+            <div class="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center">
+                <span class="material-icons text-emerald-600">check_circle</span>
+            </div>
+        </div>
+        
+        <!-- Deadline Dekat -->
+        <div class="stat-card flex items-center justify-between">
+            <div>
+                <p class="text-xs text-gray-500 font-medium mb-1">Mendekati Deadline</p>
+                <p class="text-3xl font-bold text-rose-600">1</p>
+                <p class="text-xs text-gray-400 mt-1">&lt; 3 hari</p>
+            </div>
+            <div class="w-10 h-10 rounded-xl bg-rose-50 flex items-center justify-center">
+                <span class="material-icons text-rose-500">hourglass_bottom</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== DAFTAR PAPER ==================== -->
     <div class="mb-6">
-        <h2 class="text-xl font-semibold text-gray-800 flex items-center gap-2 mb-4">
-            <span class="material-icons text-salem">assignment_ind</span>
-            Paper yang Ditugaskan
-        </h2>
+        <div class="flex items-center justify-between mb-4">
+            <h2 class="text-lg font-semibold text-gray-800 flex items-center gap-2">
+                <span class="material-icons text-salem">assignment_ind</span>
+                Paper yang Ditugaskan
+            </h2>
+            <div class="flex gap-2">
+                <select class="select select-sm select-bordered bg-white text-sm rounded-full">
+                    <option>Semua Status</option>
+                    <option>Belum Review</option>
+                    <option>Sedang Review</option>
+                    <option>Selesai</option>
+                </select>
+            </div>
+        </div>
         
         <div class="space-y-4">
             
-            <!-- PAPER 1 - STATUS BELUM REVIEW -->
-            <div class="card bg-white shadow-sm border border-gray-200">
-                <div class="card-body p-5">
-                    <div class="flex flex-wrap items-start justify-between gap-3">
+            <!-- PAPER 1 - BELUM REVIEW (DEADLINE DEKAT) -->
+            <div class="card card-hover bg-white border-l-4 border-l-rose-500">
+                <div class="card-body p-5 lg:p-6">
+                    <div class="flex flex-col lg:flex-row lg:items-start gap-4">
                         <div class="flex-1">
-                            <div class="flex items-center gap-3 mb-2">
-                                <span class="text-sm font-medium text-gray-500">#PSY-2026-012</span>
-                                <div class="badge badge-warning-soft gap-1">
-                                    <span class="material-icons text-sm">schedule</span> Belum Review
+                            <div class="flex flex-wrap items-center gap-2 mb-2">
+                                <span class="text-xs font-mono text-gray-500">PSY-2026-015</span>
+                                <div class="badge badge-error-soft gap-1">
+                                    <span class="material-icons text-sm">hourglass_bottom</span>
+                                    Deadline 2 hari lagi
                                 </div>
-                                <div class="badge badge-outline text-xs">Bidang: PIO</div>
+                                <div class="badge badge-warning-soft gap-1">
+                                    <span class="material-icons text-sm">schedule</span>
+                                    Belum Review
+                                </div>
                             </div>
-                            <h3 class="text-lg font-bold text-gray-800 mb-1">Pengaruh Flexible Work Arrangement terhadap Work-Life Balance pada Generasi Z</h3>
-                            <p class="text-sm text-gray-500 flex items-center gap-2">
-                                <span class="material-icons text-sm">person_outline</span> Penulis: Anisa Rahma, S.Psi., M.Psi.
-                            </p>
+                            <h3 class="text-lg font-bold text-gray-800 mb-2 leading-snug">
+                                Pengaruh Screen Time terhadap Kualitas Tidur dan Fungsi Kognitif Remaja
+                            </h3>
+                            <div class="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-gray-500">
+                                <span class="flex items-center gap-1">
+                                    <span class="material-icons text-sm text-gray-400">person_outline</span>
+                                    dr. Fajar Nugroho, Sp.KJ
+                                </span>
+                                <span class="flex items-center gap-1">
+                                    <span class="material-icons text-sm text-gray-400">category</span>
+                                    Neuropsikologi
+                                </span>
+                            </div>
                         </div>
-                        <div class="flex items-center gap-2">
-                            <button class="btn btn-sm btn-outline border-salem text-salem" onclick="document.getElementById('modal-paper-012').showModal()">
-                                <span class="material-icons">visibility</span> Lihat Detail
+                        <div class="flex items-center gap-2 lg:self-center">
+                            <button class="btn btn-outline-salem btn-sm rounded-full" onclick="document.getElementById('modal-paper-015').showModal()">
+                                <span class="material-icons">visibility</span>
+                            </button>
+                            <button class="btn btn-salem btn-sm rounded-full px-5" onclick="document.getElementById('modal-review-015').showModal()">
+                                <span class="material-icons">play_arrow</span>
+                                Mulai Review
                             </button>
                         </div>
                     </div>
-                    <div class="divider my-2"></div>
-                    <div class="flex flex-wrap items-center justify-between gap-3">
-                        <div class="flex items-center gap-4 text-sm">
-                            <div class="flex items-center gap-1">
-                                <span class="material-icons text-gray-400 text-sm">event</span>
-                                <span>Assigned: 10 Apr 2026</span>
-                            </div>
-                            <div class="flex items-center gap-1">
-                                <span class="material-icons text-amber-500 text-sm">alarm</span>
-                                <span class="font-medium">Deadline: 25 Apr 2026</span>
-                            </div>
-                        </div>
-                        <button class="btn btn-salem btn-sm" onclick="document.getElementById('modal-review-012').showModal()">
-                            <span class="material-icons">start</span> Mulai Review
-                        </button>
+                    <div class="divider-soft my-3"></div>
+                    <div class="flex items-center gap-4 text-xs text-gray-500">
+                        <span class="flex items-center gap-1">
+                            <span class="material-icons text-sm">event</span>
+                            Assigned: 14 Apr 2026
+                        </span>
+                        <span class="flex items-center gap-1 text-rose-600 font-medium">
+                            <span class="material-icons text-sm">alarm</span>
+                            Deadline: 18 Apr 2026
+                        </span>
                     </div>
                 </div>
             </div>
 
-            <!-- PAPER 2 - STATUS SEDANG REVIEW -->
-            <div class="card bg-white shadow-sm border border-gray-200">
-                <div class="card-body p-5">
-                    <div class="flex flex-wrap items-start justify-between gap-3">
+            <!-- PAPER 2 - SEDANG REVIEW -->
+            <div class="card card-hover bg-white">
+                <div class="card-body p-5 lg:p-6">
+                    <div class="flex flex-col lg:flex-row lg:items-start gap-4">
                         <div class="flex-1">
-                            <div class="flex items-center gap-3 mb-2">
-                                <span class="text-sm font-medium text-gray-500">#PSY-2026-008</span>
+                            <div class="flex flex-wrap items-center gap-2 mb-2">
+                                <span class="text-xs font-mono text-gray-500">PSY-2026-008</span>
                                 <div class="badge badge-info-soft gap-1">
-                                    <span class="material-icons text-sm">edit_note</span> Sedang Review
+                                    <span class="material-icons text-sm">edit_note</span>
+                                    Sedang Review
                                 </div>
-                                <div class="badge badge-outline text-xs">Bidang: Klinis</div>
+                                <span class="text-xs text-gray-400 flex items-center gap-1">
+                                    <span class="material-icons text-sm">history</span>
+                                    Draft 15 Apr
+                                </span>
                             </div>
-                            <h3 class="text-lg font-bold text-gray-800 mb-1">Efektivitas Mindfulness-Based Stress Reduction pada Mahasiswa Tingkat Akhir</h3>
-                            <p class="text-sm text-gray-500 flex items-center gap-2">
-                                <span class="material-icons text-sm">person_outline</span> Penulis: Reza Mahendra, M.Psi., Psikolog
-                            </p>
+                            <h3 class="text-lg font-bold text-gray-800 mb-2 leading-snug">
+                                Efektivitas Mindfulness-Based Stress Reduction pada Mahasiswa Tingkat Akhir
+                            </h3>
+                            <div class="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-gray-500">
+                                <span class="flex items-center gap-1">
+                                    <span class="material-icons text-sm text-gray-400">person_outline</span>
+                                    Reza Mahendra, M.Psi., Psikolog
+                                </span>
+                                <span class="flex items-center gap-1">
+                                    <span class="material-icons text-sm text-gray-400">category</span>
+                                    Psikologi Klinis
+                                </span>
+                            </div>
                         </div>
-                        <div class="flex items-center gap-2">
-                            <button class="btn btn-sm btn-outline border-salem text-salem" onclick="document.getElementById('modal-paper-008').showModal()">
-                                <span class="material-icons">visibility</span> Lihat Detail
+                        <div class="flex items-center gap-2 lg:self-center">
+                            <button class="btn btn-outline-salem btn-sm rounded-full" onclick="document.getElementById('modal-paper-008').showModal()">
+                                <span class="material-icons">visibility</span>
+                            </button>
+                            <button class="btn btn-salem btn-sm rounded-full px-5" onclick="document.getElementById('modal-review-008').showModal()">
+                                <span class="material-icons">edit</span>
+                                Lanjutkan
                             </button>
                         </div>
                     </div>
-                    <div class="divider my-2"></div>
-                    <div class="flex flex-wrap items-center justify-between gap-3">
-                        <div class="flex items-center gap-4 text-sm">
-                            <div class="flex items-center gap-1">
-                                <span class="material-icons text-gray-400 text-sm">event</span>
-                                <span>Assigned: 5 Apr 2026</span>
-                            </div>
-                            <div class="flex items-center gap-1">
-                                <span class="material-icons text-amber-500 text-sm">alarm</span>
-                                <span class="font-medium">Deadline: 20 Apr 2026</span>
-                            </div>
-                        </div>
-                        <button class="btn btn-salem btn-sm" onclick="document.getElementById('modal-review-008').showModal()">
-                            <span class="material-icons">edit</span> Lanjutkan Review
-                        </button>
+                    <div class="divider-soft my-3"></div>
+                    <div class="flex items-center gap-4 text-xs text-gray-500">
+                        <span class="flex items-center gap-1">
+                            <span class="material-icons text-sm">event</span>
+                            Assigned: 5 Apr 2026
+                        </span>
+                        <span class="flex items-center gap-1">
+                            <span class="material-icons text-sm text-amber-500">alarm</span>
+                            Deadline: 20 Apr 2026
+                        </span>
                     </div>
                 </div>
             </div>
 
-            <!-- PAPER 3 - STATUS SELESAI -->
-            <div class="card bg-white shadow-sm border border-gray-200 opacity-80">
-                <div class="card-body p-5">
-                    <div class="flex flex-wrap items-start justify-between gap-3">
+            <!-- PAPER 3 - BELUM REVIEW -->
+            <div class="card card-hover bg-white">
+                <div class="card-body p-5 lg:p-6">
+                    <div class="flex flex-col lg:flex-row lg:items-start gap-4">
                         <div class="flex-1">
-                            <div class="flex items-center gap-3 mb-2">
-                                <span class="text-sm font-medium text-gray-500">#PSY-2026-005</span>
-                                <div class="badge badge-success-soft gap-1">
-                                    <span class="material-icons text-sm">check_circle</span> Selesai
-                                </div>
-                                <div class="badge badge-outline text-xs">Bidang: Pendidikan</div>
-                            </div>
-                            <h3 class="text-lg font-bold text-gray-800 mb-1">Hubungan Self-Regulated Learning dengan Prestasi Akademik pada Pembelajaran Hybrid</h3>
-                            <p class="text-sm text-gray-500 flex items-center gap-2">
-                                <span class="material-icons text-sm">person_outline</span> Penulis: Dewi Lestari, S.Pd., M.Psi.
-                            </p>
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <button class="btn btn-sm btn-outline border-salem text-salem" onclick="document.getElementById('modal-paper-005').showModal()">
-                                <span class="material-icons">visibility</span> Lihat Detail
-                            </button>
-                        </div>
-                    </div>
-                    <div class="divider my-2"></div>
-                    <div class="flex flex-wrap items-center justify-between gap-3">
-                        <div class="flex items-center gap-4 text-sm">
-                            <div class="flex items-center gap-1">
-                                <span class="material-icons text-gray-400 text-sm">event</span>
-                                <span>Assigned: 1 Apr 2026</span>
-                            </div>
-                            <div class="flex items-center gap-1 text-emerald-600">
-                                <span class="material-icons text-sm">task_alt</span>
-                                <span>Selesai: 12 Apr 2026</span>
-                            </div>
-                        </div>
-                        <button class="btn btn-ghost btn-sm" disabled>
-                            <span class="material-icons">visibility</span> Sudah Direview
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- PAPER 4 - STATUS BELUM REVIEW (DEADLINE DEKAT) -->
-            <div class="card bg-white shadow-sm border border-rose-200">
-                <div class="card-body p-5">
-                    <div class="flex flex-wrap items-start justify-between gap-3">
-                        <div class="flex-1">
-                            <div class="flex items-center gap-3 mb-2">
-                                <span class="text-sm font-medium text-gray-500">#PSY-2026-015</span>
+                            <div class="flex flex-wrap items-center gap-2 mb-2">
+                                <span class="text-xs font-mono text-gray-500">PSY-2026-012</span>
                                 <div class="badge badge-warning-soft gap-1">
-                                    <span class="material-icons text-sm">schedule</span> Belum Review
+                                    <span class="material-icons text-sm">schedule</span>
+                                    Belum Review
                                 </div>
-                                <div class="badge badge-outline text-xs">Bidang: Neuropsikologi</div>
                             </div>
-                            <h3 class="text-lg font-bold text-gray-800 mb-1">Pengaruh Screen Time terhadap Kualitas Tidur dan Fungsi Kognitif Remaja</h3>
-                            <p class="text-sm text-gray-500 flex items-center gap-2">
-                                <span class="material-icons text-sm">person_outline</span> Penulis: dr. Fajar Nugroho, Sp.KJ
-                            </p>
+                            <h3 class="text-lg font-bold text-gray-800 mb-2 leading-snug">
+                                Pengaruh Flexible Work Arrangement terhadap Work-Life Balance pada Generasi Z
+                            </h3>
+                            <div class="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-gray-500">
+                                <span class="flex items-center gap-1">
+                                    <span class="material-icons text-sm text-gray-400">person_outline</span>
+                                    Anisa Rahma, S.Psi., M.Psi.
+                                </span>
+                                <span class="flex items-center gap-1">
+                                    <span class="material-icons text-sm text-gray-400">category</span>
+                                    PIO
+                                </span>
+                            </div>
                         </div>
-                        <div class="flex items-center gap-2">
-                            <button class="btn btn-sm btn-outline border-salem text-salem" onclick="document.getElementById('modal-paper-015').showModal()">
-                                <span class="material-icons">visibility</span> Lihat Detail
+                        <div class="flex items-center gap-2 lg:self-center">
+                            <button class="btn btn-outline-salem btn-sm rounded-full" onclick="document.getElementById('modal-paper-012').showModal()">
+                                <span class="material-icons">visibility</span>
+                            </button>
+                            <button class="btn btn-salem btn-sm rounded-full px-5" onclick="document.getElementById('modal-review-012').showModal()">
+                                <span class="material-icons">play_arrow</span>
+                                Mulai Review
                             </button>
                         </div>
                     </div>
-                    <div class="divider my-2"></div>
-                    <div class="flex flex-wrap items-center justify-between gap-3">
-                        <div class="flex items-center gap-4 text-sm">
-                            <div class="flex items-center gap-1">
-                                <span class="material-icons text-gray-400 text-sm">event</span>
-                                <span>Assigned: 14 Apr 2026</span>
+                    <div class="divider-soft my-3"></div>
+                    <div class="flex items-center gap-4 text-xs text-gray-500">
+                        <span class="flex items-center gap-1">
+                            <span class="material-icons text-sm">event</span>
+                            Assigned: 10 Apr 2026
+                        </span>
+                        <span class="flex items-center gap-1">
+                            <span class="material-icons text-sm text-amber-500">alarm</span>
+                            Deadline: 25 Apr 2026
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PAPER 4 - SELESAI -->
+            <div class="card bg-gray-50/80 border border-gray-200">
+                <div class="card-body p-5 lg:p-6">
+                    <div class="flex flex-col lg:flex-row lg:items-start gap-4">
+                        <div class="flex-1">
+                            <div class="flex flex-wrap items-center gap-2 mb-2">
+                                <span class="text-xs font-mono text-gray-400">PSY-2026-005</span>
+                                <div class="badge badge-success-soft gap-1">
+                                    <span class="material-icons text-sm">check_circle</span>
+                                    Selesai
+                                </div>
                             </div>
-                            <div class="flex items-center gap-1 text-rose-600">
-                                <span class="material-icons text-sm">hourglass_bottom</span>
-                                <span class="font-medium">Deadline: 18 Apr 2026 (2 hari lagi)</span>
+                            <h3 class="text-lg font-bold text-gray-600 mb-2 leading-snug">
+                                Hubungan Self-Regulated Learning dengan Prestasi Akademik pada Pembelajaran Hybrid
+                            </h3>
+                            <div class="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-gray-400">
+                                <span class="flex items-center gap-1">
+                                    <span class="material-icons text-sm">person_outline</span>
+                                    Dewi Lestari, S.Pd., M.Psi.
+                                </span>
+                                <span class="flex items-center gap-1">
+                                    <span class="material-icons text-sm">category</span>
+                                    Psikologi Pendidikan
+                                </span>
                             </div>
                         </div>
-                        <button class="btn btn-salem btn-sm" onclick="document.getElementById('modal-review-015').showModal()">
-                            <span class="material-icons">priority_high</span> Mulai Review Segera
-                        </button>
+                        <div class="flex items-center gap-2 lg:self-center">
+                            <button class="btn btn-outline btn-sm rounded-full" onclick="document.getElementById('modal-paper-005').showModal()">
+                                <span class="material-icons">visibility</span>
+                                Lihat
+                            </button>
+                        </div>
+                    </div>
+                    <div class="divider-soft my-3"></div>
+                    <div class="flex items-center gap-4 text-xs text-gray-400">
+                        <span class="flex items-center gap-1">
+                            <span class="material-icons text-sm">event</span>
+                            Selesai: 12 Apr 2026
+                        </span>
+                        <span class="flex items-center gap-1 text-emerald-600">
+                            <span class="material-icons text-sm">task_alt</span>
+                            Direview
+                        </span>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- REMINDER & PANDUAN -->
-    <div class="grid md:grid-cols-2 gap-4">
-        <div class="alert bg-amber-50 border border-amber-200 rounded-xl shadow-sm">
-            <span class="material-icons text-amber-600">notifications_active</span>
-            <div>
-                <h3 class="font-bold text-gray-800">Reminder Review</h3>
-                <p class="text-sm">Paper #PSY-2026-015 deadline 18 April 2026. Anda memiliki 1 paper yang mendekati batas waktu.</p>
+    <!-- ==================== REMINDER & PANDUAN ==================== -->
+    <div class="grid md:grid-cols-2 gap-4 mt-8">
+        <div class="flex items-start gap-4 bg-amber-50/80 p-5 rounded-2xl border border-amber-200">
+            <div class="w-10 h-10 rounded-xl bg-amber-100 flex items-center justify-center flex-shrink-0">
+                <span class="material-icons text-amber-700">notifications_active</span>
             </div>
-            <button class="btn btn-sm btn-ghost" onclick="alert('Simulasi: Reminder akan dikirim ke email terdaftar.')">
-                <span class="material-icons">mail</span> Kirim Ulang
+            <div class="flex-1">
+                <h4 class="font-semibold text-gray-800">Reminder Review</h4>
+                <p class="text-sm text-gray-600 mt-0.5">Paper PSY-2026-015 deadline 18 April 2026. Segera selesaikan review.</p>
+            </div>
+            <button class="btn btn-ghost btn-sm" onclick="alert('Reminder dikirim ke email.')">
+                <span class="material-icons">mail</span>
             </button>
         </div>
-        <div class="alert bg-salem-light/50 border border-salem/20 rounded-xl shadow-sm">
-            <span class="material-icons text-salem">info</span>
-            <div>
-                <h3 class="font-bold text-gray-800">Panduan Review</h3>
-                <p class="text-sm">Gunakan skala 1-5 untuk setiap kriteria. Komentar wajib diisi untuk setiap paper.</p>
+        
+        <div class="flex items-start gap-4 bg-salem-light/40 p-5 rounded-2xl border border-salem/20">
+            <div class="w-10 h-10 rounded-xl bg-white flex items-center justify-center flex-shrink-0">
+                <span class="material-icons text-salem">menu_book</span>
             </div>
-            <button class="btn btn-sm btn-outline border-salem text-salem" onclick="alert('Simulasi: Panduan review akan terbuka.')">
-                <span class="material-icons">description</span> Baca
+            <div class="flex-1">
+                <h4 class="font-semibold text-gray-800">Panduan Review</h4>
+                <p class="text-sm text-gray-600 mt-0.5">Gunakan skala 1-5 untuk setiap kriteria penilaian.</p>
+            </div>
+            <button class="btn btn-outline-salem btn-sm" onclick="alert('Panduan review ditampilkan.')">
+                <span class="material-icons">description</span>
             </button>
         </div>
     </div>
 </div>
 
-<!-- MODAL FORM PENILAIAN - PAPER 012 -->
-<dialog id="modal-review-012" class="modal">
-    <div class="modal-box max-w-3xl">
-        <form method="dialog">
-            <button class="btn btn-sm btn-circle btn-ghost absolute right-4 top-4">
-                <span class="material-icons">close</span>
-            </button>
-        </form>
-        <div class="flex items-center gap-3 mb-4">
-            <span class="material-icons text-salem text-3xl">rate_review</span>
-            <h3 class="font-bold text-xl text-gray-800">Form Penilaian Paper</h3>
-        </div>
-        <div class="bg-gray-50 p-4 rounded-lg mb-4">
-            <p class="font-semibold text-gray-800">#PSY-2026-012: Pengaruh Flexible Work Arrangement terhadap Work-Life Balance</p>
-            <p class="text-sm text-gray-500 mt-1">Bidang: Psikologi Industri & Organisasi</p>
-        </div>
-        
-        <!-- Skala Penilaian -->
-        <div class="space-y-5">
-            <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">1. Orisinalitas dan Kontribusi Ilmiah</label>
-                <div class="rating rating-md gap-1">
-                    <input type="radio" name="rating-1" class="mask mask-star-2 bg-orange-400" />
-                    <input type="radio" name="rating-1" class="mask mask-star-2 bg-orange-400" />
-                    <input type="radio" name="rating-1" class="mask mask-star-2 bg-orange-400" checked />
-                    <input type="radio" name="rating-1" class="mask mask-star-2 bg-orange-400" />
-                    <input type="radio" name="rating-1" class="mask mask-star-2 bg-orange-400" />
-                </div>
-                <p class="text-xs text-gray-500 mt-1">Skala 1 (Sangat Kurang) - 5 (Sangat Baik)</p>
-            </div>
-            <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">2. Ketepatan Metodologi Penelitian</label>
-                <div class="rating rating-md gap-1">
-                    <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
-                    <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
-                    <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
-                    <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" checked />
-                    <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
-                </div>
-            </div>
-            <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">3. Kejelasan Penulisan dan Struktur</label>
-                <div class="rating rating-md gap-1">
-                    <input type="radio" name="rating-3" class="mask mask-star-2 bg-orange-400" />
-                    <input type="radio" name="rating-3" class="mask mask-star-2 bg-orange-400" />
-                    <input type="radio" name="rating-3" class="mask mask-star-2 bg-orange-400" />
-                    <input type="radio" name="rating-3" class="mask mask-star-2 bg-orange-400" />
-                    <input type="radio" name="rating-3" class="mask mask-star-2 bg-orange-400" checked />
-                </div>
-            </div>
-            <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">4. Relevansi dengan Tema Konferensi</label>
-                <div class="rating rating-md gap-1">
-                    <input type="radio" name="rating-4" class="mask mask-star-2 bg-orange-400" />
-                    <input type="radio" name="rating-4" class="mask mask-star-2 bg-orange-400" />
-                    <input type="radio" name="rating-4" class="mask mask-star-2 bg-orange-400" checked />
-                    <input type="radio" name="rating-4" class="mask mask-star-2 bg-orange-400" />
-                    <input type="radio" name="rating-4" class="mask mask-star-2 bg-orange-400" />
-                </div>
-            </div>
-        </div>
-
-        <!-- Komentar -->
-        <div class="mt-5">
-            <label class="block text-sm font-medium text-gray-700 mb-1">Komentar dan Saran (untuk penulis)</label>
-            <textarea class="textarea textarea-bordered w-full h-28 bg-white" placeholder="Tuliskan komentar konstruktif, saran perbaikan, atau catatan penting..."></textarea>
-        </div>
-        <div class="mt-3">
-            <label class="block text-sm font-medium text-gray-700 mb-1">Rekomendasi Keputusan</label>
-            <select class="select select-bordered w-full bg-white">
-                <option>Diterima tanpa revisi</option>
-                <option selected>Diterima dengan revisi minor</option>
-                <option>Diterima dengan revisi mayor</option>
-                <option>Ditolak</option>
-            </select>
-        </div>
-        
-        <div class="modal-action">
-            <form method="dialog" class="flex gap-3">
-                <button class="btn btn-outline">Simpan Draft</button>
-                <button class="btn btn-salem" onclick="alert('Simulasi: Review berhasil disubmit. Status paper berubah menjadi Selesai.')">
-                    <span class="material-icons">send</span> Submit Review Final
-                </button>
-            </form>
-        </div>
-    </div>
-    <form method="dialog" class="modal-backdrop">
-        <button>close</button>
-    </form>
-</dialog>
-
-<!-- MODAL FORM PENILAIAN - PAPER 008 (Sedang Review) -->
-<dialog id="modal-review-008" class="modal">
-    <div class="modal-box max-w-3xl">
-        <form method="dialog">
-            <button class="btn btn-sm btn-circle btn-ghost absolute right-4 top-4">
-                <span class="material-icons">close</span>
-            </button>
-        </form>
-        <div class="flex items-center gap-3 mb-4">
-            <span class="material-icons text-salem text-3xl">rate_review</span>
-            <h3 class="font-bold text-xl text-gray-800">Lanjutkan Review</h3>
-        </div>
-        <div class="bg-gray-50 p-4 rounded-lg mb-4">
-            <p class="font-semibold text-gray-800">#PSY-2026-008: Efektivitas Mindfulness-Based Stress Reduction</p>
-            <p class="text-sm text-gray-500 mt-1">Draft tersimpan - Terakhir diedit: 15 Apr 2026, 14:30</p>
-        </div>
-        
-        <div class="space-y-5">
-            <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">1. Orisinalitas dan Kontribusi Ilmiah</label>
-                <div class="rating rating-md gap-1">
-                    <input type="radio" name="rating-1b" class="mask mask-star-2 bg-orange-400" />
-                    <input type="radio" name="rating-1b" class="mask mask-star-2 bg-orange-400" />
-                    <input type="radio" name="rating-1b" class="mask mask-star-2 bg-orange-400" />
-                    <input type="radio" name="rating-1b" class="mask mask-star-2 bg-orange-400" checked />
-                    <input type="radio" name="rating-1b" class="mask mask-star-2 bg-orange-400" />
-                </div>
-            </div>
-            <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">2. Ketepatan Metodologi Penelitian</label>
-                <div class="rating rating-md gap-1">
-                    <input type="radio" name="rating-2b" class="mask mask-star-2 bg-orange-400" />
-                    <input type="radio" name="rating-2b" class="mask mask-star-2 bg-orange-400" />
-                    <input type="radio" name="rating-2b" class="mask mask-star-2 bg-orange-400" />
-                    <input type="radio" name="rating-2b" class="mask mask-star-2 bg-orange-400" />
-                    <input type="radio" name="rating-2b" class="mask mask-star-2 bg-orange-400" checked />
-                </div>
-            </div>
-            <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">3. Kejelasan Penulisan dan Struktur</label>
-                <div class="rating rating-md gap-1">
-                    <input type="radio" name="rating-3b" class="mask mask-star-2 bg-orange-400" />
-                    <input type="radio" name="rating-3b" class="mask mask-star-2 bg-orange-400" />
-                    <input type="radio" name="rating-3b" class="mask mask-star-2 bg-orange-400" checked />
-                    <input type="radio" name="rating-3b" class="mask mask-star-2 bg-orange-400" />
-                    <input type="radio" name="rating-3b" class="mask mask-star-2 bg-orange-400" />
-                </div>
-            </div>
-            <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">4. Relevansi dengan Tema Konferensi</label>
-                <div class="rating rating-md gap-1">
-                    <input type="radio" name="rating-4b" class="mask mask-star-2 bg-orange-400" />
-                    <input type="radio" name="rating-4b" class="mask mask-star-2 bg-orange-400" />
-                    <input type="radio" name="rating-4b" class="mask mask-star-2 bg-orange-400" />
-                    <input type="radio" name="rating-4b" class="mask mask-star-2 bg-orange-400" checked />
-                    <input type="radio" name="rating-4b" class="mask mask-star-2 bg-orange-400" />
-                </div>
-            </div>
-        </div>
-
-        <div class="mt-5">
-            <label class="block text-sm font-medium text-gray-700 mb-1">Komentar (draft)</label>
-            <textarea class="textarea textarea-bordered w-full h-28 bg-white">Metodologi sudah baik, namun perlu penjelasan lebih detail mengenai kriteria inklusi partisipan. Referensi harap diperbarui dengan sumber 5 tahun terakhir.</textarea>
-        </div>
-        
-        <div class="modal-action">
-            <form method="dialog" class="flex gap-3">
-                <button class="btn btn-outline">Simpan Draft</button>
-                <button class="btn btn-salem" onclick="alert('Simulasi: Review final disubmit. Paper #008 ditandai Selesai.')">
-                    <span class="material-icons">send</span> Submit Review
-                </button>
-            </form>
-        </div>
-    </div>
-    <form method="dialog" class="modal-backdrop">
-        <button>close</button>
-    </form>
-</dialog>
-
-<!-- MODAL FORM PENILAIAN - PAPER 015 -->
+<!-- ==================== MODAL REVIEW PAPER 015 ==================== -->
 <dialog id="modal-review-015" class="modal">
-    <div class="modal-box max-w-3xl">
-        <form method="dialog">
-            <button class="btn btn-sm btn-circle btn-ghost absolute right-4 top-4">
-                <span class="material-icons">close</span>
-            </button>
-        </form>
-        <div class="flex items-center gap-3 mb-4">
-            <span class="material-icons text-salem text-3xl">rate_review</span>
-            <h3 class="font-bold text-xl text-gray-800">Form Penilaian Paper</h3>
-        </div>
-        <div class="bg-rose-50 p-4 rounded-lg mb-4 border border-rose-200">
-            <p class="font-semibold text-gray-800">#PSY-2026-015: Pengaruh Screen Time terhadap Kualitas Tidur</p>
-            <p class="text-sm text-rose-600 mt-1 flex items-center gap-1">
-                <span class="material-icons text-sm">warning</span> Deadline 2 hari lagi (18 April 2026)
-            </p>
+    <div class="modal-box max-w-3xl p-0 overflow-hidden">
+        <div class="bg-gradient-to-r from-salem-light/30 to-transparent p-6 border-b border-gray-100">
+            <form method="dialog">
+                <button class="btn btn-sm btn-circle btn-ghost absolute right-4 top-4">
+                    <span class="material-icons">close</span>
+                </button>
+            </form>
+            <div class="flex items-center gap-3">
+                <span class="material-icons text-salem text-3xl">rate_review</span>
+                <div>
+                    <h3 class="font-bold text-xl text-gray-800">Form Penilaian Paper</h3>
+                    <p class="text-sm text-gray-500">PSY-2026-015</p>
+                </div>
+            </div>
         </div>
         
-        <div class="space-y-5">
-            <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">1. Orisinalitas dan Kontribusi Ilmiah</label>
-                <div class="rating rating-md gap-1">
-                    <input type="radio" name="rating-1c" class="mask mask-star-2 bg-orange-400" />
-                    <input type="radio" name="rating-1c" class="mask mask-star-2 bg-orange-400" />
-                    <input type="radio" name="rating-1c" class="mask mask-star-2 bg-orange-400" />
-                    <input type="radio" name="rating-1c" class="mask mask-star-2 bg-orange-400" />
-                    <input type="radio" name="rating-1c" class="mask mask-star-2 bg-orange-400" />
+        <div class="p-6">
+            <div class="bg-rose-50 p-4 rounded-xl mb-6 border border-rose-200">
+                <p class="font-semibold text-gray-800">Pengaruh Screen Time terhadap Kualitas Tidur dan Fungsi Kognitif Remaja</p>
+                <div class="flex items-center gap-2 mt-2">
+                    <span class="badge badge-error-soft gap-1">
+                        <span class="material-icons text-sm">hourglass_bottom</span>
+                        Deadline 2 hari lagi
+                    </span>
                 </div>
             </div>
-            <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">2. Ketepatan Metodologi Penelitian</label>
-                <div class="rating rating-md gap-1">
-                    <input type="radio" name="rating-2c" class="mask mask-star-2 bg-orange-400" />
-                    <input type="radio" name="rating-2c" class="mask mask-star-2 bg-orange-400" />
-                    <input type="radio" name="rating-2c" class="mask mask-star-2 bg-orange-400" />
-                    <input type="radio" name="rating-2c" class="mask mask-star-2 bg-orange-400" />
-                    <input type="radio" name="rating-2c" class="mask mask-star-2 bg-orange-400" />
+            
+            <div class="space-y-5">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">1. Orisinalitas dan Kontribusi Ilmiah</label>
+                    <div class="rating rating-md gap-1">
+                        <input type="radio" name="rating-1c" class="mask mask-star-2 bg-amber-400" />
+                        <input type="radio" name="rating-1c" class="mask mask-star-2 bg-amber-400" />
+                        <input type="radio" name="rating-1c" class="mask mask-star-2 bg-amber-400" />
+                        <input type="radio" name="rating-1c" class="mask mask-star-2 bg-amber-400" />
+                        <input type="radio" name="rating-1c" class="mask mask-star-2 bg-amber-400" />
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">2. Ketepatan Metodologi Penelitian</label>
+                    <div class="rating rating-md gap-1">
+                        <input type="radio" name="rating-2c" class="mask mask-star-2 bg-amber-400" />
+                        <input type="radio" name="rating-2c" class="mask mask-star-2 bg-amber-400" />
+                        <input type="radio" name="rating-2c" class="mask mask-star-2 bg-amber-400" />
+                        <input type="radio" name="rating-2c" class="mask mask-star-2 bg-amber-400" />
+                        <input type="radio" name="rating-2c" class="mask mask-star-2 bg-amber-400" />
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">3. Kejelasan Penulisan dan Struktur</label>
+                    <div class="rating rating-md gap-1">
+                        <input type="radio" name="rating-3c" class="mask mask-star-2 bg-amber-400" />
+                        <input type="radio" name="rating-3c" class="mask mask-star-2 bg-amber-400" />
+                        <input type="radio" name="rating-3c" class="mask mask-star-2 bg-amber-400" />
+                        <input type="radio" name="rating-3c" class="mask mask-star-2 bg-amber-400" />
+                        <input type="radio" name="rating-3c" class="mask mask-star-2 bg-amber-400" />
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">4. Relevansi dengan Tema Konferensi</label>
+                    <div class="rating rating-md gap-1">
+                        <input type="radio" name="rating-4c" class="mask mask-star-2 bg-amber-400" />
+                        <input type="radio" name="rating-4c" class="mask mask-star-2 bg-amber-400" />
+                        <input type="radio" name="rating-4c" class="mask mask-star-2 bg-amber-400" />
+                        <input type="radio" name="rating-4c" class="mask mask-star-2 bg-amber-400" />
+                        <input type="radio" name="rating-4c" class="mask mask-star-2 bg-amber-400" />
+                    </div>
                 </div>
             </div>
-            <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">3. Kejelasan Penulisan dan Struktur</label>
-                <div class="rating rating-md gap-1">
-                    <input type="radio" name="rating-3c" class="mask mask-star-2 bg-orange-400" />
-                    <input type="radio" name="rating-3c" class="mask mask-star-2 bg-orange-400" />
-                    <input type="radio" name="rating-3c" class="mask mask-star-2 bg-orange-400" />
-                    <input type="radio" name="rating-3c" class="mask mask-star-2 bg-orange-400" />
-                    <input type="radio" name="rating-3c" class="mask mask-star-2 bg-orange-400" />
-                </div>
-            </div>
-            <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">4. Relevansi dengan Tema Konferensi</label>
-                <div class="rating rating-md gap-1">
-                    <input type="radio" name="rating-4c" class="mask mask-star-2 bg-orange-400" />
-                    <input type="radio" name="rating-4c" class="mask mask-star-2 bg-orange-400" />
-                    <input type="radio" name="rating-4c" class="mask mask-star-2 bg-orange-400" />
-                    <input type="radio" name="rating-4c" class="mask mask-star-2 bg-orange-400" />
-                    <input type="radio" name="rating-4c" class="mask mask-star-2 bg-orange-400" />
-                </div>
-            </div>
-        </div>
 
-        <div class="mt-5">
-            <label class="block text-sm font-medium text-gray-700 mb-1">Komentar dan Saran</label>
-            <textarea class="textarea textarea-bordered w-full h-28 bg-white" placeholder="Tuliskan komentar..."></textarea>
-        </div>
-        <div class="mt-3">
-            <label class="block text-sm font-medium text-gray-700 mb-1">Rekomendasi Keputusan</label>
-            <select class="select select-bordered w-full bg-white">
-                <option>Diterima tanpa revisi</option>
-                <option>Diterima dengan revisi minor</option>
-                <option>Diterima dengan revisi mayor</option>
-                <option>Ditolak</option>
-            </select>
+            <div class="mt-5">
+                <label class="block text-sm font-medium text-gray-700 mb-1">Komentar dan Saran</label>
+                <textarea class="textarea textarea-bordered w-full h-28 bg-white resize-none" placeholder="Tuliskan komentar konstruktif..."></textarea>
+            </div>
+            <div class="mt-3">
+                <label class="block text-sm font-medium text-gray-700 mb-1">Rekomendasi Keputusan</label>
+                <select class="select select-bordered w-full bg-white">
+                    <option>Diterima tanpa revisi</option>
+                    <option>Diterima dengan revisi minor</option>
+                    <option selected>Diterima dengan revisi mayor</option>
+                    <option>Ditolak</option>
+                </select>
+            </div>
         </div>
         
-        <div class="modal-action">
-            <form method="dialog" class="flex gap-3">
-                <button class="btn btn-outline">Simpan Draft</button>
-                <button class="btn btn-salem" onclick="alert('Simulasi: Review disubmit. Terima kasih.')">
-                    <span class="material-icons">send</span> Submit Review
+        <div class="modal-action p-6 pt-0">
+            <form method="dialog" class="flex gap-3 w-full">
+                <button class="btn btn-outline flex-1">Simpan Draft</button>
+                <button class="btn btn-salem flex-1" onclick="alert('Review berhasil disubmit.')">
+                    <span class="material-icons">send</span>
+                    Submit Review
                 </button>
             </form>
         </div>
     </div>
-    <form method="dialog" class="modal-backdrop">
-        <button>close</button>
-    </form>
+    <form method="dialog" class="modal-backdrop"><button>close</button></form>
 </dialog>
 
-<!-- MODAL DETAIL PAPER 012 -->
+<!-- ==================== MODAL REVIEW PAPER 008 ==================== -->
+<dialog id="modal-review-008" class="modal">
+    <div class="modal-box max-w-3xl p-0 overflow-hidden">
+        <div class="bg-gradient-to-r from-salem-light/30 to-transparent p-6 border-b border-gray-100">
+            <form method="dialog">
+                <button class="btn btn-sm btn-circle btn-ghost absolute right-4 top-4">
+                    <span class="material-icons">close</span>
+                </button>
+            </form>
+            <div class="flex items-center gap-3">
+                <span class="material-icons text-salem text-3xl">edit_note</span>
+                <div>
+                    <h3 class="font-bold text-xl text-gray-800">Lanjutkan Review</h3>
+                    <p class="text-sm text-gray-500">PSY-2026-008 - Draft tersimpan</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="p-6">
+            <div class="bg-blue-50 p-4 rounded-xl mb-6 border border-blue-200">
+                <p class="font-semibold text-gray-800">Efektivitas Mindfulness-Based Stress Reduction pada Mahasiswa Tingkat Akhir</p>
+                <p class="text-sm text-gray-500 mt-1">Terakhir diedit: 15 Apr 2026, 14:30</p>
+            </div>
+            
+            <div class="space-y-5">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">1. Orisinalitas dan Kontribusi Ilmiah</label>
+                    <div class="rating rating-md gap-1">
+                        <input type="radio" name="rating-1b" class="mask mask-star-2 bg-amber-400" />
+                        <input type="radio" name="rating-1b" class="mask mask-star-2 bg-amber-400" />
+                        <input type="radio" name="rating-1b" class="mask mask-star-2 bg-amber-400" />
+                        <input type="radio" name="rating-1b" class="mask mask-star-2 bg-amber-400" checked />
+                        <input type="radio" name="rating-1b" class="mask mask-star-2 bg-amber-400" />
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">2. Ketepatan Metodologi Penelitian</label>
+                    <div class="rating rating-md gap-1">
+                        <input type="radio" name="rating-2b" class="mask mask-star-2 bg-amber-400" />
+                        <input type="radio" name="rating-2b" class="mask mask-star-2 bg-amber-400" />
+                        <input type="radio" name="rating-2b" class="mask mask-star-2 bg-amber-400" />
+                        <input type="radio" name="rating-2b" class="mask mask-star-2 bg-amber-400" />
+                        <input type="radio" name="rating-2b" class="mask mask-star-2 bg-amber-400" checked />
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">3. Kejelasan Penulisan dan Struktur</label>
+                    <div class="rating rating-md gap-1">
+                        <input type="radio" name="rating-3b" class="mask mask-star-2 bg-amber-400" />
+                        <input type="radio" name="rating-3b" class="mask mask-star-2 bg-amber-400" />
+                        <input type="radio" name="rating-3b" class="mask mask-star-2 bg-amber-400" checked />
+                        <input type="radio" name="rating-3b" class="mask mask-star-2 bg-amber-400" />
+                        <input type="radio" name="rating-3b" class="mask mask-star-2 bg-amber-400" />
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">4. Relevansi dengan Tema Konferensi</label>
+                    <div class="rating rating-md gap-1">
+                        <input type="radio" name="rating-4b" class="mask mask-star-2 bg-amber-400" />
+                        <input type="radio" name="rating-4b" class="mask mask-star-2 bg-amber-400" />
+                        <input type="radio" name="rating-4b" class="mask mask-star-2 bg-amber-400" />
+                        <input type="radio" name="rating-4b" class="mask mask-star-2 bg-amber-400" checked />
+                        <input type="radio" name="rating-4b" class="mask mask-star-2 bg-amber-400" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-5">
+                <label class="block text-sm font-medium text-gray-700 mb-1">Komentar (draft)</label>
+                <textarea class="textarea textarea-bordered w-full h-28 bg-white resize-none">Metodologi sudah baik, namun perlu penjelasan lebih detail mengenai kriteria inklusi partisipan. Referensi harap diperbarui dengan sumber 5 tahun terakhir.</textarea>
+            </div>
+        </div>
+        
+        <div class="modal-action p-6 pt-0">
+            <form method="dialog" class="flex gap-3 w-full">
+                <button class="btn btn-outline flex-1">Simpan Draft</button>
+                <button class="btn btn-salem flex-1" onclick="alert('Review final disubmit.')">
+                    <span class="material-icons">send</span>
+                    Submit Review
+                </button>
+            </form>
+        </div>
+    </div>
+    <form method="dialog" class="modal-backdrop"><button>close</button></form>
+</dialog>
+
+<!-- ==================== MODAL REVIEW PAPER 012 ==================== -->
+<dialog id="modal-review-012" class="modal">
+    <div class="modal-box max-w-3xl p-0 overflow-hidden">
+        <div class="bg-gradient-to-r from-salem-light/30 to-transparent p-6 border-b border-gray-100">
+            <form method="dialog">
+                <button class="btn btn-sm btn-circle btn-ghost absolute right-4 top-4">
+                    <span class="material-icons">close</span>
+                </button>
+            </form>
+            <div class="flex items-center gap-3">
+                <span class="material-icons text-salem text-3xl">rate_review</span>
+                <div>
+                    <h3 class="font-bold text-xl text-gray-800">Form Penilaian Paper</h3>
+                    <p class="text-sm text-gray-500">PSY-2026-012</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="p-6">
+            <div class="bg-gray-50 p-4 rounded-xl mb-6">
+                <p class="font-semibold text-gray-800">Pengaruh Flexible Work Arrangement terhadap Work-Life Balance pada Generasi Z</p>
+                <p class="text-sm text-gray-500 mt-1">Bidang: Psikologi Industri & Organisasi</p>
+            </div>
+            
+            <div class="space-y-5">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">1. Orisinalitas dan Kontribusi Ilmiah</label>
+                    <div class="rating rating-md gap-1">
+                        <input type="radio" name="rating-1" class="mask mask-star-2 bg-amber-400" />
+                        <input type="radio" name="rating-1" class="mask mask-star-2 bg-amber-400" />
+                        <input type="radio" name="rating-1" class="mask mask-star-2 bg-amber-400" checked />
+                        <input type="radio" name="rating-1" class="mask mask-star-2 bg-amber-400" />
+                        <input type="radio" name="rating-1" class="mask mask-star-2 bg-amber-400" />
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">2. Ketepatan Metodologi Penelitian</label>
+                    <div class="rating rating-md gap-1">
+                        <input type="radio" name="rating-2" class="mask mask-star-2 bg-amber-400" />
+                        <input type="radio" name="rating-2" class="mask mask-star-2 bg-amber-400" />
+                        <input type="radio" name="rating-2" class="mask mask-star-2 bg-amber-400" />
+                        <input type="radio" name="rating-2" class="mask mask-star-2 bg-amber-400" checked />
+                        <input type="radio" name="rating-2" class="mask mask-star-2 bg-amber-400" />
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">3. Kejelasan Penulisan dan Struktur</label>
+                    <div class="rating rating-md gap-1">
+                        <input type="radio" name="rating-3" class="mask mask-star-2 bg-amber-400" />
+                        <input type="radio" name="rating-3" class="mask mask-star-2 bg-amber-400" />
+                        <input type="radio" name="rating-3" class="mask mask-star-2 bg-amber-400" />
+                        <input type="radio" name="rating-3" class="mask mask-star-2 bg-amber-400" />
+                        <input type="radio" name="rating-3" class="mask mask-star-2 bg-amber-400" checked />
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">4. Relevansi dengan Tema Konferensi</label>
+                    <div class="rating rating-md gap-1">
+                        <input type="radio" name="rating-4" class="mask mask-star-2 bg-amber-400" />
+                        <input type="radio" name="rating-4" class="mask mask-star-2 bg-amber-400" />
+                        <input type="radio" name="rating-4" class="mask mask-star-2 bg-amber-400" checked />
+                        <input type="radio" name="rating-4" class="mask mask-star-2 bg-amber-400" />
+                        <input type="radio" name="rating-4" class="mask mask-star-2 bg-amber-400" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-5">
+                <label class="block text-sm font-medium text-gray-700 mb-1">Komentar dan Saran</label>
+                <textarea class="textarea textarea-bordered w-full h-28 bg-white resize-none" placeholder="Tuliskan komentar konstruktif..."></textarea>
+            </div>
+            <div class="mt-3">
+                <label class="block text-sm font-medium text-gray-700 mb-1">Rekomendasi Keputusan</label>
+                <select class="select select-bordered w-full bg-white">
+                    <option>Diterima tanpa revisi</option>
+                    <option selected>Diterima dengan revisi minor</option>
+                    <option>Diterima dengan revisi mayor</option>
+                    <option>Ditolak</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="modal-action p-6 pt-0">
+            <form method="dialog" class="flex gap-3 w-full">
+                <button class="btn btn-outline flex-1">Simpan Draft</button>
+                <button class="btn btn-salem flex-1" onclick="alert('Review berhasil disubmit.')">
+                    <span class="material-icons">send</span>
+                    Submit Review
+                </button>
+            </form>
+        </div>
+    </div>
+    <form method="dialog" class="modal-backdrop"><button>close</button></form>
+</dialog>
+
+<!-- ==================== MODAL DETAIL PAPER ==================== -->
+<dialog id="modal-paper-015" class="modal">
+    <div class="modal-box">
+        <form method="dialog"><button class="btn btn-sm btn-circle btn-ghost absolute right-4 top-4"><span class="material-icons">close</span></button></form>
+        <h3 class="font-bold text-lg mb-4">Detail Paper PSY-2026-015</h3>
+        <div class="space-y-3">
+            <p><span class="font-medium text-gray-600">Judul:</span> Pengaruh Screen Time terhadap Kualitas Tidur dan Fungsi Kognitif Remaja</p>
+            <p><span class="font-medium text-gray-600">Penulis:</span> dr. Fajar Nugroho, Sp.KJ</p>
+            <p><span class="font-medium text-gray-600">Bidang:</span> Neuropsikologi</p>
+            <p><span class="font-medium text-gray-600">Abstrak:</span> Penelitian ini menguji hubungan antara durasi screen time dengan kualitas tidur dan fungsi kognitif pada remaja usia 15-18 tahun.</p>
+            <a href="#" class="text-salem underline flex items-center gap-1"><span class="material-icons text-sm">description</span>paper_015.pdf</a>
+        </div>
+        <div class="modal-action"><form method="dialog"><button class="btn btn-outline-salem">Tutup</button></form></div>
+    </div>
+</dialog>
+
+<dialog id="modal-paper-008" class="modal">
+    <div class="modal-box">
+        <form method="dialog"><button class="btn btn-sm btn-circle btn-ghost absolute right-4 top-4"><span class="material-icons">close</span></button></form>
+        <h3 class="font-bold text-lg mb-4">Detail Paper PSY-2026-008</h3>
+        <div class="space-y-3">
+            <p><span class="font-medium text-gray-600">Judul:</span> Efektivitas Mindfulness-Based Stress Reduction pada Mahasiswa Tingkat Akhir</p>
+            <p><span class="font-medium text-gray-600">Penulis:</span> Reza Mahendra, M.Psi., Psikolog</p>
+            <p><span class="font-medium text-gray-600">Bidang:</span> Psikologi Klinis</p>
+            <a href="#" class="text-salem underline flex items-center gap-1"><span class="material-icons text-sm">description</span>paper_008.pdf</a>
+        </div>
+        <div class="modal-action"><form method="dialog"><button class="btn btn-outline-salem">Tutup</button></form></div>
+    </div>
+</dialog>
+
 <dialog id="modal-paper-012" class="modal">
     <div class="modal-box">
         <form method="dialog"><button class="btn btn-sm btn-circle btn-ghost absolute right-4 top-4"><span class="material-icons">close</span></button></form>
-        <h3 class="font-bold text-lg mb-2">Detail Paper #PSY-2026-012</h3>
-        <p class="py-2"><strong>Judul:</strong> Pengaruh Flexible Work Arrangement terhadap Work-Life Balance pada Generasi Z</p>
-        <p class="py-2"><strong>Abstrak:</strong> Penelitian ini menguji... [simulasi]</p>
-        <p class="py-2"><strong>File:</strong> <a href="#" class="text-salem underline">paper_012.pdf</a></p>
-        <div class="modal-action"><form method="dialog"><button class="btn">Tutup</button></form></div>
+        <h3 class="font-bold text-lg mb-4">Detail Paper PSY-2026-012</h3>
+        <div class="space-y-3">
+            <p><span class="font-medium text-gray-600">Judul:</span> Pengaruh Flexible Work Arrangement terhadap Work-Life Balance pada Generasi Z</p>
+            <p><span class="font-medium text-gray-600">Penulis:</span> Anisa Rahma, S.Psi., M.Psi.</p>
+            <p><span class="font-medium text-gray-600">Bidang:</span> PIO</p>
+            <a href="#" class="text-salem underline flex items-center gap-1"><span class="material-icons text-sm">description</span>paper_012.pdf</a>
+        </div>
+        <div class="modal-action"><form method="dialog"><button class="btn btn-outline-salem">Tutup</button></form></div>
     </div>
 </dialog>
-<dialog id="modal-paper-008" class="modal"><div class="modal-box"><form
+
+<dialog id="modal-paper-005" class="modal">
+    <div class="modal-box">
+        <form method="dialog"><button class="btn btn-sm btn-circle btn-ghost absolute right-4 top-4"><span class="material-icons">close</span></button></form>
+        <h3 class="font-bold text-lg mb-4">Detail Paper PSY-2026-005</h3>
+        <div class="space-y-3">
+            <p><span class="font-medium text-gray-600">Judul:</span> Hubungan Self-Regulated Learning dengan Prestasi Akademik</p>
+            <p><span class="font-medium text-gray-600">Penulis:</span> Dewi Lestari, S.Pd., M.Psi.</p>
+            <p><span class="font-medium text-gray-600">Bidang:</span> Psikologi Pendidikan</p>
+            <a href="#" class="text-salem underline flex items-center gap-1"><span class="material-icons text-sm">description</span>paper_005.pdf</a>
+        </div>
+        <div class="modal-action"><form method="dialog"><button class="btn btn-outline-salem">Tutup</button></form></div>
+    </div>
+</dialog>
+
+<!-- Floating Menu (nav-menu.js) -->
+<script src="nav-menu.js"></script>
+
+</body>
+</html>
